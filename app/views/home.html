@@ -1,0 +1,52 @@
+<div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+<div class="home">
+    <section id="home-section" class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-24"><h1>Plan your meetings</h1></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-18"><h2>An easy way to create meeting agenda</h2></div>
+            </div>
+            <hr class="divider">
+            <div class="row">
+                <div class="col-xs-12"><a ng-hide="authentication" href="#/login" class="btn btn-default">Get started!</a></div>
+                <div class="col-xs-12"><a ng-hide="!authentication" href="#/userpage" class="btn btn-default">Get started!</a></div>
+            </div>
+        </div>
+    </section >
+    <section  class="content-text">                             
+        <div class="container">
+            <div class="row headline">
+                <div class="col-xs-12"><h2><img src="resources/logBook.png"/>Good Old Fashioned Pancakes</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12"><p>In a large bowl, sift together the flour, baking powder, salt and sugar. Make a well in the center and pour in the milk, egg and melted butter; mix until smooth. Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.</p></div>
+            </div>
+        </div>
+    </section >
+    <section  class="demo">                             
+        <div class="container">
+            <hr class="divider">
+            <div class="row">
+                <div class="demoImage col-xs-12 col-md-6">
+                    <img src="resources/demo1.png"/>
+                </div>
+                <div class="demoDescription col-xs-12 col-md-6">
+                    <h2>Baked Brunch Omelet</h2>
+                    <p>Preheat oven to 350 degrees F (175 degrees C). Lightly grease a 9x13 inch baking pan. In a large bowl, beat together eggs, milk, salt, hot sauce and green onions. Pour egg mixture into pan. Place pan on top of a baking sheet with a rim and place in oven. Pour water into baking sheet and bake for 60 minutes, or until eggs have set.</p>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="row">
+                <div class="demoDescription col-xs-12 col-md-6">
+                    <h2>Chicken Cacciatore in a Slow Cooker</h2>
+                    <p>Place chicken in a slow cooker; stir in spaghetti sauce, tomato paste, mushrooms, onion, bell pepper, garlic, oregano, basil, black pepper, and red pepper flakes. Cover. Cook on Low until chicken is tender, 6 to 8 hours.</p>
+                </div>
+                <div class="demoImage col-xs-12 col-md-6">
+                    <img src="resources/demo2.png"/>
+                </div>
+            </div>
+        </div>
+    </section >
+</div>

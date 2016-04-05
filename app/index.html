@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Index file for  -->
+<html lang="en" ng-app="agendaBuilder">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Meeting Agenda Builder</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Common CSS -->
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="stylesheets/home.css">
+        <link rel="stylesheet" href="stylesheets/userpage.css">
+        <!-- jQuery -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Underscore -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+        <!-- Angular JavaScript including routing, resource modules and cookies -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+
+        <!-- Firebase -->
+        <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/1.1.4/angularfire.min.js"></script>
+
+        <!-- The application JavaScript code -->
+        <script src="app.js"></script>
+        <script src="controllers/authenticationCtrl.js"></script>
+        <script src="controllers/userPageCtrl.js"></script>
+        <script src="services/authenticationService.js"></script>
+        <script src="services/meetingService.js"></script>
+        <script src="services/fireBaseDataService.js"></script>
+        <script src="services/fireBaseAuthService.js"></script>
+
+    </head>
+    <body>  
+        <div ng-view class="wrap">
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <hr class="divider">
+                    <div class="col-xs-12"><h4>Group 25</h4></div>
+                    <div class="col-xs-12"><a href="https://www.kth.se/social/course/DH2642/">DH2642 Interaction Programming Final Project</a></div>
+                    <div class="col-xs-12"><a href="https://www.kth.se/gemensamt/disclaimer/disclaimer-for-personliga-webbsidor-1.62633">DISCLAIMER</a></div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
