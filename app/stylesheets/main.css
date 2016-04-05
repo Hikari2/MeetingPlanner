@@ -1,0 +1,118 @@
+
+.wrap{
+    min-height: 1200px;
+}
+
+/****         NAVIGATION BAR      ****/
+
+.navbar{
+    background-color: white;
+    border-bottom: 2px solid #D8D8D8;
+}
+
+.navbar img{
+    height: 30px;
+}
+
+.navbar a:hover{
+    border-bottom: 5px solid #B40404;
+}
+
+.navbar a{
+    border-bottom: 0px solid white;
+    height: 50px;
+    transition: all .15s ease-in-out;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar .navbar-left li{
+    max-width: 120px;
+}
+
+
+/****         LOG IN        ****/
+/****         REGISTER      ****/
+
+.authentication{
+    position: absolute;
+    top: 0px; /* Header Height */
+    bottom: 0px; /* Footer Height */
+    width: 100%;
+}
+
+.authentication .container{
+    background-color: white;
+    width: 450px;
+    margin: 100px auto 40px auto;
+}
+
+.authentication hr{  
+
+}
+
+.authentication .warnings{
+
+    width: 100%;
+    margin: 0 auto 40px auto;
+}
+
+.authentication .warnings img{
+    width: 50%;
+}
+
+.authentication .warnings h2{
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+
+.authentication .warnings p{
+    margin-top: 20px;
+    font-size: 18px;
+    color: red;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    background-color: rgba(254,70,77,.2);
+}
+
+.authentication-form{
+    background-color: white;
+    width: 320px;
+    margin: 0 auto 40px auto;
+}
+
+.authentication .authentication-form a{
+    text-decoration: none;
+    color: black;
+}
+
+
+
+/****      FOOTER      ****/
+footer{
+    padding-bottom: 40px;
+    min-height: 120px;
+}
+
+footer img{
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+footer h4{
+    text-align: center;
+}
+
+footer hr{  
+    border-top: 1px solid black;
+}
+
+footer a{  
+    display: block;
+    height: 50px;
+    text-decoration: none;
+    color: black;
+}
