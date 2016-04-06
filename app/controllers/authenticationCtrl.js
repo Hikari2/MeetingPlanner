@@ -1,9 +1,5 @@
 
 meetingAgendaBuilder.controller('AuthenticationCtrl', function ($scope, $location, AuthenticationService) {
-    var rootDir="url(./resources/front-page";
-    var tail=".jpg)";
-    var img=new Array("1","2","3");
-    var currentImg=0;
     $scope.authentication = AuthenticationService.isLoggedIn();
     $scope.email = null;
     $scope.password = null;
@@ -57,17 +53,5 @@ meetingAgendaBuilder.controller('AuthenticationCtrl', function ($scope, $locatio
                 $scope.status = "Something went wrong";
             }
         });
-    }
-    
-    $scope.onPrevious = function(){
-        currentImg=(currentImg+1)%img.length;
-        var dir=rootDir+img[currentImg]+tail;
-        document.getElementById("home-section").style.backgroundImage=dir;
-    }
-    
-    $scope.onNext  = function(){
-        currentImg=(currentImg+2)%img.length;
-        var dir=rootDir+img[currentImg]+tail;
-        document.getElementById("home-section").style.backgroundImage=dir;
     }
 });
