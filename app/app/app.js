@@ -27,6 +27,18 @@ meetingAgendaBuilder.config(['$routeProvider',
                             }]
                     }
                 }).
+                when('/editMeeting', {
+                    templateUrl: 'views/editMeeting.html',
+                    controller: 'EditMeetingCtrl',
+                    resolve: {
+                        // controller will not be loaded until $requireAuth resolves
+                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                                // $requireAuth returns a promise so the resolve waits for it to complete
+                                // If the promise is rejected, it will throw a $stateChangeError
+                                return FireBaseAuthService.$requireAuth();
+                            }]
+                    }
+                }).
                 otherwise({
                     redirectTo: '/home'
                 });

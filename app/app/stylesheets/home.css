@@ -2,8 +2,12 @@
     background-image: url("../resources/front-page.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    min-height: 650px;
+    min-height: 700px;
     text-align: center;
+}
+
+.home .carousel{
+    min-height: 650px;
 }
 
 .home .top hr{
@@ -16,7 +20,7 @@
 }
 
 .home .top h1{
-    margin-top: 10%;
+    margin-top: 20%;
     color: white;
     font-size: 86px;
 }
