@@ -27,7 +27,7 @@ meetingAgendaBuilder.config(['$routeProvider',
                             }]
                     }
                 }).
-                when('/editMeeting', {
+                when('/editMeeting/:meetingId', {
                     templateUrl: 'views/editMeeting.html',
                     controller: 'EditMeetingCtrl',
                     resolve: {
