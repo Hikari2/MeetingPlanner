@@ -17,12 +17,66 @@
                     <div class="form-group">
                         <input type="password" ng-model="password" class="form-control" placeholder="Password">
                     </div>
-                    <button ng-click="login()" class="btn btn-default">Submit</button>
+                    <button ng-click="login()" class="btn btn-default" ><span id="formsubmitbutton" onclick="ButtonClicked()">Submit</span></button>
+
                     <a href="#/register" class="btn btn-link">Register</a>
                 </form>
+
+                <!--<img src="../resources/loading_animation.gif" style="display:none;" id="loading_image">-->
+                <div id="buttonreplacement" style="margin-left: 40%;  display:none;" >
+                    <!--<img src="http://www.willmaster.com/images/preload.gif" alt="loading...">-->
+                    <img src="http://preciseleads.com/images/loading_animation.gif" alt="Loading" width="100px" height="100px" >
+                </div>
             </div>
+
         </div>
+
     </div>
+    <!--<div id="formsubmitbutton">-->
+        <!--<input type="submit" name="submitter" value="Submit Button" onclick="ButtonClicked()">-->
+    <!--</div>-->
+
+
+    <script type="text/javascript">
+
+        function ButtonClicked()
+        {
+            //document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
+            document.getElementById("buttonreplacement").style.display = ""; // to display
+            return true;
+        }
+        var FirstLoading = true;
+        function RestoreSubmitButton()
+        {
+            if( FirstLoading )
+            {
+                FirstLoading = false;
+                return;
+            }
+            document.getElementById("formsubmitbutton").style.display = ""; // to display
+            document.getElementById("buttonreplacement").style.display = "none"; // to undisplay
+        }
+        // To disable restoring submit button, disable or delete next line.
+        document.onfocus = RestoreSubmitButton;
+    </script>
+
 </div>
+
+
+
+
+<!--<script type="text/javascript">-->
+    <!--function loader() {-->
+        <!--$("#loading_image").show(); // show loading image, as request is about to start-->
+        <!--$.ajax({-->
+            <!--url: '..',-->
+            <!--type: '..',-->
+            <!--complete: function () {-->
+                <!--// request is complete, regardless of error or success, so hide image-->
+                <!--$("#loading_image").hide();-->
+            <!--}-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->
 
 
