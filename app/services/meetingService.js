@@ -2,7 +2,7 @@
 meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore, FireBaseDataService) {
 
     var rkey;
-    var ActivityType = ["Presentation", "Group Work", "Discussion", "Break"]
+    var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"]
 
     this.getAllData = function () {
         return FireBaseDataService;
@@ -36,9 +36,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     };
 
     // add an activity to model
-    this.addActivity = function (name, length, typeid, description, day, position) {
-        var activity = new Activity(name, length, typeid, description);
-
+    this.addActivity = function (activity, day, position) {
         if (day != null) {
             this.days[day]._addActivity(activity, position);
         } else {
@@ -48,7 +46,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
             else
                 this.parkedActivities.push(activity);
         }
-    }
+    };
 
     // add an activity to parked activities
     this.addParkedActivity = function (activity, position) {
@@ -97,10 +95,12 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     this.createData = function () {
         this.addDay();
         this.addActivity(new Activity("Introduction", 10, 0, ""));
-        this.addActivity(new Activity("Idea 1", 30, 0, ""));
-        this.addActivity(new Activity("Working in groups", 35, 1, ""));
-        this.addActivity(new Activity("Idea 1 discussion", 15, 2, ""), 0);
-        this.addActivity(new Activity("Coffee break", 20, 3, ""), 0);
+        this.addActivity(new Activity("Introduction in the cellar", 10, 0, ""));
+        this.addActivity(new Activity("Idea 1", 30, 1, ""));
+        this.addActivity(new Activity("Working in groups", 35, 2, ""));
+                this.addActivity(new Activity("Working in the cellar", 35, 3, ""));
+        this.addActivity(new Activity("Idea 1 discussion", 15, 2, ""), 0, 0);
+        this.addActivity(new Activity("Coffee break", 20, 3, ""), 0, 0);
 
         console.log("Day Start: " + this.days[0].getStart());
         console.log("Day End: " + this.days[0].getEnd());

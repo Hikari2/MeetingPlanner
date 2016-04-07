@@ -18,6 +18,16 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
 .editMeeting .top{
     margin-top: 100px;
     margin-bottom: 25px;
@@ -34,33 +44,50 @@
 .editMeeting .leftPanel button{
     width: 100%;
     margin-bottom: 25px;
-    background-color: #990000;
+    background-color: #DF0101;
     color: white;
 }
 
-.editMeeting .leftPanel #activityQueue{
+.editMeeting .activityQueue{
     border: solid;
-    height: 667px;
+    border-width: 1px;
+    height: 680px;
 }
 
-.editMeeting .leftPanel #activityQueue #Presentation{
-    width: 70%;
-    background-color: #00b3ee;
+.editMeeting .activityQueue tr{
+    height: 50px;
+    text-align: center;
 }
 
-.editMeeting .leftPanel #activityQueue #Group Work{
-    width: 70%;
-    background-color: red;
+.editMeeting .activityQueue .activityLength{
+    width: 70px;
 }
 
-.editMeeting .leftPanel #activityQueue #Discussion{
-    width: 70%;
-    background-color: green;
+.editMeeting .activityQueue .activityName{
+    width: 180px;
+    border: solid;
+    border-width: 1px;
+    font-size: 14px;
 }
 
-.editMeeting .leftPanel #activityQueue #Break{
-    width: 70%;
-    background-color: yellow;
+.editMeeting .activityQueue .Presentation{
+    background-color: #CEF6F5;
+    border-color: #81BEF7;
+}
+
+.editMeeting .activityQueue .Group_Work{
+    background-color: #F5A9BC;
+    border-color: #FE2E9A;
+}
+
+.editMeeting .activityQueue .Discussion{
+    background-color: #BCF5A9;
+    border-color: #01DF3A;
+}
+
+.editMeeting .activityQueue .Break{
+    background-color: #F4FA58;
+    border-color: #DF7401;
 }
 
 .editMeeting .rightPanel{
@@ -73,6 +100,7 @@
 .editMeeting #overview{
     height: 100px;
     margin-bottom: 25px;
+    margin-top: 50px;
 }
 
 .editMeeting #overview .subtitle{
@@ -81,6 +109,7 @@
 
 .editMeeting #dayView{
     border: solid;
+    border-width: 1px;
     height: 500px;
 }
 

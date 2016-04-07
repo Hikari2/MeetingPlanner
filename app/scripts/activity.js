@@ -1,10 +1,4 @@
 
-// The possible activity types
-var ActivityType = ["Presentation", "Group Work", "Discussion", "Break"]
-
-// // This is an activity constructor
-// When you want to create a new activity you just call
-// var act = new Activity("some activity",20,1,"Some description);
 
 function Activity(name,length,typeid,description){
 	var _name = name;
@@ -18,7 +12,7 @@ function Activity(name,length,typeid,description){
 	}
 
 	// get the name of the activity
-	this.getName = function(name) {
+	this.getName = function() {
 		return _name;
 	}
 	

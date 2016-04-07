@@ -9,12 +9,15 @@
     <section class="main">
         <div class="container">
             <div class="row">
-                <div class="leftPanel .col-xs-6 .col-sm-4">
+                <div class="leftPanel .col-xs-6 .col-sm-6">
                     <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
-                    <div id="activityQueue">
-                        <div ng-repeat="activity in getPendingActivities()">
-                            <a ng-href="" type="button"  id="{{getActivityType(activity.getTypeId())}}" class="btn btn-default">{{getActivityType(activity.getTypeId())}}</a>
-                        </div>
+                    <div class="activityQueue">
+                        <table ng-repeat="activity in getPendingActivities()">
+                            <tr>
+                                <td class="activityLength .col-xs-6 .col-md-4">{{activity.getLength()}} min</td>
+                                <td  class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8">{{activity.getName()}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="rightPanel .col-xs-6 .col-sm-4">
@@ -22,21 +25,25 @@
                         <tr>
                             <td class="subtitle">Start time</td>
                             <td>
-                                <form name="timeForm"><input id="start-time" name="input" type="time" class="dayview-startTime"
-                                                             placeholder="08:00" ng-model="dayStartTime"
-                                                             ng-change="setDayTimeStart(dayStartTime)"></form>
+                                <input type=time value="08:00" ng-model="startTime" ng-change="setStart(startTime)"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="subtitle">End time</td>
-                            <td>{{startTime}}</td>
+                            <td>{{endTime}}</td>
                         </tr>
                         <tr>
                             <td class="subtitle">Total length:</td>
                             <td> &nbsp {{dayLength}} min</td>
                         </tr>
                     </table>
-                    <div id="dayView">
+                    <div class="activityQueue">
+                        <table ng-repeat="activity in getActivities()">
+                            <tr>
+                                <td class="activityLength .col-xs-6 .col-md-4">{{getActivityStart($index)}}</td>
+                                <td class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8">{{activity.getName()}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
