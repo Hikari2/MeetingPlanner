@@ -37,83 +37,84 @@
         <script src="controllers/authenticationCtrl.js"></script>
         <script src="controllers/userPageCtrl.js"></script>
         <script src="controllers/editMeetingCtrl.js"></script>
-        
+
         <script src="services/authenticationService.js"></script>
         <script src="services/meetingService.js"></script>
         <script src="services/fireBaseDataService.js"></script>
         <script src="services/fireBaseAuthService.js"></script>
-        
+
         <script src="scripts/day.js"></script>
         <script src="scripts/activity.js"></script>
-        
 
+        <script src="directives/draggable.js"></script>
+        <script src="directives/droppable.js"></script>
     </head>
     <body>  
         <div ng-view class="wrap">
         </div>
         <!--Put more stuff in the footer/Jian-->
         <!--<footer>-->
-            <!--<div class="container">-->
-                <!--<div class="row">-->
-                    <!--<hr class="divider">-->
-                    <!--<div class="col-xs-12"><h4>Group 25</h4></div>-->
-                    <!--<div class="col-xs-12"><a href="https://www.kth.se/social/course/DH2642/">DH2642 Interaction Programming Final Project</a></div>-->
-                    <!--<div class="col-xs-12"><a href="https://www.kth.se/gemensamt/disclaimer/disclaimer-for-personliga-webbsidor-1.62633">DISCLAIMER</a></div>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<div class="container">-->
+        <!--<div class="row">-->
+        <!--<hr class="divider">-->
+        <!--<div class="col-xs-12"><h4>Group 25</h4></div>-->
+        <!--<div class="col-xs-12"><a href="https://www.kth.se/social/course/DH2642/">DH2642 Interaction Programming Final Project</a></div>-->
+        <!--<div class="col-xs-12"><a href="https://www.kth.se/gemensamt/disclaimer/disclaimer-for-personliga-webbsidor-1.62633">DISCLAIMER</a></div>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</footer>-->
         <footer>
             <div class="container">
                 <div id="nav-footer">
                     <!--<ul class="list-unstyled" id="homeLink">-->
-                        <!--<li id="footer-menu-go-home"><a href="#/home">Home</a></li>-->
+                    <!--<li id="footer-menu-go-home"><a href="#/home">Home</a></li>-->
                     <!--</ul>-->
                     <!--<ul class="list-unstyled">-->
-                        <!--<li id="foot-ment-contact"><a href="mailto:someone@kth.se?Subject=Hello" target="_top">Contact us</a></li>-->
+                    <!--<li id="foot-ment-contact"><a href="mailto:someone@kth.se?Subject=Hello" target="_top">Contact us</a></li>-->
                     <!--</ul>-->
                     <!--<ul class="list-unstyled">-->
-                        <!--<li id="foot-menu-about"><a href="https://github.com/Hikari2/MeetingPlanner" target="_blank">About project</a></li>-->
+                    <!--<li id="foot-menu-about"><a href="https://github.com/Hikari2/MeetingPlanner" target="_blank">About project</a></li>-->
                     <!--</ul>-->
                     <table id="footer-bottom-table">
                         <tbody>
-                        <tr>
-                            <td>
-                                <table id="footer-nav">
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="/#home">Home</a>
-                                        </td>
-                                        <td>
-                                            <a href="https://github.com/Hikari2/MeetingPlanner">About</a>
-                                        </td>
-                                        <td>
-                                            <a href="mailto:someone@kth.se?Subject=Hello&body=Hi,Welcome to visit Group 25!">Contact</a>
-                                        </td>
-                                        <td>
-                                            <a href="https://www.facebook.com/hikari.watanabe.393" target="_blank">Blog</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">
-                                            <a href="https://www.kth.se/social/course/DH2642/" target="_blank" id="description">DH2642 Interaction Programming Project</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td >
-                                <a href="#/home" id="footer-logo">
-                                    <img src="https://www.deafcancoffee.com/images/portfolio/coffee.jpg" alt="home" height="100px" width="100px" >
-                                </a>
-                            </td>
-                        </tr>
-                        <tr >
-                            <td align="right" style="padding-left: 5px;" colspan="3">
-                                <span id="ourGroup">----Web Design By Group 25</span>
-                            </td>
-                            <td></td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <table id="footer-nav">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="/#home">Home</a>
+                                                </td>
+                                                <td>
+                                                    <a href="https://github.com/Hikari2/MeetingPlanner">About</a>
+                                                </td>
+                                                <td>
+                                                    <a href="mailto:someone@kth.se?Subject=Hello&body=Hi,Welcome to visit Group 25!">Contact</a>
+                                                </td>
+                                                <td>
+                                                    <a href="https://www.facebook.com/hikari.watanabe.393" target="_blank">Blog</a>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td colspan="4">
+                                                    <a href="https://www.kth.se/social/course/DH2642/" target="_blank" id="description">DH2642 Interaction Programming Project</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td >
+                                    <a href="#/home" id="footer-logo">
+                                        <img src="https://www.deafcancoffee.com/images/portfolio/coffee.jpg" alt="home" height="100px" width="100px" >
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr >
+                                <td align="right" style="padding-left: 5px;" colspan="3">
+                                    <span id="ourGroup">----Web Design By Group 25</span>
+                                </td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

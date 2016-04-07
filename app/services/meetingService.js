@@ -4,14 +4,20 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     var rkey;
     var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"]
 
+    this.currentAuth = 12;
+
+    this.setCurrentAuth = function (auth) {
+        currentAuth = auth;
+    };
+
     this.getAllData = function () {
         return FireBaseDataService;
     }
 
     this.save = function () {
-        FireBaseDataService.$add(this.days[0]);
-        rkey = $keyAt(this.days[0]);
-        return rkey;
+        FireBaseDataService.$add(this.days[0].toJson());
+        //rkey = $keyAt(this.days[0]);
+        //return rkey;
     }
 
     this.retrieve = function () {
@@ -26,9 +32,9 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     this.addDay = function (startH, startM) {
         var day;
         if (startH) {
-            day = new Day(startH, startM);
+            day = new Day(startH, startM, this.currentAuth.uid);
         } else {
-            day = new Day(8, 0);
+            day = new Day(8, 0, this.currentAuth.uid);
         }
         //alert(day);
         this.days.push(day);
@@ -64,15 +70,16 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     // to move a parked activity to let's say day 0 you set oldday to null
     // and new day to 0
     this.moveActivity = function (oldday, oldposition, newday, newposition) {
-        if (oldday !== null && oldday == newday) {
+
+        if (oldday != -1 && oldday == newday) {
             this.days[oldday]._moveActivity(oldposition, newposition);
-        } else if (oldday == null && newday == null) {
+        } else if (oldday == -1 && newday == -1) {
             var activity = this.removeParkedActivity(oldposition);
             this.addParkedActivity(activity, newposition);
-        } else if (oldday == null) {
+        } else if (oldday == -1) {
             var activity = this.removeParkedActivity(oldposition);
             this.days[newday]._addActivity(activity, newposition);
-        } else if (newday == null) {
+        } else if (newday == -1) {
             var activity = this.days[oldday]._removeActivity(oldposition);
             this.addParkedActivity(activity, newposition);
         } else {
@@ -98,13 +105,16 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
         this.addActivity(new Activity("Introduction in the cellar", 10, 0, ""));
         this.addActivity(new Activity("Idea 1", 30, 1, ""));
         this.addActivity(new Activity("Working in groups", 35, 2, ""));
-                this.addActivity(new Activity("Working in the cellar", 35, 3, ""));
-        this.addActivity(new Activity("Idea 1 discussion", 15, 2, ""), 0, 0);
-        this.addActivity(new Activity("Coffee break", 20, 3, ""), 0, 0);
+        this.addActivity(new Activity("Working in the cellar", 35, 3, ""));
 
-        console.log("Day Start: " + this.days[0].getStart());
-        console.log("Day End: " + this.days[0].getEnd());
-        console.log("Day Length: " + this.days[0].getTotalLength() + " min");
+        this.addActivity(new Activity("Idea 1 discussion", 15, 0, ""), 0);
+        this.addActivity(new Activity("Coffee break", 20, 1, ""), 0);
+        this.addActivity(new Activity("Idea 1 discussion", 15, 2, ""), 0);
+        this.addActivity(new Activity("Coffee break", 20, 3, ""), 0);
+
+        this.addDay();
+        this.addActivity(new Activity("Drinking", 45, 2, ""), 1, 0);
+        this.addActivity(new Activity("Running", 20, 3, ""), 1, 0);
 
         //$.each(ActivityType, function (index, type) {
         //    console.log("Day '" + ActivityType[index] + "' Length: " + this.days[0].getLengthByType(index) + " min");
