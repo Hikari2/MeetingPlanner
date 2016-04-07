@@ -1,12 +1,14 @@
 
 meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParams, currentAuth, MeetingService) {
     $scope.user = currentAuth;
-    var id = $routeParams.meetingId;
-    $scope.day = MeetingService.days[id];
+    $scope.id = $routeParams.meetingId;
+    $scope.day = MeetingService.days[$scope.id];
 
-    $scope.startTime = MeetingService.days[id].getStart();
-    $scope.endTime = MeetingService.days[id].getEnd();
-    $scope.dayLength = MeetingService.days[id].getTotalLength();
+    $scope.startTime = MeetingService.days[$scope.id].getStart();
+    $scope.endTime = MeetingService.days[$scope.id].getEnd();
+    $scope.dayLength = MeetingService.days[$scope.id].getTotalLength();
+
+    MeetingService.setCurrentAuth(currentAuth);
 
     $scope.setStart = function (timestamp) {
         var startH = timestamp.getHours();
@@ -30,9 +32,13 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
     $scope.getPendingActivities = function () {
         return MeetingService.parkedActivities;
-    }
+    };
 
     $scope.getActivityType = function (typeId) {
         return MeetingService.getActivityType(typeId);
+    };
+
+    $scope.moveActivity = function (oldday, oldposition, newday, newposition) {
+        MeetingService.moveActivity(oldday, oldposition, newday, newposition);
     }
 });
