@@ -1,6 +1,6 @@
 
 meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore, FireBaseDataService) {
-    
+
     var rkey;
     var ActivityType = ["Presentation", "Group Work", "Discussion", "Break"]
 
@@ -13,7 +13,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
         rkey = $keyAt(this.days[0]);
         return rkey;
     }
-    
+
     this.retrieve = function () {
         FireBaseDataService.$getRecord(rkey);
     }
@@ -83,33 +83,33 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
         }
     };
     // Return all available activity types
-	this.getActivityTypes = function() {
-		return ActivityType;
-	}
+    this.getActivityTypes = function () {
+        return ActivityType;
+    }
 
-	// Return an acitivity type of a specific acitivity id
-	this.getActivityType = function(activityTypeId) {
-		return ActivityType[activityTypeId];
-	}
+    // Return an acitivity type of a specific acitivity id
+    this.getActivityType = function (activityTypeId) {
+        return ActivityType[activityTypeId];
+    }
 
-	// you can use this method to create some test data and test your implementation
-	// Used to test parkedActivity.
-	this.createData = function (){
-		this.addDay();
-		this.addActivity(new Activity("Introduction",10,0,""));
-		this.addActivity(new Activity("Idea 1",30,0,""));
-		this.addActivity(new Activity("Working in groups",35,1,""));
-		this.addActivity(new Activity("Idea 1 discussion",15,2,""),0);
-		this.addActivity(new Activity("Coffee break",20,3,""), 0);
+    // you can use this method to create some test data and test your implementation
+    // Used to test parkedActivity.
+    this.createData = function () {
+        this.addDay();
+        this.addActivity(new Activity("Introduction", 10, 0, ""));
+        this.addActivity(new Activity("Idea 1", 30, 0, ""));
+        this.addActivity(new Activity("Working in groups", 35, 1, ""));
+        this.addActivity(new Activity("Idea 1 discussion", 15, 2, ""), 0);
+        this.addActivity(new Activity("Coffee break", 20, 3, ""), 0);
 
-		console.log("Day Start: " + this.days[0].getStart());
-		console.log("Day End: " + this.days[0].getEnd());
-		console.log("Day Length: " + this.days[0].getTotalLength() + " min");
-		
-		/*$.each(ActivityType, function(index,type) {
-			console.log("Day '" + ActivityType[index] + "' Length: " + this.days[0].getLengthByType(index) + " min");
-		});*/	
-	}
-	this.createData();
-return this;
+        console.log("Day Start: " + this.days[0].getStart());
+        console.log("Day End: " + this.days[0].getEnd());
+        console.log("Day Length: " + this.days[0].getTotalLength() + " min");
+
+        //$.each(ActivityType, function (index, type) {
+        //    console.log("Day '" + ActivityType[index] + "' Length: " + this.days[0].getLengthByType(index) + " min");
+        //});
+    };
+    this.createData();
+    return this;
 });

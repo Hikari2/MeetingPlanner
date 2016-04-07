@@ -19,6 +19,68 @@
 
 
 .editMeeting .top{
-    margin-top: 5%;
+    margin-top: 100px;
+    margin-bottom: 25px;
     text-align: center;
 }
+
+.editMeeting .leftPanel{
+    float: left;
+    margin-left: 20%;
+    height: 700px;
+    width: 250px;
+}
+
+.editMeeting .leftPanel button{
+    width: 100%;
+    margin-bottom: 25px;
+    background-color: #990000;
+    color: white;
+}
+
+.editMeeting .leftPanel #activityQueue{
+    border: solid;
+    height: 667px;
+}
+
+.editMeeting .leftPanel #activityQueue #Presentation{
+    width: 70%;
+    background-color: #00b3ee;
+}
+
+.editMeeting .leftPanel #activityQueue #Group Work{
+    width: 70%;
+    background-color: red;
+}
+
+.editMeeting .leftPanel #activityQueue #Discussion{
+    width: 70%;
+    background-color: green;
+}
+
+.editMeeting .leftPanel #activityQueue #Break{
+    width: 70%;
+    background-color: yellow;
+}
+
+.editMeeting .rightPanel{
+    float: left;
+    margin-left: 5%;
+    height: 700px;
+    width: 250px;
+}
+
+.editMeeting #overview{
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.editMeeting #overview .subtitle{
+    font-weight: bold;
+}
+
+.editMeeting #dayView{
+    border: solid;
+    height: 500px;
+}
+

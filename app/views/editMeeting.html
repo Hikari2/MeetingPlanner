@@ -1,14 +1,54 @@
 <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
 <div class="editMeeting">
     <section class="top">
-        <h1>Edit Meeting</h1>
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
     </section >
-    <section class="mid">
-        <div class="leftPanel .col-xs-6 .col-sm-4">
-
+    <section class="main">
+        <div class="container">
+            <div class="row">
+                <div class="leftPanel .col-xs-6 .col-sm-4">
+                    <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
+                    <div id="activityQueue">
+                        <div ng-repeat="activity in getPendingActivities()">
+                            <a ng-href="" type="button"  id="{{getActivityType(activity.getTypeId())}}" class="btn btn-default">{{getActivityType(activity.getTypeId())}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightPanel .col-xs-6 .col-sm-4">
+                    <table id="overview">
+                        <tr>
+                            <td class="subtitle">Start time</td>
+                            <td>
+                                <form name="timeForm"><input id="start-time" name="input" type="time" class="dayview-startTime"
+                                                             placeholder="08:00" ng-model="dayStartTime"
+                                                             ng-change="setDayTimeStart(dayStartTime)"></form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="subtitle">End time</td>
+                            <td>{{startTime}}</td>
+                        </tr>
+                        <tr>
+                            <td class="subtitle">Total length:</td>
+                            <td> &nbsp {{dayLength}} min</td>
+                        </tr>
+                    </table>
+                    <div id="dayView">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="rightPanel .col-xs-6 .col-sm-4">
+    </section >
 
-        </div>
+
+
+
+
+
+
+    <section class="bot">
     </section >
 </div>
