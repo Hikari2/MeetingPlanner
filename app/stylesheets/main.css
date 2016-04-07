@@ -50,7 +50,19 @@
 .authentication hr{  
 
 }
-
+.authentication .authentication-form .btn-default{
+    background-color: #D9B580;
+    color:white;
+}
+#btnRegister #btnSubmit{
+    background-color: #D9B580;
+    color: white;
+}
+.authentication .authentication-form .btn-link{
+    border-color: #D9B580;
+    color: #D9B580;
+    border-radius: 4px;
+}
 .authentication .warnings{
 
     width: 100%;
@@ -92,15 +104,15 @@
 
 /****      FOOTER      ****/
 footer{
-    padding-bottom: 40px;
+    padding-bottom: 0px;
     min-height: 120px;
 }
 
-footer img{
-    height: 50px;
-    display: block;
-    margin: 0 auto;
-}
+/*footer img{*/
+    /*height: 50px;*/
+    /*display: block;*/
+    /*margin: 0 auto;*/
+/*}*/
 
 footer h4{
     text-align: center;
@@ -115,4 +127,53 @@ footer a{
     height: 50px;
     text-decoration: none;
     color: black;
+}
+
+#nav-footer{
+    /*height: 30px;*/
+    /*padding:50px 0 0 0;*/
+    /*color: #D9B580;*/
+    border:none;
+    height: 200px;
+    padding-top: 70px;
+    background-color: #D9B580;
+    width: 100%;
+    min-width: 1040px;
+    vertical-align: top;
+}
+/*#homeLink{*/
+/*color: white;*/
+/*}*/
+#footer-bottom-table{
+    display: table;
+    border-collapse: separate;
+    margin: 0 0 0 700px;
+    background-size: 100% 100%;
+
+}
+#footer-nav{
+    border-collapse: separate;
+}
+#footer-nav td{
+    padding-right: 0px;
+}
+#footer-nav td,th{
+    display: table-cell;
+    vertical-align: inherit;
+}
+#description{
+    width: auto;
+    text-align: right;
+    letter-spacing: 1px;
+    margin: 0;
+    font-size: 12px;
+}
+#footer-logo{
+    height: 111px;
+    padding-left: 25px;
+}
+#ourGroup{
+    font-size: 15px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    /*font-family: sans-serif;*/
 }
