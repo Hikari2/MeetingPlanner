@@ -6,15 +6,15 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
     $scope.personalInfoViewMore=false;
     
     $scope.userInfo={
-        Firstname:"Hao",
-        Lastname:"Wang",
-        Email:"hawan@kth.se",
-        Phoneno:"076-4073456",
+        Firstname:"Erik",
+        Lastname:"Shasha",
+        Email:"eric@kth.se",
+        Phoneno:"076-123456",
         Gender:"Male",
-        Birthday:"1993-5-2",
+        Birthday:"1993-8-8",
         Company:"KTH",
         Position:"None",
-        Address:"Björksätravägen 30 1203, Skärholmen",
+        Address:"Björksätravägen XX XX, Skärholmen",
         Description:"Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
     };
     
