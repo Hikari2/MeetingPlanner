@@ -102,10 +102,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
     this.createData = function () {
         this.addDay();
         this.addActivity(new Activity("Introduction", 10, 0, ""));
-        this.addActivity(new Activity("Introduction in the cellar", 10, 0, ""));
-        this.addActivity(new Activity("Idea 1", 30, 1, ""));
-        this.addActivity(new Activity("Working in groups", 35, 2, ""));
-        this.addActivity(new Activity("Working in the cellar", 35, 3, ""));
+        this.addActivity(new Activity("Introduction in the cellar", 25, 1, ""));
 
         this.addActivity(new Activity("Idea 1 discussion", 15, 0, ""), 0);
         this.addActivity(new Activity("Coffee break", 20, 1, ""), 0);
@@ -115,6 +112,8 @@ meetingAgendaBuilder.factory('MeetingService', function ($resource, $cookieStore
         this.addDay();
         this.addActivity(new Activity("Drinking", 45, 2, ""), 1, 0);
         this.addActivity(new Activity("Running", 20, 3, ""), 1, 0);
+
+        this.addDay();
 
         //$.each(ActivityType, function (index, type) {
         //    console.log("Day '" + ActivityType[index] + "' Length: " + this.days[0].getLengthByType(index) + " min");

@@ -10,12 +10,15 @@
         <div class="container">
             <div class="row">
                 <div class="leftPanel .col-xs-6 .col-sm-6">
-                    <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
                     <div class="activityQueue">
+                        <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
                         <table>
                             <tr id="-1" ng-repeat="activity in getPendingActivities()">
                                 <td class="activityLength .col-xs-6 .col-md-4">{{activity.getLength()}} min</td>
-                                <td draggable id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity">{{activity.getName()}}</td>
+                                <td id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8" draggable droppable drop="moveActivity">{{activity.getName()}}</td>
+                            </tr>
+                            <tr id="-1" ng-show="getPendingActivities().length == 0">
+                                <td id="{{$index}}" class="activityName placeHolder .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity"><span class="glyphicon glyphicon-chevron-down"></span></td>
                             </tr>
                         </table>
                     </div>
@@ -39,7 +42,11 @@
                         <table>
                             <tr id="{{id}}" ng-repeat="activity in getActivities()">
                                 <td class="activityLength .col-xs-6 .col-md-4">{{getActivityStart($index)}}</td>
-                                <td draggable id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} bin .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity">{{activity.getName()}}</td>
+                                <td id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8" draggable droppable drop="moveActivity">{{activity.getName()}}</td>
+                            </tr>
+                            <tr id="{{id}}" ng-show="getActivities().length == 0">
+                                <td class="activityLength .col-xs-6 .col-md-4">{{getActivityStart($index)}}</td>
+                                <td id="{{$index}}" class="activityName placeHolder .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity"></td>
                             </tr>
                         </table>
                     </div>

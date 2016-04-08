@@ -25,7 +25,17 @@ function Day(startH, startM, userId) {
     // the end time of the day
     this.getEnd = function () {
         var end = this._start + this.getTotalLength();
-        return Math.floor(end / 60) + ":" + end % 60;
+        
+        var hours = Math.floor(end / 60);
+        var mins = end % 60;
+        
+        if (hours < 10)
+            hours = "0"+hours;
+        
+        if (mins < 10)
+            mins = "0"+mins;
+
+        return hours + ":" + mins;
     };
 
     // returns the string representation Hours:Minutes of
@@ -74,7 +84,7 @@ function Day(startH, startM, userId) {
         // In case new position is greater than the old position and we are not moving
         // to the last position of the array
         if (newposition > oldposition && newposition < this._activities.length - 1) {
-            newposition--;
+            //newposition--;
         }
         var activity = this._removeActivity(oldposition);
         this._addActivity(activity, newposition);
@@ -87,7 +97,17 @@ function Day(startH, startM, userId) {
                 break;
             counter += this._activities[i].getLength();
         }
-        return Math.floor(counter / 60) + ":" + counter % 60;
+        
+        var hours = Math.floor(counter / 60);
+        var mins = counter % 60;
+        
+        if (hours < 10)
+            hours = "0"+hours;
+        
+        if (mins < 10)
+            mins = "0"+mins;
+
+        return hours + ":" + mins;
     };
 
     this.toJson = function () {
