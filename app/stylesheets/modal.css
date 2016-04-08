@@ -1,0 +1,111 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 6, 2016, 10:43:03 PM
+    Author     : Hao
+*/
+.meeting-modal .modal-header{
+    background-color: #D9B580;
+    text-align: center;
+    color: white;
+}
+.meeting-modal{
+    border: 2px solid #D9B580;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+.meeting-modal ul{
+    list-style-type: none;
+    margin-left: -30px;
+}
+
+.meeting-modal li{ 
+    margin-top: 5px;
+}
+.meeting-modal .info-list-item{
+    width: 560px;
+}
+
+.meeting-modal label{
+    width: 100px;
+    display: inline-block;
+}
+
+.meeting-modal .member{
+    margin-left: -2px;
+    width: 560px;
+    display: inline-block;
+}
+
+.meeting-modal .member label{
+    width:85px;
+    height: 35px;
+    margin-left: -9px;
+    vertical-align: middle;
+}
+
+.meeting-modal .member a{
+    display: inline-block;
+    height: 35px;
+    vertical-align: middle;
+    text-align: center;
+    border: 2px solid #D9B580;
+    border-radius: 18px;
+    color: #D9B580;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: all .25s linear;
+}
+
+.meeting-modal .member a:hover{
+    border: 2px solid #C08636;
+    color: #C08636;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .25s linear;
+}
+
+.meeting-modal .member a:before,.meeting-modal .member label:before , 
+.meeting-modal .member a:after,.meeting-modal .member label:after{
+  content: '';
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: middle;
+  height: 100%;
+}
+.meeting-modal .modal-footer button{
+    width: 100px;
+    border: 2px solid #D9B580;
+    border-radius: 18px;
+    color: #D9B580;
+    background-color: white;
+}
+
+.meeting-modal .modal-footer button:hover{
+    color: white;
+    background-color: #D9B580;
+}
+.meeting-modal .modal-footer button:active,.meeting-modal .modal-footer button:focus{
+    outline: none;
+}
+.meeting-modal input{
+    display: inline-block;
+    width: 300px;
+}
+.meeting-modal  button{
+    display: inline-block;
+    width: 45px;
+    margin-left: -2px;
+}
+
+.meeting-modal textArea{
+    max-width: 550px;
+}
+
+.meeting-modal .date-input{
+    margin-left: -2px;
+}

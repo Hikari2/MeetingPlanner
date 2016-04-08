@@ -1,4 +1,4 @@
-var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies', "firebase"]);
+var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies','ngAnimate','ngDragDrop', "firebase",'ui.bootstrap']);
 
 meetingAgendaBuilder.config(['$routeProvider',
     function ($routeProvider) {
@@ -17,6 +17,42 @@ meetingAgendaBuilder.config(['$routeProvider',
                 }).
                 when('/userpage', {
                     templateUrl: 'views/userpage.html',
+                    controller: 'UserPageCtrl',
+                    resolve: {
+                        // controller will not be loaded until $requireAuth resolves
+                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                                // $requireAuth returns a promise so the resolve waits for it to complete
+                                // If the promise is rejected, it will throw a $stateChangeError
+                                return FireBaseAuthService.$requireAuth();
+                            }]
+                    }
+                }).
+                        when('/userpage/settings', {
+                    templateUrl: 'views/usersettings.html',
+                    controller: 'UserPageCtrl',
+                    resolve: {
+                        // controller will not be loaded until $requireAuth resolves
+                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                                // $requireAuth returns a promise so the resolve waits for it to complete
+                                // If the promise is rejected, it will throw a $stateChangeError
+                                return FireBaseAuthService.$requireAuth();
+                            }]
+                    }
+                }).
+                when('/userpage/messages', {
+                    templateUrl: 'views/usermessages.html',
+                    controller: 'UserPageCtrl',
+                    resolve: {
+                        // controller will not be loaded until $requireAuth resolves
+                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                                // $requireAuth returns a promise so the resolve waits for it to complete
+                                // If the promise is rejected, it will throw a $stateChangeError
+                                return FireBaseAuthService.$requireAuth();
+                            }]
+                    }
+                }).
+                when('/userpage/history', {
+                    templateUrl: 'views/userhistory.html',
                     controller: 'UserPageCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves

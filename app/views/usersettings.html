@@ -1,0 +1,48 @@
+<div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+<div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
+<div class="container user-settings">
+    <div class="row">
+        <div id="col-1" class="col-md-1">
+            <div ng-include="'views/userprofile.html'"  ng-controller="AuthenticationCtrl"></div>
+        </div>
+        <div class="col-md-8">
+            <ul class="info-list">
+                <li>
+                    <label>First Name</label>
+                    <input ng-value="userInfo.Firstname" class="form-control short-input" type="text"/>
+                    <label>Last Name</label>
+                    <input ng-value="userInfo.Lastname" class="form-control short-input" type="text"/>
+                </li>
+                <li>
+                    <label>E-mail</label>
+                    <input ng-value="userInfo.Email" class="form-control short-input" type="text"/>
+                    <label>Phone No.</label>
+                    <input ng-value="userInfo.Phoneno" class="form-control short-input" type="text"/>
+                </li>
+                <li>
+                    <label>Gender</label>
+                    <input ng-value="userInfo.Gender" class="form-control short-input" type="text"/>
+                    <label>Birthday</label>
+                    <input ng-value="userInfo.Birthday" class="form-control short-input" type="text"/>
+                </li>
+                <li>
+                    <label>Company</label>
+                    <input ng-value="userInfo.Company" class="form-control short-input" type="text"/>
+                    <label>Position</label>
+                    <input ng-value="userInfo.Position" class="form-control short-input" type="text"/>
+                </li>
+                <li>
+                    <label>Address</label>
+                    <input ng-value="userInfo.Address" class="form-control long-input" type="text"/>
+                </li>
+                <li>
+                    <label>Description</label>
+                    <Textarea  class="form-control" rows="5">{{userInfo.Description}}</Textarea>
+                </li>
+            </ul>
+            <div class="footer">
+                <a class="btn">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
