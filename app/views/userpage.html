@@ -2,11 +2,11 @@
 <div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
 <div class="container">
     <div class="row row-1 main-user-page">
-        <div id="col-1" class="col-md-1">
+        <div class="col-1 col-md-3">
             <div ng-include="'views/userprofile.html'"  ng-controller="AuthenticationCtrl"></div>
         </div>
-        <div id="col-2" class="col-md-6 main-content">
-            <div class="row personal-info display-box">
+        <div class="col-md-7 col-xs-12 main-content">
+            <div class=" row personal-info display-box">
                 <div id="personal-info-title" class="blocktitle title">
                     <span class="title-1">Personal Information</span>
                     <span class="title-2"><a href="#/userpage/settings">Edit</a></span>
@@ -77,15 +77,14 @@
                     <span class="title-2"><a >Edit</a></span>
                 </div>
                 <div class="meeting-info">
-                    <div class="row">
                         <ul class="meeting-list">
                             <li class="meeting-list-item" ng-repeat="meeting in meetingList" data-drag="true" jqyoui-draggable 
                                 data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
                                 <div class="meeting-box row" ng-dblclick="open(meeting)" >
-                                    <div class="col-md-1 img-col">
+                                    <div class="col-md-3 col-xs-3 img-col">
                                         <img class="meeting-img" src="./resources/meeting1.jpg">
                                     </div>
-                                    <div class="col-md-1 meeting-detail-col">
+                                    <div class="col-md-8 col-xs-8 meeting-detail-col">
                                         <span class="meeting-title"><label>{{meeting.Title}}</label></span>
                                         <ul class="info-list">
                                             <li><label>Date</label>{{meeting.Date}}</li>
@@ -100,7 +99,6 @@
                                 </span>
                             </li>
                         </ul>
-                    </div>
                     <div class="footer">
                         <a ng-click="setMeetingViewMore(true)" ng-hide="meetingViewMore"> 
                             View More<img class="view-more-img">
@@ -110,7 +108,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 col-md-1">
+            
+        <div class="col-3 col-md-2">
             <div class="row important-list display-box">
                 <div id="important-list-title" class="blocktitle title">
                     <span class="title-1">Important Meetings</span>

@@ -49,85 +49,92 @@
 .user-nav .navbar-header button:hover,.user-nav .navbar-header button:active,
 .user-nav .navbar-header button:focus{
     background-color:  #D9B580;
-    color: red;
 }
-#col-1{
-    width:20vw;
+
+.user-nav .navbar-toggle .icon-bar >*{
+    background-color: white;
+}
+
+.userProfile{
+    margin-left: -10px;
+    margin-top: 10px;
 }
 
 .userProfile img{
-    margin-top: 3vh;
-    margin-left: 0.5vw;
-    height: 17vw;
-    width: 17vw;
+    width: 100%;
     background-color: #E0E0E0;
     border: 2px solid #E0E0E0;
     border-radius: 25px;
+    margin-bottom: 10px;
 }
 
-.user-name{
-    width: 15vw;
-    margin-left: 1vw;
-    margin-top: 3vh;
-    font-size: 1.7vw;
+.userProfile .user-name{
+    width: 80%;
+    margin: auto;
+    font-size: 27px;
     color: gray;
+    text-align: center;
     border-bottom: 2px solid #E0E0E0;
 }
-.meeting-num, .meeting-label{
-    width: 15vw;
-    margin-left: 1vw;
-    margin-top: 3vh;
+.userProfile .meeting-num, .userProfile .meeting-label{
+    margin: auto;
+    width: 80%;
+    display: table;
+}
+.userProfile .meeting-num div,.userProfile .meeting-label div{
+    display: table-cell;
 }
 
-.meeting-label{
+.userProfile .meeting-label{
     margin-top: 0px;
     border-bottom: 2px solid #E0E0E0;
 }
-.meeting-num p{
+.userProfile .meeting-num p{
     color: #3399FF;
-    font-size: 2.0vw;
+    font-size: 30px;
 }
-.meeting-num div, .meeting-label div{
-    width: 5vw;
-    text-align: center;
-}
-.user-info div{
-    text-align: center;
-}
-.meeting-label p{
+
+.userProfile .meeting-label p{
     color: gray;
-    font-size: 1vw;
+    font-size: 17px;
+}
+
+.main-user-page{
+    margin-bottom: 100px;
+}
+.main-user-page .user-info div{
+    text-align: center;
 }
 
 .main-user-page .display-box{
-    margin-top: 3vh;
-    width:40vw;
+    margin-top: 10px;
+    width:100%;
 }
 
 .main-user-page .blocktitle{
     display: table;
-    width:40vw;
+    width:100%;
     background-color: #D9B580;
-    height: 6vh;
+    height: 50px;
     border: 1px solid #E0E0E0;
     /*another alternative color is #C08636 and #E0E0E0*/
 }
 
 .main-user-page .title-1,.main-user-page .title-2{
-    width:20vw;
+    width:50%;
     display: table-cell;
     vertical-align: middle;
     color: white;
 }
 
 .main-user-page .title-1{
-    padding-left: 1vw;
+    padding-left: 10px;
     font-weight: bold;
 }
 
 .main-user-page .title-2{
     text-align: right;
-    padding-right: 1vw;
+    padding-right: 10px;
 }
 
 .main-user-page .blocktitle a{
@@ -142,38 +149,40 @@
     transition: all .25s linear;
 }
 
-.detail-info,.meeting-info{
+.main-user-page .detail-info,.meeting-info{
     background-color: white;
-    width: 40vw;
+    width: 100%;
     border: 1px solid #E0E0E0;
 }
 
-.detail-info .col-md-1, .detail-info col-md-1 li{
-    width: 20vw;
+.main-user-page .detail-info .col-md-1,
+.main-user-page .detail-info col-md-1 li{
+    width: 50%;
 }
 
-.detail-info .col-md-1 ul{
-    margin-top: 2vh;
+.main-user-page .detail-info .col-md-1 ul{
+    margin-top: 20px;
     list-style-type: none;
 }
 
-.detail-info .col-md-1 li{
-    margin-top: 0.25vh;
-    margin-bottom: 0.25vh;
+.main-user-page .detail-info .col-md-1 li{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-.detail-info .col-md-1 label, .detail-info .row-2 label{
-    width: 6vw;
+.main-user-page .detail-info .col-md-1 label,
+.main-user-page .detail-info .row-2 label{
+    width: 30%;
     white-space: nowrap;
 }
 
 .main-content .footer{
-    padding-right: 1vw;
-    padding-top: 1vh;
+    padding-right: 15px;
+    padding-top: 10px;
     text-align: right;
-    margin-right: 1vw;
-    margin-left: 1vw;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
     border-top: 2px solid #E0E0E0;
 }
 
@@ -181,10 +190,6 @@
     color: #D9B580;
 }
 
-.main-content .footer img{
-    width: 0.9vw;
-    vertical-align: middle;
-}
 .main-content .footer a:hover{
     color: #C08636;
     text-decoration: none;
@@ -192,7 +197,8 @@
 }
 
 .main-content .footer .view-more-img{
-    margin-left: 0.25vw;
+    margin-left: 5px;
+    width: 15px;
     content: url("../resources/addmore.png");
 }
 
@@ -204,43 +210,45 @@
 }
 
 .detail-info .col-md-2{
-    width: 40vw;
+    width: 100%;
 }
 
 .detail-info .description-box{
-    margin-top: .5vw;
+    /*
+    margin-top: 5px;
     padding-left: .5vw;
     padding-right: .5vw;
-    padding-top: .5vw;
+    padding-top: .5vw;*/
     border: 1px solid #E0E0E0;
 }
 
 .main-user-page .meeting-info .meeting-list{
-    padding-top: 1vh;
+    padding-top: 15px;
     list-style-type: none;
+    margin-left: -20px;
 }
 
 .main-user-page .meeting-info .meeting-list-item{
-    padding: 2vh 1vw 2vh 1vw;
-    margin-top: 1vh;
-    margin-bottom: 0.5vh;
-    margin-right: 2vw;
+    padding: 10px 10px 10px 10px;
+    margin-top: 15px;
+    margin-bottom:10px;
+    margin-right: 15px;
     border: 1px solid #E0E0E0;
     transition: all .25s linear;
 }
-.main-user-page .meeting-info .meeting-img,.main-user-page .meeting-info .img-col{
-    width: 10vw;
+.main-user-page .meeting-info .img-col{
     height: 10vw;
 }
-
+.main-user-page .meeting-info img{
+    width: 100%;
+}
 .main-user-page .meeting-info .meeting-detail-col{
-    margin-left: 1vw;
-    width: 25vw;
+    margin-left: 5px;
 }
 
 .main-user-page .meeting-detail-col span{
-    width: 24vw;
-    height: 5vh;
+    height: 50px;
+    width: 100%;
     display: table;
 }
 
@@ -252,45 +260,45 @@
 
 .main-user-page .meeting-detail-col .meeting-title label{
     display: table-cell;
+    width: 100%;
     vertical-align: middle;
     color: white;
 }
 
 .main-user-page .meeting-detail-col ul{
-    margin-left: 0vw;
-    width: 25vw;
+    width: 100%;
     list-style-type: none;
 }
 .main-user-page .meeting-detail-col li{
-    margin-top: 2vh;
-    margin-left: -2vw;
+    margin-top: 15px;
+    margin-left: -15px;
     text-align: left;
 }
 .main-user-page .meeting-detail-col .info-list label{
-    width: 6vw;
+    width: 25%;
     text-align: left;
 }
 .main-user-page .meeting-info .meeting-member{
-     margin-top: 1vh;
+     margin-top: 15px;
      display: table;
 
 }
 .main-user-page .meeting-info .meeting-member label{
     display: table-cell;
-    width: 6vw;
-    height: 5vh;
+    width: 100px;
+    height: 40px;
     vertical-align: middle;
     text-align: center;
     color: white;   
     background-color:  #D9B580;
-    border-radius: 2.5vh;
+    border-radius: 25px;
 }
 
 .main-user-page .meeting-info .meeting-member a{
     display: table-cell;
-    height: 5vh;
+    height: 40px;
     vertical-align: middle;
-    padding-left: 1vw;
+    padding-left: 15px;
     color: #D9B580;
     font-weight: bold;
     transition: all .25s linear;
@@ -309,14 +317,12 @@
     transition: all .25s linear;
 }
 
-.main-user-page .col-3,.main-user-page .important-list,.main-user-page .important-list .title{
-    width:14.7vw;
-    margin-left:0.5vw;
+.main-user-page .important-list,.main-user-page .important-list .title{
+    width:100%;
 }
 
 .main-user-page .important-list .list-info{
-    margin-left:0.5vw;
-    width:14.7vw;
+    width:100%;
     border: 1px solid #E0E0E0;
 }
 
