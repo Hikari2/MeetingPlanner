@@ -1,23 +1,26 @@
 <div class="userPage">
     <div class="container">
-        <div id="user-nav" class="user-nav navbar navbar-default">
+        <div id="user-nav" class="user-nav navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#userNavBar">
+                    <span class="icon-bar"></span>             
+                    <span class="icon-bar"></span>    
+                    <span class="icon-bar"></span>    
+                    <span class="icon-bar"></span>  
+                    </button>
                     <ul class="nav navbar-nav navbar-left">
                     <li>
                         <a class="home-link" href="#/home"><img id="name-img" src="resources/name.jpg"/></a>
                     </li>
-                
                     </ul>
                 </div>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse" id="userNavBar">
                     <ul class="nav navbar-nav navbar-right">
-                    <li><a id="my-page-btn" class="btn btn-default" href="#/userpage">My Page</a></li>           
-                    <li><a id="my-page-setting" href="#/userpage/settings">Settings</a>
-                        <img class="sicon" src="resources/settingIcon-s.png"/></li>
-                    <li><a id="my-page-message" href="#/userpage/messages">Messages</a>
-                        <img class="sicon" src="resources/message-s.png"/></li>
-                    <li><a id="history-btn" class="btn btn-default" href="#/userpage/history">My History</a> </li>
+                        <li><a class="my-page" href="#/userpage">My Page</a></li>           
+                        <li><a class="setting" href="#/userpage/settings">Settings</a></li>
+                        <li><a class="message" href="#/userpage/messages">Messages</a></li>
+                        <li><a class="history" href="#/userpage/history">My History</a> </li>
                     </ul>
                 </div>
             </div>

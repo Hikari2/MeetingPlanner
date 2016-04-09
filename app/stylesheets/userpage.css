@@ -1,63 +1,56 @@
 .userPage {
     padding-top: 65px;
 }
+
+/* user page navbar css*/
+
 #user-nav {
-    height:9.25vh;
+    min-height: 70px;
     background-color: #D9B580;
+    border: 1px solid #D9B580;
 }
 
-#logo-img,#name-img{
-    height: 9.25vh;
-    width: 6vw;
+#name-img{
+    height: 100%;
+    width: 100%;
 }
 
-#my-page-btn,#history-btn{
+.user-nav .navbar-right{
+    padding-right: 20px;
+    display: table;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    height: 68px;
+    display: table-cell;
     font-family: steelfishregular;
-    height:5.9vh;
-    width: 7vw;
     vertical-align: middle;
     color: white;
-    background-color: #D9B580;
-    border: 2px solid  white;
-    border-radius: 24px;
-    font-size: 1.4vw;
-    transition: all .25s linear;
-    margin-left: 8vw;
+    font-size: 25px;
+    transition: color .25s linear;
 }
 
-#history-btn{
-    margin-left: 20vw;
-}
-
-.userPage .sicon{
-    width: 1.5vw;
-    height: 1.5vw;
-    margin-left: 0.3vw;
-    transition: all .25s linear;
-}
-
-#my-page-btn:hover,#history-btn:hover{
-    background-color: white;
-    color: #D9B580;
-    transition: all .25s linear;
-}
-#right-nav{
-    padding-left: 10vw;
-}
-
-#my-page-setting,#my-page-message{
-    vertical-align: middle;
-    margin-left: 1.5vw;
-    color: white;
-    font-size: 1.2vw;
-    transition: all .25s linear;
-}
-#my-page-setting:hover, #my-page-message:hover{
+.navbar-inverse .navbar-nav > li > a:hover,.navbar-inverse .navbar-nav > li > a:focus {
     color: #C08636;
-    text-decoration: none;
-    transition: all .25s linear;
+    transition: color .25s linear;
 }
 
+.user-nav .navbar-left,.user-nav .navbar-left a{
+    max-height: 68px;
+    max-width: 100px;
+}
+
+.user-nav .navbar-header button{
+    background-color: #C08636;
+    color: #D9B580;
+    border: 2px solid #C08636;
+}
+
+.user-nav .navbar-header button:hover,.user-nav .navbar-header button:active,
+.user-nav .navbar-header button:focus{
+    background-color:  #D9B580;
+    color: red;
+}
 #col-1{
     width:20vw;
 }
