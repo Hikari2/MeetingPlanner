@@ -5,20 +5,20 @@
 
 /****         NAVIGATION BAR      ****/
 
-.navbar{
+.main-nav .navbar{
     background-color: white;
     border-bottom: 2px solid #D8D8D8;
 }
 
-.navbar img{
+.main-nav .navbar img{
     height: 30px;
 }
 
-.navbar a:hover{
+.main-nav .navbar a:hover{
     border-bottom: 5px solid #B40404;
 }
 
-.navbar a{
+.main-nav .navbar a{
     border-bottom: 0px solid white;
     height: 50px;
     transition: all .15s ease-in-out;
@@ -26,7 +26,7 @@
     color: black;
 }
 
-.navbar .navbar-left li{
+.main-nav .navbar .navbar-left li{
     max-width: 120px;
 }
 
