@@ -21,8 +21,8 @@
 
 .home .top h1{
     margin-top: 20%;
-    color: white;
-    font-size: 86px;
+    color: palevioletred;
+    font-size: 52px;
 }
 
 .home .top h2{
@@ -33,13 +33,13 @@
 .home .top .btn{
     font-size: 24px;
     color: white;
-    background-color: #C70909;
+    background-color: #ff69b4;
     padding: 10px 30px 10px 30px;
     border-style: none;
 }
 
 .home .top .btn:hover{
-    background-color: #E00202;
+    background-color: palevioletred;
 }
 
 .home .content-text{
