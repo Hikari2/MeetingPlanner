@@ -1,0 +1,70 @@
+<div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+<div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
+<div class="container" id="uploadImg">
+    <script type="text/javascript">
+
+            function previewImage(file) {
+//            alert("GOOd");
+
+                var maxWidth = 260;
+                var mawHeight = 180;
+                var div = document.getElementById("preview");
+                if (file.files && file.files[0]) {
+                    div.innerHTML = "<img id='imghead'>";
+                    var img = document.getElementById("imghead");
+                    img.onload = function () {
+                        var rect = clacImgZoomParam(maxWidth, mawHeight, img.offsetWidth, img.offsetHeight);
+                        img.width = rect.width;
+                        img.height = rect.height;
+                        img.style.marginLeft = rect.left + "px";
+                        img.style.marginTop = rect.top + "px";
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                        img.src = evt.target.result;
+
+                    }
+                    reader.readAsDataURL(file.files[0]);
+                }
+
+            }
+
+            function clacImgZoomParam(maxWidth, maxHeigth, width, height) {
+                var param = {top: 0, left: 0, width: width, heigth: height};
+                if (width > maxWidth || height > maxHeigth) {
+                    rateWidth = width / maxWidth;
+                    rateHeight = height / maxHeigth;
+
+                    if (rateWidth > rateHeight) {
+                        param.width = maxWidth;
+                        param.height = Math.round(height / rateWidth);
+                    } else {
+                        param.width = Math.round(width / rateHeight);
+                        param.height = maxHeigth;
+                    }
+                }
+                param.left = Math.round((maxWidth - param.width) / 2);
+                param.right = Math.round((maxHeigth - param.heigth) / 2);
+                return param;
+            }
+    </script>
+
+
+    <div id="preview">
+        <img src="../resources/userIcon-m.png" border="0" id="imghead" width="180" height="180">
+    </div>
+    <div>
+        <input type="file" onchange="previewImage(this)">
+        <input type="submit" onclick="">
+    </div>
+    <div>
+        <input type="button" onclick="closeWindow()" value="Close">
+    </div>
+    <script type="text/javascript">
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+
+</div>
+
