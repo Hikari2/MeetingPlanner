@@ -156,7 +156,7 @@
 }
 
 .main-user-page .detail-info .col-md-1,
-.main-user-page .detail-info col-md-1 li{
+.main-user-page .detail-info col-md-1 li{  /*Thats the problem,be careful*/
     width: 50%;
 }
 
@@ -326,8 +326,49 @@
     border: 1px solid #E0E0E0;
 }
 
+.nav__menu {
+    line-height: 45px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.nav__menu-item {
+    display: inline-block;
+    position: relative;
+}
+.nav__menu-item:hover {
+    /*background-color: #ABA9A9;*/
+}
+.nav__menu-item:hover .nav__submenu {
+    display: block;
+}
+.nav__submenu {
+    font-weight: 300;
+    text-transform: none;
+    display: none;
+    position: absolute;
+    width: 220px;
+    background-color: #ABA9A9;
+    padding-left: 15px;!important;
 
+}
+.nav__submenu-item{
+    /*padding-left: 0px;!important;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+    list-style: none;!important;
+    color: white;
 
+}
+.nav__submenu-item:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: none;!important;
+}
+
+#tempHide a:hover{
+    border-bottom: none;!important;
+    color: white;
+
+}
 
 
 
