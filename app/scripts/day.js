@@ -2,8 +2,10 @@
 // but there is also a specific function in the Model that adds
 // days to the model, so you don't need call this yourself.
 function Day(startH, startM, userId) {
-    this.userId;
+
+    this.uid = userId;
     this._start = startH * 60 + startM;
+    this._end = 0;
     this._activities = [];
 
     // sets the start time to new value
@@ -25,15 +27,15 @@ function Day(startH, startM, userId) {
     // the end time of the day
     this.getEnd = function () {
         var end = this._start + this.getTotalLength();
-        
+
         var hours = Math.floor(end / 60);
         var mins = end % 60;
-        
+
         if (hours < 10)
-            hours = "0"+hours;
-        
+            hours = "0" + hours;
+
         if (mins < 10)
-            mins = "0"+mins;
+            mins = "0" + mins;
 
         return hours + ":" + mins;
     };
@@ -41,7 +43,16 @@ function Day(startH, startM, userId) {
     // returns the string representation Hours:Minutes of
     // the start time of the day
     this.getStart = function () {
-        return Math.floor(this._start / 60) + ":" + this._start % 60;
+        var hours = Math.floor(this._start / 60);
+        var mins = this._start % 60;
+
+        if (hours < 10)
+            hours = "0" + hours;
+
+        if (mins < 10)
+            mins = "0" + mins;
+
+        return hours + ":" + mins;
     };
 
     // returns the length (in minutes) of activities of certain type
@@ -88,32 +99,55 @@ function Day(startH, startM, userId) {
         }
         var activity = this._removeActivity(oldposition);
         this._addActivity(activity, newposition);
+        return this._activities;
     };
 
     this.getActivityStart = function (index) {
+
         var counter = this._start;
         for (var i = 0; i < this._activities.length; i++) {
             if (i == index)
                 break;
             counter += this._activities[i].getLength();
         }
-        
+
         var hours = Math.floor(counter / 60);
         var mins = counter % 60;
-        
+
         if (hours < 10)
-            hours = "0"+hours;
-        
+            hours = "0" + hours;
+
         if (mins < 10)
-            mins = "0"+mins;
+            mins = "0" + mins;
 
         return hours + ":" + mins;
     };
 
     this.toJson = function () {
-        return ("{" +
-                "userId:" + this.userId + "," +
-                "startTime:" + this.getStart() +
-                "}");
+        var json = {
+            uid: this.uid,
+            start: this._start,
+            end: this._end,
+            activities: []
+        };
+
+        $.each(this._activities, function (index, activity) {
+            json.activities.push(activity.toJson());
+        });
+
+        return json;
     };
 }
+
+Day.fromJson = function (json) {
+
+    var day = new Day(Math.floor(json.start / 60), json.start % 60, json.uid);
+
+    if (json.activities) {
+        $.each(json.activities, function (index, activity) {
+            day._activities.push(Activity.fromJson(activity));
+        });
+    }
+
+    return day;
+};

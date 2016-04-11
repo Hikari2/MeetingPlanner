@@ -1,13 +1,8 @@
-
-<!--suppress ALL -->
 <div class="userProfile">
     <div class="container">
         <div class="row">
             <div class="user-info col-md-3 col-xs-6" >
-                <!--<a href="../views/uploadImg.html" target="_blank"  >-->
-                <!--<a href="#uploadImg" target="_blank"  >-->
-                    <img  src="./resources/userIcon-m.png" onclick="openDia()" />
-                <!--</a>-->
+                <img  src="./resources/userIcon-m.png" />
                 <p class="user-name">{{authentication.password.email}}</p>
                 <div class="row meeting-num">
                     <div class="col-md-4"><p>0</p></div>
@@ -23,10 +18,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function openDia() {
-//        var temp = window.showModalDialog("#uploadImg","","dialogWith=640px;dialogHeight:423px;status=no;help=no;scrollbars=no")
-    window.open('./views/uploadImg.html','newwindow','height=400,width=400,top=0,tobbar=no,menubar=no,scrollbars=no');
-    }
-</script>
-

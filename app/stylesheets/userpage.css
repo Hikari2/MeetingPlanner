@@ -86,6 +86,7 @@
 }
 
 .userProfile .meeting-label{
+    margin-top: 0px;
     border-bottom: 2px solid #E0E0E0;
 }
 .userProfile .meeting-num p{
@@ -108,7 +109,6 @@
 .main-user-page .display-box{
     margin-top: 10px;
     width:100%;
-    margin-bottom: 15px;
 }
 
 .main-user-page .blocktitle{
@@ -149,39 +149,30 @@
     transition: all .25s linear;
 }
 
-.main-user-page .detail-info,.main-user-page .meeting-info{
+.main-user-page .detail-info,.meeting-info{
     background-color: white;
     width: 100%;
     border: 1px solid #E0E0E0;
 }
 
-.main-user-page .detail-info .info-list ul{
+.main-user-page .detail-info .col-md-1,
+.main-user-page .detail-info col-md-1 li{
+    width: 50%;
+}
+
+.main-user-page .detail-info .col-md-1 ul{
     margin-top: 20px;
     list-style-type: none;
-    width: 100%;
 }
 
-.main-user-page .detail-info .info-list li{
+.main-user-page .detail-info .col-md-1 li{
     margin-top: 10px;
     margin-bottom: 10px;
-    display: table;
 }
-.main-user-page .detail-info .info-list label{
-    display: table-cell;
-    width: 10%;
-    min-width: 80px;
+.main-user-page .detail-info .col-md-1 label,
+.main-user-page .detail-info .row-2 label{
+    width: 30%;
     white-space: nowrap;
-}
-
-.main-user-page .detail-info .info-list .short p{
-    display: table-cell;
-    width: 35%;
-}
-
-.main-user-page .detail-info .description-box{
-    padding: 10px 10px 10px 10px;
-    width: 95%;
-    border: 1px solid #E0E0E0;
 }
 
 .main-content .footer{
@@ -214,6 +205,22 @@
 .main-content .footer a:hover  .view-more-img{
     content: url("../resources/addmorehover.png");
 }
+.detail-info .row-2 ul{
+    list-style-type: none;
+}
+
+.detail-info .col-md-2{
+    width: 100%;
+}
+
+.detail-info .description-box{
+    /*
+    margin-top: 5px;
+    padding-left: .5vw;
+    padding-right: .5vw;
+    padding-top: .5vw;*/
+    border: 1px solid #E0E0E0;
+}
 
 .main-user-page .meeting-info .meeting-list{
     padding-top: 15px;
@@ -229,23 +236,24 @@
     border: 1px solid #E0E0E0;
     transition: all .25s linear;
 }
-
+.main-user-page .meeting-info .img-col{
+    height: 10vw;
+}
 .main-user-page .meeting-info img{
-    width: 120%;
+    width: 100%;
 }
 .main-user-page .meeting-info .meeting-detail-col{
     margin-left: 5px;
 }
 
 .main-user-page .meeting-detail-col span{
-    height: 40px;
+    height: 50px;
     width: 100%;
     display: table;
 }
 
 
 .main-user-page .meeting-detail-col .meeting-title{
-    width: 110%;
     background-color:  #D9B580;
     text-align: center;
 }
@@ -262,7 +270,7 @@
     list-style-type: none;
 }
 .main-user-page .meeting-detail-col li{
-    margin-top: 10px;
+    margin-top: 15px;
     margin-left: -15px;
     text-align: left;
 }
@@ -304,131 +312,33 @@
 }
 
 .main-user-page .meeting-list .meeting-list-item:hover{
-    margin-bottom: -2px;
     cursor: pointer;
     border: 2px solid  #C08636;
     transition: all .25s linear;
 }
 
 .main-user-page .important-list,.main-user-page .important-list .title{
-    width:105%;
+    width:100%;
 }
 
 .main-user-page .important-list .list-info{
-    width:105%;
+    width:100%;
     border: 1px solid #E0E0E0;
 }
 
 
-.editMeeting .top{
-    margin-top: 100px;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.editMeeting .leftPanel{
-    float: left;
-    margin-left: 20%;
-    width: 270px;
-}
-
-.editMeeting .leftPanel button{
-    width: 100%;
-    height: 50px;
-    background-color: #ff4d4d;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.editMeeting .leftPanel .activityQueue{
-    border-style: none;
-}
-
-.editMeeting .activityQueue{
-    border: solid;
-    border-width: 1px;
-    min-height: 400px;
-    padding: 1px 1px 1px 1px;
-}
-
-.editMeeting .activityQueue tr{
-    height: 50px;
-    text-align: center;
-    border-bottom: solid;
-    border-width: 1px;
-}
-
-.editMeeting .activityQueue .activityLength{
-    width: 70px;
-}
-
-.editMeeting .activityQueue .activityName{
-    width: 200px;
-    font-size: 16px;
-}
-
-.editMeeting .activityQueue .Presentation{
-    background-color: #CEF6F5;
-}
-
-.editMeeting .activityQueue .Group_Work{
-    background-color: #F5A9BC;
-}
-
-.editMeeting .activityQueue .Discussion{
-    background-color: #BCF5A9;
-}
-
-.editMeeting .activityQueue .Break{
-    background-color: #F4FA58;
-}
-
-.editMeeting .activityQueue .placeHolder{
-    font-size: 24px;
-    width: 270px;
-}
-
-.editMeeting .rightPanel{
-    float: left;
-    margin-left: 5%;
-    height: 200px;
-    width: 270px;
-}
-
-.editMeeting #overview{
-    height: 100px;
-    margin-bottom: 25px;
-}
-
-.editMeeting #overview .subtitle{
-    font-weight: bold;
-}
-
-@media screen and (max-width: 980px){
 
 
-    .editMeeting .leftPanel{
-        margin-left: 2%;
-    }
 
-    .editMeeting .rightPanel{
-        margin-left: 2%;
-        height: 100px;
-    }
-    
-    .main-user-page .important-list,.main-user-page .important-list .title,
-    .main-user-page .important-list .list-info{
-        width:100%;
-    }
-}
 
-@media screen and (max-width:640px){
-    .userProfile .meeting-num p{
-        font-size: 20px;
-    }
-    
-    .userProfile .meeting-label p{
-        font-size: 10px;
-    }
-}
+
+
+
+
+
+
+
+
+
+
+

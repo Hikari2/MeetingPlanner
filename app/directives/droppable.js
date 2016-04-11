@@ -1,6 +1,6 @@
 meetingAgendaBuilder.directive('droppable', function () {
     return {
-        scope: {drop: '&', activityQueue: '='},
+        scope: {drop: '&', index: '='},
         link: function (scope, element) {
             // again we need the native object
             var el = element[0];
@@ -21,16 +21,19 @@ meetingAgendaBuilder.directive('droppable', function () {
                 this.classList.remove('over');
 
                 var oldPosition = e.dataTransfer.getData('position');
-                var newPosition = this.id;
+                var newPosition = scope.index;
 
-                var oldDay = e.dataTransfer.getData('day');
-                var newDay = this.parentElement.id;
+                var oldQueue = e.dataTransfer.getData('queue');
+                var newQueue = this.parentElement.classList[0];
 
                 scope.$apply(function (scope) {
                     var fn = scope.drop();
                     if ('undefined' !== typeof fn) {
                         //alert(oldDay + ", " + oldPosition + " > " +newDay + ", " + newPosition);
-                        fn(oldDay, oldPosition, newDay, newPosition);
+                        if (el.id == "bin")
+                            fn(oldQueue, oldPosition);
+                        else
+                            fn(oldQueue, oldPosition, newQueue, newPosition);
                     }
                 });
                 return false;

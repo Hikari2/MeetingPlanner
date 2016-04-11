@@ -15,7 +15,7 @@
 }
 
 .main-nav .navbar a:hover{
-    border-bottom: 5px solid #B40404;
+    border-bottom: 5px solid #1da1f2;
 }
 
 .main-nav .navbar a{
@@ -131,13 +131,13 @@ footer a{
 
 #nav-footer{
     /*height: 30px;*/
-    /*padding:50px 0 0 0;*/
+    padding: 40px 0 40px 0;
     /*color: #D9B580;*/
     color: white;
     border:none;
     height: 40%;
     /*padding-top: 10%;*/
-    background-color: palevioletred;
+    background-color: #ABA9A9;
     width: 100%;
     min-width: 100%;
     vertical-align: top;

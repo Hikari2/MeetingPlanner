@@ -1,55 +1,51 @@
 <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
 <div class="editMeeting">
-    <section class="top">
-        <div class="container">
-            <div class="row">
+    <section class="top container">
+        <div class="row optionBar">
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
             </div>
+            <div class="col-xs-6 col-md-2">From {{startTime}} ~ {{endTime}}</div>
         </div>
     </section >
-    <section class="main">
-        <div class="container">
-            <div class="row">
-                <div class="leftPanel .col-xs-6 .col-sm-6">
-                    <div class="activityQueue">
-                        <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
-                        <table>
-                            <tr id="-1" ng-repeat="activity in getPendingActivities()">
-                                <td class="activityLength .col-xs-6 .col-md-4">{{activity.getLength()}} min</td>
-                                <td id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8" draggable droppable drop="moveActivity">{{activity.getName()}}</td>
-                            </tr>
-                            <tr id="-1" ng-show="getPendingActivities().length == 0">
-                                <td id="{{$index}}" class="activityName placeHolder .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity"><span class="glyphicon glyphicon-chevron-down"></span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="rightPanel .col-xs-6 .col-sm-6">
-                    <table id="overview">
-                        <tr>
-                            <td class="subtitle">Start time</td>
-                            <td><input type=time value="08:00" ng-model="startTime" ng-change="setStart(startTime)"/></td>
+    <section class="main container">
+        <div class="row">
+            <div class="leftPanel col-xs-6 col-sm-4">
+                <div class="activityQueue">
+                    <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
+                    <table>
+                        <tr class="pendingActivity" ng-repeat="activity in getPendingActivities()">
+                            <td class="length .col-md-4">{{activity.getLength()}} min</td>
+                            <td class="name {{getActivityType(activity.getTypeId())}} .col-md-8" draggable droppable drop="moveActivity" index="$index">{{activity.getName()}}</td>
                         </tr>
-                        <tr>
-                            <td class="subtitle">End time</td>
-                            <td>{{endTime}}</td>
+                        <tr class="pendingActivity" ng-show="getPendingActivities().length == 0">
+                            <td class="length .col-md-4"></td>
+                            <td class="name .col-md-8" droppable drop="moveActivity" index="$index"></td>
                         </tr>
-                        <tr>
-                            <td class="subtitle">Total length:</td>
-                            <td> &nbsp {{dayLength}} min</td>
+                        <tr id="bin" droppable drop="deleteActivity">
+                            <td class="length .col-md-4"><span class="glyphicon glyphicon-trash"></span></td>
+                            <td class="name .col-md-8"></td>
                         </tr>
                     </table>
-                    <div class="activityQueue">
-                        <table>
-                            <tr id="{{id}}" ng-repeat="activity in getActivities()">
-                                <td class="activityLength .col-xs-6 .col-md-4">{{getActivityStart($index)}}</td>
-                                <td id="{{$index}}" class="activityName {{getActivityType(activity.getTypeId())}} .col-xs-12 .col-sm-6 .col-md-8" draggable droppable drop="moveActivity">{{activity.getName()}}</td>
-                            </tr>
-                            <tr id="{{id}}" ng-show="getActivities().length == 0">
-                                <td class="activityLength .col-xs-6 .col-md-4">{{getActivityStart($index)}}</td>
-                                <td id="{{$index}}" class="activityName placeHolder .col-xs-12 .col-sm-6 .col-md-8" droppable drop="moveActivity"></td>
-                            </tr>
-                        </table>
-                    </div>
+                </div>
+            </div>
+            <div class="midPanel col-xs-6 col-sm-4">
+                <div class="activityQueue">
+                    <table>
+                        <tr  class="addedActivity" ng-repeat="activity in activities">
+                            <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
+                            <td id="{{$index}}" class="bin name {{getActivityType(activity.typeid)}} .col-md-8" draggable droppable drop="moveActivity" index="$index">{{activity.name}}</td>
+                        </tr>
+                        <tr id="{{id}}" ng-show="activities.length == 0">
+                            <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
+                            <td id="{{$index}}" class="bin name placeHolder .col-md-8" droppable drop="moveActivity" index="$index"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

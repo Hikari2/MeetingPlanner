@@ -7,9 +7,10 @@ meetingAgendaBuilder.directive('draggable', function () {
 
         el.addEventListener("dragstart", function (e) {
             e.dataTransfer.effectAllowed = "move";
-            e.dataTransfer.setData("position", this.id);
-            e.dataTransfer.setData("day", this.parentElement.id);
+            e.dataTransfer.setData("position", scope.$index);
+            e.dataTransfer.setData("queue", this.parentElement.classList[0]);
             this.classList.add("drag");
+
             return false;
         });
 

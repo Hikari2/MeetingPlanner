@@ -8,44 +8,42 @@ and open the template in the editor.
     Author     : Hao
 */
 .user-settings ul{
-    margin-top: 15px;
-    margin-left: -25px;
+    margin-top: 3vh;
+    margin-left: -3vw;
     list-style-type: none;
 }
 .user-settings li{
-    margin-top: 15px;
-    width: 100%;
+    margin-top: 2vh;
+    width: 51.5vw;
 }
 .user-settings .info-list label{
     text-align: left;
-    margin-left: 15px;
-    width: 10%;
-    min-width: 60x;
+    margin-left: 1vw;
+    width: 5vw;
 }
 .user-settings .short-input{
     display: table-cell;
-    width: 35%;
+    width: 19vw;
 }
 
 .user-settings .long-input{
     display: table-cell;
-    width: 83%;
+    width: 44.5vw;
 }
 
 .user-settings textArea{
-    margin-left: 15px;
-    width: 93%;
-    max-width:  93%;
+    margin-left: .5vw;
+    width: 50.5vw;
+    max-width: 50.5vw;
 }
 
 .user-settings .btn{
-    margin-left: 35px;
     display: table-cell;
     font-weight: bold;
-    width: 100px;
-    height: 40px;
+    width: 6vw;
+    height: 6vh;
     border: 2px solid #D9B580;
-    border-radius: 23px;
+    border-radius: 3vh;
     background-color: white;
     color: #D9B580;
     transition: all .25s linear;
@@ -55,17 +53,4 @@ and open the template in the editor.
     background-color: #D9B580;
     color: white;
     transition: all .25s linear;
-}
-
-@media screen and (max-width:860px){
-    .user-settings .info-list label,.user-settings .info-list .short-input,
-    .user-settings .info-list .long-input, .user-settings textArea{
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width:480px){
-    .user-settings .info-list label{
-        font-size: 10px;
-    }
 }
