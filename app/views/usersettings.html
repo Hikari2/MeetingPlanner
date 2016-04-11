@@ -2,10 +2,10 @@
 <div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
 <div class="container user-settings">
     <div class="row">
-        <div id="col-1" class="col-md-1">
+        <div id="col-1" class="col-md-3">
             <div ng-include="'views/userprofile.html'"  ng-controller="AuthenticationCtrl"></div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9 col-xs-12">
             <ul class="info-list">
                 <li>
                     <label>First Name</label>
@@ -39,10 +39,12 @@
                     <label>Description</label>
                     <Textarea  class="form-control" rows="5">{{userInfo.Description}}</Textarea>
                 </li>
+                <li>
+                    <div class="footer">
+                        <a class="btn">Save</a>
+                    </div>
+                </li>
             </ul>
-            <div class="footer">
-                <a class="btn">Save</a>
-            </div>
         </div>
     </div>
 </div>

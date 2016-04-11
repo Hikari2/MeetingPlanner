@@ -13,53 +13,36 @@
                 </div>
                 <div class="detail-info">
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="info-list">
                             <ul >
-                                <li>
-                                    <label>First Name</label> {{userInfo.Firstname}}
+                                <li class="short">
+                                    <label>First Name</label><p> {{userInfo.Firstname}}</p>
+                                    <label>Last Name</label><p> {{userInfo.Lastname}}</p>
                                 </li>
-                                <li>
-                                    <label>E-mail</label> {{userInfo.Email}}
+                                <li class="short">
+                                    <label>E-mail</label><p> {{userInfo.Email}}</p>
+                                    <label>Phone No.</label><p> {{userInfo.Phoneno}}</p>
                                 </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Gender</label> {{userInfo.Gender}}
+                                <li class="short" ng-show="personalInfoViewMore">
+                                    <label>Gender</label><p> {{userInfo.Gender}}</p>
+                                    <label>Birth Day</label><p> {{userInfo.Birthday}}</p>
                                 </li >
+                                <li class="short" ng-show="personalInfoViewMore">
+                                    <label>Company</label><p> {{userInfo.Company}}</p>
+                                    <label>Position</label><p> {{userInfo.Position}}</p>
+                                </li>
+                                <li class="long" ng-show="personalInfoViewMore">
+                                        <label>Address</label> {{userInfo.Address}}
+                                </li>
                                 <li ng-show="personalInfoViewMore">
-                                    <label>Company</label> {{userInfo.Company}}
+                                    <label>Description</label>
+                                </li>
+                                <li class="area" ng-show="personalInfoViewMore">
+                                    <div class="description-box">
+                                        <p>{{userInfo.Description}}</p>
+                                    </div>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="col-md-1">
-                            <ul >
-                                <li>
-                                    <label>Last Name</label> {{userInfo.Lastname}}
-                                </li>
-                                <li>
-                                    <label>Phone No.</label> {{userInfo.Phoneno}}
-                                </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Birth Day</label> {{userInfo.Birthday}}
-                                </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Position</label> {{userInfo.Position}}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="row-2" ng-show="personalInfoViewMore">
-                            <div class="col-md-2">
-                                <ul>
-                                    <li>
-                                        <label>Address</label>
-                                        {{userInfo.Address}}
-                                    </li>
-                                    <li>
-                                        <label>Description</label>
-                                        <div class="description-box">
-                                            <p>{{userInfo.Description}}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <div class="footer">
@@ -109,7 +92,7 @@
             </div>
         </div>
             
-        <div class="col-3 col-md-2">
+        <div class="col-3 col-md-2 col-xs-12">
             <div class="row important-list display-box">
                 <div id="important-list-title" class="blocktitle title">
                     <span class="title-1">Important Meetings</span>

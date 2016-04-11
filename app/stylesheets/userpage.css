@@ -86,7 +86,6 @@
 }
 
 .userProfile .meeting-label{
-    margin-top: 0px;
     border-bottom: 2px solid #E0E0E0;
 }
 .userProfile .meeting-num p{
@@ -109,6 +108,7 @@
 .main-user-page .display-box{
     margin-top: 10px;
     width:100%;
+    margin-bottom: 15px;
 }
 
 .main-user-page .blocktitle{
@@ -149,30 +149,39 @@
     transition: all .25s linear;
 }
 
-.main-user-page .detail-info,.meeting-info{
+.main-user-page .detail-info,.main-user-page .meeting-info{
     background-color: white;
     width: 100%;
     border: 1px solid #E0E0E0;
 }
 
-.main-user-page .detail-info .col-md-1,
-.main-user-page .detail-info col-md-1 li{
-    width: 50%;
-}
-
-.main-user-page .detail-info .col-md-1 ul{
+.main-user-page .detail-info .info-list ul{
     margin-top: 20px;
     list-style-type: none;
+    width: 100%;
 }
 
-.main-user-page .detail-info .col-md-1 li{
+.main-user-page .detail-info .info-list li{
     margin-top: 10px;
     margin-bottom: 10px;
+    display: table;
 }
-.main-user-page .detail-info .col-md-1 label,
-.main-user-page .detail-info .row-2 label{
-    width: 30%;
+.main-user-page .detail-info .info-list label{
+    display: table-cell;
+    width: 10%;
+    min-width: 80px;
     white-space: nowrap;
+}
+
+.main-user-page .detail-info .info-list .short p{
+    display: table-cell;
+    width: 35%;
+}
+
+.main-user-page .detail-info .description-box{
+    padding: 10px 10px 10px 10px;
+    width: 95%;
+    border: 1px solid #E0E0E0;
 }
 
 .main-content .footer{
@@ -205,22 +214,6 @@
 .main-content .footer a:hover  .view-more-img{
     content: url("../resources/addmorehover.png");
 }
-.detail-info .row-2 ul{
-    list-style-type: none;
-}
-
-.detail-info .col-md-2{
-    width: 100%;
-}
-
-.detail-info .description-box{
-    /*
-    margin-top: 5px;
-    padding-left: .5vw;
-    padding-right: .5vw;
-    padding-top: .5vw;*/
-    border: 1px solid #E0E0E0;
-}
 
 .main-user-page .meeting-info .meeting-list{
     padding-top: 15px;
@@ -236,24 +229,23 @@
     border: 1px solid #E0E0E0;
     transition: all .25s linear;
 }
-.main-user-page .meeting-info .img-col{
-    height: 10vw;
-}
+
 .main-user-page .meeting-info img{
-    width: 100%;
+    width: 120%;
 }
 .main-user-page .meeting-info .meeting-detail-col{
     margin-left: 5px;
 }
 
 .main-user-page .meeting-detail-col span{
-    height: 50px;
+    height: 40px;
     width: 100%;
     display: table;
 }
 
 
 .main-user-page .meeting-detail-col .meeting-title{
+    width: 110%;
     background-color:  #D9B580;
     text-align: center;
 }
@@ -270,7 +262,7 @@
     list-style-type: none;
 }
 .main-user-page .meeting-detail-col li{
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: -15px;
     text-align: left;
 }
@@ -312,17 +304,18 @@
 }
 
 .main-user-page .meeting-list .meeting-list-item:hover{
+    margin-bottom: -2px;
     cursor: pointer;
     border: 2px solid  #C08636;
     transition: all .25s linear;
 }
 
 .main-user-page .important-list,.main-user-page .important-list .title{
-    width:100%;
+    width:105%;
 }
 
 .main-user-page .important-list .list-info{
-    width:100%;
+    width:105%;
     border: 1px solid #E0E0E0;
 }
 
@@ -423,5 +416,19 @@
         margin-left: 2%;
         height: 100px;
     }
+    
+    .main-user-page .important-list,.main-user-page .important-list .title,
+    .main-user-page .important-list .list-info{
+        width:100%;
+    }
 }
 
+@media screen and (max-width:640px){
+    .userProfile .meeting-num p{
+        font-size: 20px;
+    }
+    
+    .userProfile .meeting-label p{
+        font-size: 10px;
+    }
+}
