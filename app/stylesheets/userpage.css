@@ -180,12 +180,14 @@ important : #CC0066
     width: 90%;
     min-height: 300px;
     padding: 15px 15px 15px 15px;
+}
+.main-user-page .add-new .not-in{
     background-color: #FAFAFA;
     border: 2px dotted #E0E0E0;
     transition: all .25s linear;
 }
 
-.main-user-page .add-new .meeting-box:hover{
+.main-user-page .add-new .in{
     background-color: #FAFAFA;
     border: none;
     background-color: white;
@@ -195,11 +197,19 @@ important : #CC0066
     transition: all .25s linear;
 }
 
-.main-user-page .add-new .meeting-box:focus,.main-user-page .add-new .meeting-box:active{
+.main-user-page .add-new .active{
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     border-top: 2px solid #E0E0E0;
     cursor: default;
-    background-color: red;
+    background-color: white;
+}
+
+.main-user-page .add-new .active .btn{
+    background-color: #1DA1F2;
+    color: white;
+}
+
+.main-user-page .add-new .active .title{
     color: black;
 }
 

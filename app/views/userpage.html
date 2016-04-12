@@ -1,8 +1,6 @@
 <div class="main-user-page">
     <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
-    <div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
-
-    <div class="container">
+    <div class="container userPage">
         <div class="row meeting-list">
             <div class="item col-md-4 col-xs-12" ng-dblclick="open(meeting)" ng-repeat="meeting in meetingList">
                 <div class="meeting-box" ng-class="meeting.Info.Type">
@@ -38,14 +36,15 @@
                 </div>
             </div>
             <div class="add-new col-md-4 col-xs-12">
-                <div class="meeting-box">
+                <div class="meeting-box" ng-mouseenter="setMouseInAddMore(1)" ng-class="addMoreState"
+                     ng-mouseleave="setMouseInAddMore(0)" ng-click="setMouseInAddMore(2)">
                     <div class="info">                  
                         <div class="title">
                             <label>Add a New Meeting</label>
                         </div>
                     </div>
                     <div class="footer">
-                        <button class="btn btn-default">CREATE NEW MEETING</button>
+                        <button class="btn btn-default" ng-disabled="">CREATE NEW MEETING</button>
                     </div>
 
                 </div>

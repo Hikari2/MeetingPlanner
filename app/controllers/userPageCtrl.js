@@ -4,6 +4,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
     $scope.user = currentAuth;
     $scope.dragedTarget = null;
     $scope.viewMore=[];
+    $scope.addMoreState="not-in";
+    $scope.addMoreAbled=false;
     
     $scope.userInfo={
         Firstname:"Erik",
@@ -30,6 +32,22 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
         $scope.meetingViewMore=newValue;
     };
     
+    $scope.setMouseInAddMore = function(val)
+    {
+        if(val===1)// mouse in the add more but not clicked
+        {
+            $scope.addMoreState="in";
+            $scope.addMoreAbled=false;
+        }
+        else if(val===0){// the mouse is not in the filde
+            $scope.addMoreState="not-in";
+            $scope.addMoreAbled=false;
+        }else// mouse in the add more and is active
+        {
+            $scope.addMoreState="active";
+            $scope.addMoreAbled=true;
+        }
+    }
     
     $scope.meetingList=[];
     var m1={
