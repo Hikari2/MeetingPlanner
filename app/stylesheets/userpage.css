@@ -323,7 +323,6 @@ important : #CC0066
 
 @media screen and (max-width: 980px){
 
-
     .editMeeting .leftPanel{
         margin-left: 2%;
     }
@@ -332,60 +331,4 @@ important : #CC0066
         margin-left: 2%;
         height: 100px;
     }
-
-}
-
-@media screen and (max-width:640px){
-
-}
-.nav__menu {
-    line-height: 45px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-.nav__menu-item {
-    display: inline-block;
-    position: relative;
-}
-.nav__menu-item:hover {
-    /*background-color: #ABA9A9;*/
-}
-.nav__menu-item:hover .nav__submenu {
-    display: block;
-}
-.nav__submenu {
-    font-weight: 300;
-    text-transform: none;
-    /*text-align: center;*/
-    display: none;
-    position: absolute;
-    width: 160px;
-    /*background-color: #ABA9A9;*/
-    background-color: white;
-    padding-left: 20px;!important;
-    padding-right: 20px;!important;
-
-
-}
-.nav__submenu-item{
-    /*padding-left: 0px;!important;*/
-    padding-top: 10px;
-    padding-bottom: 10px;
-    list-style: none;!important;
-    /*color: white;!important;*/
-    color: white;
-
-}
-.nav__submenu-item:hover {
-    border-bottom: none;!important;
-    /*background: white;*/
-    background-color: #ABA9A9;
-    color: white;!important;
-    /*text-emphasis-color: white;*/
-}
-
-#tempHide a:hover{
-    border-bottom: none;!important;
-    font-weight: bold;
-
 }

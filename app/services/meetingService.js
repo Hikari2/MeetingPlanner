@@ -6,7 +6,11 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
     var ref = new Firebase(FireBaseURL);
     this.days = $firebaseArray(ref.child("meetings"));
     this.parkedActivities = [];
-
+    
+    this.getDay = function (index) {
+        return Day.fromJson(this.days[index]);
+    }
+    
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
     this.addDay = function (startH, startM, uid) {
@@ -19,6 +23,10 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
         this.days.$add(day.toJson());
         return day;
     };
+    
+    this.getActivities = function (day) {
+        return activities = Day.fromJson(this.days[day]).getActivities();
+    }
 
     // add an activity to model
     this.addActivity = function (activity, day, position) {

@@ -26,33 +26,13 @@ function Day(startH, startM, userId) {
     // returns the string representation Hours:Minutes of
     // the end time of the day
     this.getEnd = function () {
-        var end = this._start + this.getTotalLength();
-
-        var hours = Math.floor(end / 60);
-        var mins = end % 60;
-
-        if (hours < 10)
-            hours = "0" + hours;
-
-        if (mins < 10)
-            mins = "0" + mins;
-
-        return hours + ":" + mins;
+        return formatTime(this._end);
     };
 
     // returns the string representation Hours:Minutes of
     // the start time of the day
     this.getStart = function () {
-        var hours = Math.floor(this._start / 60);
-        var mins = this._start % 60;
-
-        if (hours < 10)
-            hours = "0" + hours;
-
-        if (mins < 10)
-            mins = "0" + mins;
-
-        return hours + ":" + mins;
+        return formatTime(this._start);
     };
 
     // returns the length (in minutes) of activities of certain type

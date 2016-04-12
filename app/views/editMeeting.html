@@ -21,13 +21,13 @@
                     <table>
                         <tr class="pendingActivity" ng-repeat="activity in getPendingActivities()">
                             <td class="length .col-md-4">{{activity.getLength()}} min</td>
-                            <td class="name {{getActivityType(activity.getTypeId())}} .col-md-8" draggable droppable drop="moveActivity" index="$index">{{activity.getName()}}</td>
+                            <td class="name {{getActivityType(activity.getTypeId())}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="activity" jqyoui-draggable="{onStart: startCallback(activity, $index), animate:true, index: {{$index}}}">{{activity.getName()}}</td>
                         </tr>
                         <tr class="pendingActivity" ng-show="getPendingActivities().length == 0">
                             <td class="length .col-md-4"></td>
                             <td class="name .col-md-8" droppable drop="moveActivity" index="$index"></td>
                         </tr>
-                        <tr id="bin" droppable drop="deleteActivity">
+                        <tr id="bin" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop: 'deleteActivity'}">
                             <td class="length .col-md-4"><span class="glyphicon glyphicon-trash"></span></td>
                             <td class="name .col-md-8"></td>
                         </tr>
@@ -37,26 +37,17 @@
             <div class="midPanel col-xs-6 col-sm-4">
                 <div class="activityQueue">
                     <table>
-                        <tr  class="addedActivity" ng-repeat="activity in activities">
+                        <tr class="addedActivity" ng-repeat="activity in activities">
                             <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
-                            <td id="{{$index}}" class="bin name {{getActivityType(activity.typeid)}} .col-md-8" draggable droppable drop="moveActivity" index="$index">{{activity.name}}</td>
+                            <td class="bin name {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="activities" jqyoui-draggable="{index: {{$index}}, onStart: 'startCallback(activity.name, $index)', animate:true}">{{activity._name}}</td>
                         </tr>
                         <tr id="{{id}}" ng-show="activities.length == 0">
                             <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
-                            <td id="{{$index}}" class="bin name placeHolder .col-md-8" droppable drop="moveActivity" index="$index"></td>
+                            <td class="bin name placeHolder .col-md-8" droppable drop="moveActivity" index="$index"></td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-    </section >
-
-
-
-
-
-
-
-    <section class="bot">
     </section >
 </div>

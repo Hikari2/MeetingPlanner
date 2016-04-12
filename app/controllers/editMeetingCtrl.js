@@ -8,15 +8,16 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
      * index for day in being handled
      */
     $scope.id = $routeParams.meetingId;
+
     $scope.parkedActivities = MeetingService.parkedActivities;
 
     //When data from firebase is loaded initialize the variables
     MeetingService.days.$loaded().then(function () {
 
-        $scope.day = MeetingService.days[$scope.id];
+        $scope.day = MeetingService.getDay($scope.id);
 
-        $scope.startTime = formatTime($scope.day.start);
-        $scope.endTime = formatTime($scope.day.end);
+        $scope.startTime = formatTime($scope.day.getStart());
+        $scope.endTime = formatTime($scope.day.getEnd());
 
         $scope.loadActivities();
     });
@@ -25,15 +26,23 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
      * Load activities and their start time
      */
     $scope.loadActivities = function () {
-        $scope.activities = $scope.day.activities;
+        $scope.activities = MeetingService.getActivities($scope.id);
 
         $scope.activities_startTime = [];
         if ($scope.activities) {
             $.each($scope.activities, function (index) {
-                var st = Day.fromJson($scope.day).getActivityStart(index);
+                var st = $scope.day.getActivityStart(index);
                 $scope.activities_startTime.push(st);
             });
         }
+    };
+
+    $scope.startCallback = function (activity, index) {
+        console.log(activity);
+    };
+
+    $scope.dropCallback = function () {
+
     };
 
     /**
@@ -46,7 +55,8 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     };
 
     $scope.deleteActivity = function (position, day) {
-        MeetingService.removeParkedActivity(position);
+        alert(this.target + " !");
+        //MeetingService.removeParkedActivity(position);
     };
 
     $scope.setStart = function (timestamp) {
