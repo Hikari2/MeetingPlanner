@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="warnings col-xs-8">
-                <h2><a href="#/home"><img src="resources/logo.png"/></a>Log in</h2>
+                <h2><a href="#/home"><img src="http://www.wandm.it/Images/Login.png"/></a>Log in</h2>
                 <hr class="divider">
                 <p ng-show="status">{{status}}</p>
             </div>
@@ -23,9 +23,11 @@
                 </form>
 
                 <!--<img src="../resources/loading_animation.gif" style="display:none;" id="loading_image">-->
-                <div id="buttonreplacement" style="margin-left: 40%;  display:none;" >
-                    <!--<img src="http://www.willmaster.com/images/preload.gif" alt="loading...">-->
-                    <img src="http://preciseleads.com/images/loading_animation.gif" alt="Loading" width="100px" height="100px" >
+                <div id="buttonreplacement" style="margin-left: 40%;  display:none;">
+                    <img src="https://www.modulince.com/assets/images/spinner.gif" width="80px" height="80px" alt="loading...">
+                    <!--<img src="http://www.vietpan.com/pic/loading/loading.gif" width="80px" height="80px" alt="loading...">-->
+
+                    <!--<img src="http://preciseleads.com/images/loading_animation.gif" alt="Loading" width="100px" height="100px" >-->
                 </div>
             </div>
 
@@ -33,36 +35,36 @@
 
     </div>
     <!--<div id="formsubmitbutton">-->
-        <!--<input type="submit" name="submitter" value="Submit Button" onclick="ButtonClicked()">-->
+    <!--<input type="submit" name="submitter" value="Submit Button" onclick="ButtonClicked()">-->
     <!--</div>-->
 
 
     <script type="text/javascript">
 
 
-//            if (isLoggedIn()==true)
-//        if(isLoggedIn()==true) {
-            function ButtonClicked() {
-                //document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
-                document.getElementById("buttonreplacement").style.display = ""; // to display
-//                return true;
+        //            if (isLoggedIn()==true)
+        //        if(isLoggedIn()==true) {
+        function ButtonClicked() {
+            //document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
+            document.getElementById("buttonreplacement").style.display = ""; // to display
+               return true;
+        }
+
+        var FirstLoading = true;
+
+        function RestoreSubmitButton() {
+            if (FirstLoading) {
+                FirstLoading = false;
+                return;
             }
+            document.getElementById("formsubmitbutton").style.display = ""; // to display
+            document.getElementById("buttonreplacement").style.display = ""; //
+        }
 
-            var FirstLoading = true;
-
-            function RestoreSubmitButton() {
-                if (FirstLoading) {
-                    FirstLoading = false;
-                    return;
-                }
-                document.getElementById("formsubmitbutton").style.display = ""; // to display
-                document.getElementById("buttonreplacement").style.display = ""; //
-            }
-
-//        function timedMsg()
-//        {
-//            var t=setTimeout("document.getElementById("buttonreplacement").style.display",5000)
-//        }
+        //        function timedMsg()
+        //        {
+        //            var t=setTimeout("document.getElementById("buttonreplacement").style.display",5000)
+        //        }
 
         // To disable restoring submit button, disable or delete next line.
         document.onfocus = RestoreSubmitButton;
@@ -74,17 +76,17 @@
 
 
 <!--<script type="text/javascript">-->
-    <!--function loader() {-->
-        <!--$("#loading_image").show(); // show loading image, as request is about to start-->
-        <!--$.ajax({-->
-            <!--url: '..',-->
-            <!--type: '..',-->
-            <!--complete: function () {-->
-                <!--// request is complete, regardless of error or success, so hide image-->
-                <!--$("#loading_image").hide();-->
-            <!--}-->
-        <!--});-->
-    <!--}-->
+<!--function loader() {-->
+<!--$("#loading_image").show(); // show loading image, as request is about to start-->
+<!--$.ajax({-->
+<!--url: '..',-->
+<!--type: '..',-->
+<!--complete: function () {-->
+<!--// request is complete, regardless of error or success, so hide image-->
+<!--$("#loading_image").hide();-->
+<!--}-->
+<!--});-->
+<!--}-->
 <!--</script>-->
 
 

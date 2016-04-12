@@ -64,16 +64,16 @@
 
 }
 .authentication .authentication-form .btn-default{
-    background-color: #D9B580;
+    background-color: #1da1f2;
     color:white;
 }
 #btnRegister #btnSubmit{
-    background-color: #D9B580;
+    background-color: #1da1f2;
     color: white;
 }
 .authentication .authentication-form .btn-link{
-    border-color: #D9B580;
-    color: #D9B580;
+    border-color: #1da1f2;
+    color: #1da1f2;
     border-radius: 4px;
 }
 .authentication .warnings{
@@ -197,3 +197,6 @@ footer a{
 /*font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;*/
 /*!*font-family: sans-serif;*!*/
 /*}*/
+#buttonreplacement{
+    padding-top: 50px;
+}
