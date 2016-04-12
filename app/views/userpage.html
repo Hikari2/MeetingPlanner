@@ -7,7 +7,14 @@
                     <div class="meeting-detail-col">
                         <div class="title">
                             <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
-                            <div class="setting-btn"><span class="glyphicon glyphicon-cog"></span></div>
+                            <div class="dropdown">
+                                <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a >Manage</a></li>
+                                    <li><a >Delete</a></li>
+                                    <li><a >Mark</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="type">{{meeting.Info.Type}}</div>
                         <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
@@ -18,7 +25,8 @@
                                 <a ng-repeat="member in meeting.Info.Members">{{member}}</a>
                             </span>
                         </div>
-                        <div class="description animate-show" ng-show="viewMore[meeting.Index]" ng-animate="'animate'">
+                        <div class="description animate-show" ng-hide="!viewMore[meeting.Index]"
+                             ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
                             <label>Remarks</label>
                             <p>{{meeting.Info.Remark}}</p>
                         </div>

@@ -1,4 +1,4 @@
-.userPage {
+.userPage,.user-messages,.user-settings{
     padding-top: 65px;
 }
 
@@ -107,10 +107,19 @@ important : #CC0066
     width: calc(100% - 55px);
 }
 
-.main-user-page .setting-btn{
+.main-user-page .meeting-box .dropdown{
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
     width: 25px;
+}
+.main-user-page .meeting-box .dropdown-menu{
+    left: auto;
+    right: -10px;
+    top: 30px;
+}
+.main-user-page .setting-btn{
+    background-color: white;
+    border: none;
 }
 
 .main-user-page .setting-btn:hover{
@@ -170,6 +179,16 @@ important : #CC0066
     background-color: #FAFAFA;
 }
 
+.animate-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+
+.animate-enter .animate-enter-active {
+	opacity: 1;
+}
+
 .main-user-page .item .description p{
     display: inline-block;
     padding-bottom: 15px;
@@ -184,7 +203,7 @@ important : #CC0066
 .main-user-page .add-new .not-in{
     background-color: #FAFAFA;
     border: 2px dotted #E0E0E0;
-    transition: all .25s linear;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .in{
@@ -194,7 +213,7 @@ important : #CC0066
     cursor: pointer;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     border-top: 2px solid #E0E0E0;
-    transition: all .25s linear;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .active{
@@ -202,15 +221,18 @@ important : #CC0066
     border-top: 2px solid #E0E0E0;
     cursor: default;
     background-color: white;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .active .btn{
     background-color: #1DA1F2;
     color: white;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .active .title{
     color: black;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .title{
@@ -218,6 +240,7 @@ important : #CC0066
     font-size: 23px;
     color: #ECECEC;
     text-align: center;
+    transition: all .5s linear;
 }
 .main-user-page .add-new .info{
     min-height: 220px;
@@ -234,6 +257,7 @@ important : #CC0066
     background-color: #ECECEC;
     color: white;
     border: none;
+    transition: all .5s linear;
 }
 
 .editMeeting .top{

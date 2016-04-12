@@ -1,4 +1,3 @@
-
 meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uibModal,$log,currentAuth, MeetingService) {
 
     $scope.user = currentAuth;
