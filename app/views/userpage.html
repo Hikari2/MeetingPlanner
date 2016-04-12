@@ -1,129 +1,53 @@
-<div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
-<div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
-<div class="container">
-    <div class="row row-1 main-user-page">
-        <div class="col-1 col-md-3">
-            <div ng-include="'views/userprofile.html'"  ng-controller="AuthenticationCtrl"></div>
-        </div>
-        <div class="col-md-7 col-xs-12 main-content">
-            <div class=" row personal-info display-box">
-                <div id="personal-info-title" class="blocktitle title">
-                    <span class="title-1">Personal Information</span>
-                    <span class="title-2"><a href="#/userpage/settings">Edit</a></span>
-                </div>
-                <div class="detail-info">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <ul >
-                                <li>
-                                    <label>First Name</label> {{userInfo.Firstname}}
-                                </li>
-                                <li>
-                                    <label>E-mail</label> {{userInfo.Email}}
-                                </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Gender</label> {{userInfo.Gender}}
-                                </li >
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Company</label> {{userInfo.Company}}
-                                </li>
-                            </ul>
+<div class="main-user-page">
+    <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+    <div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
+
+    <div class="container">
+        <div class="row meeting-list">
+            <div class="item col-md-4 col-xs-12" ng-dblclick="open(meeting)" ng-repeat="meeting in meetingList">
+                <div class="meeting-box" ng-class="meeting.Info.Type">
+                    <div class="meeting-detail-col">
+                        <div class="title">
+                            <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
+                            <div class="setting-btn"><span class="glyphicon glyphicon-cog"></span></div>
                         </div>
-                        <div class="col-md-1">
-                            <ul >
-                                <li>
-                                    <label>Last Name</label> {{userInfo.Lastname}}
-                                </li>
-                                <li>
-                                    <label>Phone No.</label> {{userInfo.Phoneno}}
-                                </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Birth Day</label> {{userInfo.Birthday}}
-                                </li>
-                                <li ng-show="personalInfoViewMore">
-                                    <label>Position</label> {{userInfo.Position}}
-                                </li>
-                            </ul>
+                        <div class="type">{{meeting.Info.Type}}</div>
+                        <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
+                        <div class="info"><label>Time</label>{{meeting.Info.Time}}</div>
+                        <div class="member">
+                            <span class="meeting-member">
+                                <label>Members</label>
+                                <a ng-repeat="member in meeting.Info.Members">{{member}}</a>
+                            </span>
                         </div>
-                        <div class="row-2" ng-show="personalInfoViewMore">
-                            <div class="col-md-2">
-                                <ul>
-                                    <li>
-                                        <label>Address</label>
-                                        {{userInfo.Address}}
-                                    </li>
-                                    <li>
-                                        <label>Description</label>
-                                        <div class="description-box">
-                                            <p>{{userInfo.Description}}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="description animate-show" ng-show="viewMore[meeting.Index]" ng-animate="'animate'">
+                            <label>Remarks</label>
+                            <p>{{meeting.Info.Remark}}</p>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <a ng-click="setPersonalInfoViewMore(true)" ng-hide="personalInfoViewMore"> 
-                            View More<img class="view-more-img">
-                        </a>
-                        <a ng-click="setPersonalInfoViewMore(false)" ng-show="personalInfoViewMore">Close Details</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row my-meetings display-box">
-                <div id="meeting-info-title" class="blocktitle title">
-                    <span class="title-1">My Meetings</span>
-                    <span class="title-2"><a >Edit</a></span>
-                </div>
-                <div class="meeting-info">
-                        <ul class="meeting-list">
-                            <li class="meeting-list-item" ng-repeat="meeting in meetingList" data-drag="true" jqyoui-draggable 
-                                data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
-                                <div class="meeting-box row" ng-dblclick="open(meeting)" >
-                                    <div class="col-md-3 col-xs-3 img-col">
-                                        <img class="meeting-img" src="./resources/meeting1.jpg">
-                                    </div>
-                                    <div class="col-md-8 col-xs-8 meeting-detail-col">
-                                        <span class="meeting-title"><label>{{meeting.Title}}</label></span>
-                                        <ul class="info-list">
-                                            <li><label>Date</label>{{meeting.Date}}</li>
-                                            <li><label>Time</label>{{meeting.Time}}</li>
-                                            <li><label>Type</label>{{meeting.Type}}</li>
-                                        </ul> 
-                                    </div>
+                        <div class="footer">
+                            <a >
+                                <div ng-hide="viewMore[meeting.Index]" ng-click="setViewMore(meeting.Index, true)">
+                                    View Description <span class="glyphicon glyphicon-chevron-down"></span>
                                 </div>
-                                <span class="meeting-member">
-                                     <label>Members</label>
-                                     <a ng-repeat="member in meeting.Members">{{member}}</a>
-                                </span>
-                            </li>
-                        </ul>
-                    <div class="footer">
-                        <a ng-click="setMeetingViewMore(true)" ng-hide="meetingViewMore"> 
-                            View More<img class="view-more-img">
-                        </a>
-                        <a ng-click="setMeetingViewMore(false)" ng-show="meetingViewMore">Close Details</a>
+                                <div ng-show="viewMore[meeting.Index]" ng-click="setViewMore(meeting.Index, false)">
+                                    Close All <span class="glyphicon glyphicon-chevron-up"></span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-            
-        <div class="col-3 col-md-2">
-            <div class="row important-list display-box">
-                <div id="important-list-title" class="blocktitle title">
-                    <span class="title-1">Important Meetings</span>
-                    <span class="title-2"><a >Edit</a></span>
-                </div>
-                <div class="list-info">
-                    <p>List</p>
-                    <!--
+            <div class="add-new col-md-4 col-xs-12">
+                <div class="meeting-box">
+                    <div class="info">                  
+                        <div class="title">
+                            <label>Add a New Meeting</label>
+                        </div>
+                    </div>
                     <div class="footer">
-                        <a ng-click="setPersonalInfoViewMore(true)" ng-hide="personalInfoViewMore"> 
-                            View More<img class="view-more-img">
-                        </a>
-                        <a ng-click="setPersonalInfoViewMore(false)" ng-show="personalInfoViewMore">Close Details</a>
-                    </div>-->
+                        <button class="btn btn-default">CREATE NEW MEETING</button>
+                    </div>
+
                 </div>
             </div>
         </div>

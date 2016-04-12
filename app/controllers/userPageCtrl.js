@@ -3,7 +3,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
 
     $scope.user = currentAuth;
     $scope.dragedTarget = null;
-    $scope.personalInfoViewMore=false;
+    $scope.viewMore=[];
     
     $scope.userInfo={
         Firstname:"Erik",
@@ -18,10 +18,11 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
         Description:"Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
     };
     
-    $scope.setPersonalInfoViewMore = function(newValue)
+    $scope.setViewMore = function(index,newValue)
     {
-        $scope.personalInfoViewMore=newValue;
+        $scope.viewMore[index]=newValue;
     };
+    
     $scope.meetingViewMore=false;
     
     $scope.setMeetingViewMore = function(newValue)
@@ -29,30 +30,43 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
         $scope.meetingViewMore=newValue;
     };
     
+    
     $scope.meetingList=[];
     var m1={
-        ID:"0001",
+        ID:"1",
         Title:"Project Meeting",
         Date:"2016-6-8",
         Time:"10:00-14:00",
-        Type:"Weekly meeting",
+        Type:"Normal",
         Holder:"Hao Wang",
         Members:["Eric R","Hao Wang","Jian Sun"],
         Remark:"Windows and solar panels in the future could be made from one of the best — and cheapest — construction materials known: wood. Researchers at Stockholm's KTH Royal Institute of Technology have developed a new transparent wood material that's suitable for mass production."
     };
     
     var m2={
-        ID:"0002",
+        ID:"2",
         Title:"20th Annual Comference in KTH",
         Date:"2017-10-25",
         Time:"All day, 08:00-20:00",
-        Type:"Annual Comference",
+        Type:"Important",
         Holder:"xMan",
         Members:["Hicari","Eric R","Hao Wang","Jian Sun","Yan Ma"],
         Remark:"Research at KTH's is to a large extent conducted in co-operation with companies and various societal bodies. The co-operations are often organized as competence centres, connected to a certain KTH Department, but still conducting research on its own. Most of the centres have a board, with representatives from trade, business and society."
     };
-    $scope.meetingList.push(m1);
-    $scope.meetingList.push(m2);
+    
+    var list=[];
+    list.push(m1);
+    list.push(m2);
+    
+    for(var i=0;i<list.length;i++)
+    {
+        var me={
+            Info:list[i],
+            Index:i
+        };
+        $scope.meetingList.push(me);
+    };
+
     
     $scope.open = function (meeting) {
     var modalInstance = $uibModal.open({
@@ -108,12 +122,12 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
   if($scope.messageList.length===0)  $scope.noMessage=true;
   
     // the old code
-   // MeetingService.addDay();
-   // MeetingService.addActivity(("Introduction", 10, 0, ""), 0);
-   // MeetingService.addActivity(("Idea 1", 30, 0, ""), 0);
-   // MeetingService.addActivity(("Working in groups", 35, 1, ""), 0);
-   // MeetingService.addActivity(("Idea 1 discussion", 15, 2, ""), 0);
-   // MeetingService.addActivity(("Coffee break", 20, 3, ""), 0);
+    MeetingService.addDay();
+    MeetingService.addActivity(("Introduction", 10, 0, ""), 0);
+    MeetingService.addActivity(("Idea 1", 30, 0, ""), 0);
+    MeetingService.addActivity(("Working in groups", 35, 1, ""), 0);
+    MeetingService.addActivity(("Idea 1 discussion", 15, 2, ""), 0);
+    MeetingService.addActivity(("Coffee break", 20, 3, ""), 0);
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
