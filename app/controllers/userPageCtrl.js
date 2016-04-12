@@ -121,13 +121,6 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location,$uib
   $scope.messageList.push(ms1);
   if($scope.messageList.length===0)  $scope.noMessage=true;
   
-    // the old code
-    MeetingService.addDay();
-    MeetingService.addActivity(("Introduction", 10, 0, ""), 0);
-    MeetingService.addActivity(("Idea 1", 30, 0, ""), 0);
-    MeetingService.addActivity(("Working in groups", 35, 1, ""), 0);
-    MeetingService.addActivity(("Idea 1 discussion", 15, 2, ""), 0);
-    MeetingService.addActivity(("Coffee break", 20, 3, ""), 0);
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
