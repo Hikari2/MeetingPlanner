@@ -66,12 +66,19 @@
 .main-user-page .item,.main-user-page .add-new{
     padding: 15px 15px 15px 15px;
 }
+
 .main-user-page .item .meeting-box{
     display: inline-block;
     width: 90%;
     min-height: 300px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.main-user-page .meeting-box .info-list{
+    display: inline-block;
+    width: 100%;
+    min-height: 240px;
 }
 
 .main-user-page .item .title{
@@ -81,7 +88,10 @@
 /*
 normal ; #00CCCC
 important : #CC0066
+weekly : #FFFF00
+other : #CC00CC
 */
+
 .main-user-page .Important{
     border-top: 3px solid #CC0066;
 }
@@ -99,7 +109,27 @@ important : #CC0066
     border: 1px solid #00CCCC;
 }
 
-.main-user-page .meeting-title{
+.main-user-page .Weekly{
+    border-top: 3px solid #CCCC00;
+}
+
+.main-user-page .Weekly .type{
+    color: #CCCC00;
+    border: 1px solid #CCCC00;
+}
+
+.main-user-page .Other{
+    border-top: 3px solid #CC00CC;
+}
+
+.main-user-page .Other .type{
+    color: #CC00CC;
+    border: 1px solid #CC00CC;
+}
+/*
+End of the kinds
+*/
+.main-user-page .meeting-title label{
     display: table-cell;
     font-size: 23px;
     margin-top: 10px;
@@ -157,16 +187,39 @@ important : #CC0066
 }
 
 .main-user-page .item .footer{
-    display: table;
-    float: right;
+    width: 100%;
     text-align: right;
-    position: absolute;
-    bottom: 25px;
-    right: 15%;
+    display: table;
+    height: 30px;
 }
 
 .main-user-page .item .footer a{
+    display: table-cell; 
+    vertical-align: middle;
+    width: 50%;
     color: #E0E0E0;
+}
+
+.main-user-page .item .footer .important-mark{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    width: 50%;
+    color: #E0E0E0;
+}
+
+.main-user-page .item .footer .false:hover{
+    color: gray;
+    cursor: pointer;
+}
+
+.main-user-page .item .footer .true{
+    color: red;
+}
+
+.main-user-page .item .footer .true:hover{
+    color: #66B2FF;
+    cursor: pointer;
 }
 
 .main-user-page .item .footer a:hover{
@@ -179,16 +232,66 @@ important : #CC0066
     background-color: #FAFAFA;
 }
 
-.animate-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
-	opacity: 0;
+/*
+Animate test
+*/
+.ng-enter, .ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
 }
 
-.animate-enter .animate-enter-active {
-	opacity: 1;
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.ng-enter.ng-enter-active,
+.ng-move.ng-move-active {
+  opacity:1;
 }
 
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.ng-leave {
+  -webkit-animation:0.5s my_animation;
+  -moz-animation:0.5s my_animation;
+  -o-animation:0.5s my_animation;
+  animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+  Unfortunately each browser vendor requires
+  its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+/*
+End of animate test
+*/
 .main-user-page .item .description p{
     display: inline-block;
     padding-bottom: 15px;
@@ -225,9 +328,27 @@ important : #CC0066
 }
 
 .main-user-page .add-new .active .btn{
+    background-color: white;
+    color: #1DA1F2;
+    font-weight: bold;
+    border: 2px solid #1DA1F2;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .btn:hover{
     background-color: #1DA1F2;
     color: white;
     transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .btn:active,
+.main-user-page .add-new .active .btn:focus,
+.main-user-page .add-new .not-in .btn:active,
+.main-user-page .add-new .not-in .btn:focus,
+.main-user-page .add-new .in .btn:active,
+.main-user-page .add-new .in .btn:focus
+{
+    outline: none;
 }
 
 .main-user-page .add-new .active .title{
