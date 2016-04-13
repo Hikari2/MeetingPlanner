@@ -1,6 +1,10 @@
 <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+<div ng-include src="'views/userpageNavbar.html'"  ng-controller="AuthenticationCtrl"></div>
 <div class="container user-settings">
     <div class="row">
+        <div id="col-1" class="col-md-1">
+            <div ng-include="'views/userprofile.html'"  ng-controller="AuthenticationCtrl"></div>
+        </div>
         <div class="col-md-8">
             <ul class="info-list">
                 <li>

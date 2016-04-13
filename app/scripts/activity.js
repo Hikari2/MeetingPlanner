@@ -46,7 +46,6 @@ function Activity(name, length, typeid, description) {
         return this._description;
     }
 
-
     // This method returns the string representation of the
     // activity type.
     this.getType = function () {
@@ -64,6 +63,5 @@ function Activity(name, length, typeid, description) {
 }
 
 Activity.fromJson = function (json) {
-
     return new Activity(json.name, json.length, json.typeid, json.description);
 };

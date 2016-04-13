@@ -2,15 +2,7 @@
 <div class="editMeeting">
     <section class="top container">
         <div class="row optionBar">
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-            </div>
-            <div class="col-xs-6 col-md-2">From {{startTime}} ~ {{endTime}}</div>
+            <img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading...">
         </div>
     </section >
     <section class="main container">
@@ -18,36 +10,38 @@
             <div class="leftPanel col-xs-6 col-sm-4">
                 <div class="activityQueue">
                     <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
-                    <table>
-                        <tr class="pendingActivity" ng-repeat="activity in getPendingActivities()">
+                    <table class="table-bordered">
+                        <tr class="pendingActivity" ng-repeat="activity in parkedActivities" ng-model="parkedActivities" data-drop="true" jqyoui-droppable="{index: {{$index}}}">
                             <td class="length .col-md-4">{{activity.getLength()}} min</td>
-                            <td class="name {{getActivityType(activity.getTypeId())}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="activity" jqyoui-draggable="{onStart: startCallback(activity, $index), animate:true, index: {{$index}}}">{{activity.getName()}}</td>
+                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="parkedActivities" jqyoui-draggable="{index: {{$index}}}"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
-                        <tr class="pendingActivity" ng-show="getPendingActivities().length == 0">
+                        <tr class="filler" ng-model="parkedActivities" data-drop="true" jqyoui-droppable="{index: 'activity.length', onDrop: 'dropCallback()'}">
                             <td class="length .col-md-4"></td>
-                            <td class="name .col-md-8" droppable drop="moveActivity" index="$index"></td>
+                            <td class="title .col-md-8"></td>
                         </tr>
-                        <tr id="bin" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop: 'deleteActivity'}">
+                        <tr class="bin" ng-model="bin" data-drop="true" jqyoui-droppable="{onDrop: 'dropCallback()'}">
                             <td class="length .col-md-4"><span class="glyphicon glyphicon-trash"></span></td>
-                            <td class="name .col-md-8"></td>
+                            <td class="title .col-md-8"></td>
                         </tr>
-                    </table>
+                    </table> 
                 </div>
-            </div>
-            <div class="midPanel col-xs-6 col-sm-4">
+            </div>  
+            <div class="midPanel col-xs-6 col-sm-4" ng-hide="loading">
+                <div class="col-xs-12"><h2>{{day.getTitle()}}</h2></div>
+                <div class="col-xs-4"><uib-timepicker ng-model="date" ng-change="setStart(date)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker></div>
                 <div class="activityQueue">
-                    <table>
-                        <tr class="addedActivity" ng-repeat="activity in activities">
-                            <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
-                            <td class="bin name {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="activities" jqyoui-draggable="{index: {{$index}}, onStart: 'startCallback(activity.name, $index)', animate:true}">{{activity._name}}</td>
+                    <table class="table-bordered"> 
+                        <tr class="addedActivity" ng-repeat="activity in day._activities"  ng-model="day._activities" data-drop="true" jqyoui-droppable="{index: {{$index}}, onDrop: 'dropCallback()'}">
+                            <td class="length .col-md-4">{{formatTime(day.getActivityStart($index))}}</td>
+                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="day._activities" jqyoui-draggable="{index: {{$index}}}"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
-                        <tr id="{{id}}" ng-show="activities.length == 0">
-                            <td class="length .col-md-4">{{activities_startTime[$index]}}</td>
-                            <td class="bin name placeHolder .col-md-8" droppable drop="moveActivity" index="$index"></td>
+                        <tr class="filler" ng-model="day._activities" data-drop="true" jqyoui-droppable="{index: 'activity.length', onDrop: 'dropCallback()'}">
+                            <td class="length .col-md-4">{{formatTime(day.getActivityStart(activities.length))}}</td>
+                            <td class="title .col-md-8"></td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-    </section >
+    </section>
 </div>

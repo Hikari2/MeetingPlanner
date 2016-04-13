@@ -1,4 +1,4 @@
-.userPage,.user-messages,.user-settings{
+.userPage {
     padding-top: 65px;
 }
 
@@ -66,19 +66,12 @@
 .main-user-page .item,.main-user-page .add-new{
     padding: 15px 15px 15px 15px;
 }
-
 .main-user-page .item .meeting-box{
     display: inline-block;
     width: 90%;
     min-height: 300px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-}
-
-.main-user-page .meeting-box .info-list{
-    display: inline-block;
-    width: 100%;
-    min-height: 240px;
 }
 
 .main-user-page .item .title{
@@ -88,10 +81,7 @@
 /*
 normal ; #00CCCC
 important : #CC0066
-weekly : #FFFF00
-other : #CC00CC
 */
-
 .main-user-page .Important{
     border-top: 3px solid #CC0066;
 }
@@ -109,27 +99,7 @@ other : #CC00CC
     border: 1px solid #00CCCC;
 }
 
-.main-user-page .Weekly{
-    border-top: 3px solid #CCCC00;
-}
-
-.main-user-page .Weekly .type{
-    color: #CCCC00;
-    border: 1px solid #CCCC00;
-}
-
-.main-user-page .Other{
-    border-top: 3px solid #CC00CC;
-}
-
-.main-user-page .Other .type{
-    color: #CC00CC;
-    border: 1px solid #CC00CC;
-}
-/*
-End of the kinds
-*/
-.main-user-page .meeting-title label{
+.main-user-page .meeting-title{
     display: table-cell;
     font-size: 23px;
     margin-top: 10px;
@@ -137,19 +107,10 @@ End of the kinds
     width: calc(100% - 55px);
 }
 
-.main-user-page .meeting-box .dropdown{
-    display: table-cell;
-    vertical-align: top;
-    width: 25px;
-}
-.main-user-page .meeting-box .dropdown-menu{
-    left: auto;
-    right: -10px;
-    top: 30px;
-}
 .main-user-page .setting-btn{
-    background-color: white;
-    border: none;
+    display: table-cell;
+    vertical-align: middle;
+    width: 25px;
 }
 
 .main-user-page .setting-btn:hover{
@@ -187,39 +148,16 @@ End of the kinds
 }
 
 .main-user-page .item .footer{
-    width: 100%;
-    text-align: right;
     display: table;
-    height: 30px;
+    float: right;
+    text-align: right;
+    position: absolute;
+    bottom: 25px;
+    right: 15%;
 }
 
 .main-user-page .item .footer a{
-    display: table-cell; 
-    vertical-align: middle;
-    width: 50%;
     color: #E0E0E0;
-}
-
-.main-user-page .item .footer .important-mark{
-    display: table-cell;
-    vertical-align: middle;
-    text-align: left;
-    width: 50%;
-    color: #E0E0E0;
-}
-
-.main-user-page .item .footer .false:hover{
-    color: gray;
-    cursor: pointer;
-}
-
-.main-user-page .item .footer .true{
-    color: red;
-}
-
-.main-user-page .item .footer .true:hover{
-    color: #66B2FF;
-    cursor: pointer;
 }
 
 .main-user-page .item .footer a:hover{
@@ -232,66 +170,6 @@ End of the kinds
     background-color: #FAFAFA;
 }
 
-/*
-Animate test
-*/
-.ng-enter, .ng-move {
-  -webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:0;
-}
-
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.ng-enter.ng-enter-active,
-.ng-move.ng-move-active {
-  opacity:1;
-}
-
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated-item class
-*/
-.ng-leave {
-  -webkit-animation:0.5s my_animation;
-  -moz-animation:0.5s my_animation;
-  -o-animation:0.5s my_animation;
-  animation:0.5s my_animation;
-}
-
-@keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-/*
-  Unfortunately each browser vendor requires
-  its own definition of keyframe animation code...
-*/
-@-webkit-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-@-moz-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-@-o-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-/*
-End of animate test
-*/
 .main-user-page .item .description p{
     display: inline-block;
     padding-bottom: 15px;
@@ -306,7 +184,7 @@ End of animate test
 .main-user-page .add-new .not-in{
     background-color: #FAFAFA;
     border: 2px dotted #E0E0E0;
-    transition: all .5s linear;
+    transition: all .25s linear;
 }
 
 .main-user-page .add-new .in{
@@ -316,7 +194,7 @@ End of animate test
     cursor: pointer;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     border-top: 2px solid #E0E0E0;
-    transition: all .5s linear;
+    transition: all .25s linear;
 }
 
 .main-user-page .add-new .active{
@@ -324,36 +202,15 @@ End of animate test
     border-top: 2px solid #E0E0E0;
     cursor: default;
     background-color: white;
-    transition: all .5s linear;
 }
 
 .main-user-page .add-new .active .btn{
-    background-color: white;
-    color: #1DA1F2;
-    font-weight: bold;
-    border: 2px solid #1DA1F2;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .active .btn:hover{
     background-color: #1DA1F2;
     color: white;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .active .btn:active,
-.main-user-page .add-new .active .btn:focus,
-.main-user-page .add-new .not-in .btn:active,
-.main-user-page .add-new .not-in .btn:focus,
-.main-user-page .add-new .in .btn:active,
-.main-user-page .add-new .in .btn:focus
-{
-    outline: none;
 }
 
 .main-user-page .add-new .active .title{
     color: black;
-    transition: all .5s linear;
 }
 
 .main-user-page .add-new .title{
@@ -361,7 +218,6 @@ End of animate test
     font-size: 23px;
     color: #ECECEC;
     text-align: center;
-    transition: all .5s linear;
 }
 .main-user-page .add-new .info{
     min-height: 220px;
@@ -378,102 +234,5 @@ End of animate test
     background-color: #ECECEC;
     color: white;
     border: none;
-    transition: all .5s linear;
 }
 
-.editMeeting .top{
-    margin-top: 100px;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.editMeeting .leftPanel{
-    float: left;
-    margin-left: 20%;
-    width: 270px;
-}
-
-.editMeeting .leftPanel button{
-    width: 100%;
-    height: 50px;
-    background-color: #ff4d4d;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.editMeeting .leftPanel .activityQueue{
-    border-style: none;
-}
-
-.editMeeting .activityQueue{
-    border: solid;
-    border-width: 1px;
-    min-height: 400px;
-    padding: 1px 1px 1px 1px;
-}
-
-.editMeeting .activityQueue tr{
-    height: 50px;
-    text-align: center;
-    border-bottom: solid;
-    border-width: 1px;
-}
-
-.editMeeting .activityQueue .activityLength{
-    width: 70px;
-}
-
-.editMeeting .activityQueue .activityName{
-    width: 200px;
-    font-size: 16px;
-}
-
-.editMeeting .activityQueue .Presentation{
-    background-color: #CEF6F5;
-}
-
-.editMeeting .activityQueue .Group_Work{
-    background-color: #F5A9BC;
-}
-
-.editMeeting .activityQueue .Discussion{
-    background-color: #BCF5A9;
-}
-
-.editMeeting .activityQueue .Break{
-    background-color: #F4FA58;
-}
-
-.editMeeting .activityQueue .placeHolder{
-    font-size: 24px;
-    width: 270px;
-}
-
-.editMeeting .rightPanel{
-    float: left;
-    margin-left: 5%;
-    height: 200px;
-    width: 270px;
-}
-
-.editMeeting #overview{
-    height: 100px;
-    margin-bottom: 25px;
-}
-
-.editMeeting #overview .subtitle{
-    font-weight: bold;
-}
-
-@media screen and (max-width: 980px){
-
-    .editMeeting .leftPanel{
-        margin-left: 2%;
-    }
-
-    .editMeeting .rightPanel{
-        margin-left: 2%;
-        height: 100px;
-    }
-}

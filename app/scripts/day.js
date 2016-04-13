@@ -3,18 +3,60 @@
 // days to the model, so you don't need call this yourself.
 function Day(startH, startM, userId) {
 
-    this.uid = userId;
-    this._start = startH * 60 + startM;
-    this._end = 0;
+    var MeetingType = ["Once", "Daily", "Weekly", "Monthly"];
+    
+    this._uid = userId;
+    this._title = "No title";
+    this._date = "Today";
+    this._description = " ";
+    this._important = false;
+    this._type = 0;
     this._activities = [];
 
+    this._start = startH * 60 + startM;
+    this._end = startH * 60 + startM;
+    
+    this.setTitle = function (title) {
+        this._title = title;
+    };
+    
+    this.getTitle = function () {
+        return this._title;
+    };
+    
+    this.setDate =  function (date) {
+        this._date = date;
+    };
+    
+    this.getDate = function () {
+        return this._date;
+    };
+    
+    this.setDescription = function (description) {
+        this._description = description;
+    };
+    this.getDescription = function () {
+        return this._description;
+    };
+    this.setImportant = function (b) {
+        this._important = b;
+    };
+    this.getImportant = function () {
+        return this._important;
+    };
+    this.setType = function (typeId) {
+        this._type = MeetingType[typeId];
+    };
+    this.getType = function () {
+        return MeetingType[this._type];
+    };
     // sets the start time to new value
     this.setStart = function (startH, startM) {
         this._start = startH * 60 + startM;
     }
 
-    // returns the total length of the acitivities in
-    // a day in minutes
+// returns the total length of the acitivities in
+// a day in minutes
     this.getTotalLength = function () {
         var totalLength = 0;
         $.each(this._activities, function (index, activity) {
@@ -22,19 +64,17 @@ function Day(startH, startM, userId) {
         });
         return totalLength;
     };
-
     // returns the string representation Hours:Minutes of
     // the end time of the day
     this.getEnd = function () {
-        return formatTime(this._end);
+        this._end = this._start + this.getTotalLength();
+        return this._end;
     };
-
     // returns the string representation Hours:Minutes of
     // the start time of the day
     this.getStart = function () {
-        return formatTime(this._start);
+        return this._start;
     };
-
     // returns the length (in minutes) of activities of certain type
     this.getLengthByType = function (typeid) {
         var length = 0;
@@ -45,7 +85,6 @@ function Day(startH, startM, userId) {
         });
         return length;
     };
-
     //  returns the activies set for this day
     this.getActivities = function () {
         return this._activities;
@@ -60,14 +99,12 @@ function Day(startH, startM, userId) {
             this._activities.push(activity);
         }
     };
-
     // removes an activity from specific position
     // this method will be called when needed from the model
     // don't call it directly
     this._removeActivity = function (position) {
         return this._activities.splice(position, 1)[0];
     };
-
     // moves activity inside one day
     // this method will be called when needed from the model
     // don't call it directly
@@ -81,7 +118,6 @@ function Day(startH, startM, userId) {
         this._addActivity(activity, newposition);
         return this._activities;
     };
-
     this.getActivityStart = function (index) {
 
         var counter = this._start;
@@ -91,30 +127,24 @@ function Day(startH, startM, userId) {
             counter += this._activities[i].getLength();
         }
 
-        var hours = Math.floor(counter / 60);
-        var mins = counter % 60;
-
-        if (hours < 10)
-            hours = "0" + hours;
-
-        if (mins < 10)
-            mins = "0" + mins;
-
-        return hours + ":" + mins;
+        return counter;
     };
-
+    
     this.toJson = function () {
         var json = {
-            uid: this.uid,
+            uid: this._uid,
+            title: this._title,
+            date: this._date,
+            description: this._description,
+            important: this._important,
+            type: this._type,
             start: this._start,
-            end: this._end,
+            end: this._end + this.getTotalLength(),
             activities: []
         };
-
         $.each(this._activities, function (index, activity) {
             json.activities.push(activity.toJson());
         });
-
         return json;
     };
 }
@@ -122,6 +152,11 @@ function Day(startH, startM, userId) {
 Day.fromJson = function (json) {
 
     var day = new Day(Math.floor(json.start / 60), json.start % 60, json.uid);
+    day._title = json.title;
+    day._date = json.date;
+    day._description = json.description;
+    day._important = json.important;
+    day._type = json.type;
 
     if (json.activities) {
         $.each(json.activities, function (index, activity) {

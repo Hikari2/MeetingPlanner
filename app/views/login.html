@@ -42,32 +42,31 @@
     <script type="text/javascript">
 
 
-        //            if (isLoggedIn()==true)
-        //        if(isLoggedIn()==true) {
-        function ButtonClicked() {
-            //document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
-            document.getElementById("buttonreplacement").style.display = ""; // to display
-               return true;
-        }
+                //            if (isLoggedIn()==true)
+                //        if(isLoggedIn()==true) {
+                function ButtonClicked() {
+                    //document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
+                    document.getElementById("buttonreplacement").style.display = ""; // to display
+                    return true;
+                }
 
-        var FirstLoading = true;
+                var FirstLoading = true;
+                        function RestoreSubmitButton() {
+                            if (FirstLoading) {
+                                FirstLoading = false;
+                                return;
+                            }
+                            document.getElementById("formsubmitbutton").style.display = ""; // to display
+                            document.getElementById("buttonreplacement").style.display = ""; //
+                        }
 
-        function RestoreSubmitButton() {
-            if (FirstLoading) {
-                FirstLoading = false;
-                return;
-            }
-            document.getElementById("formsubmitbutton").style.display = ""; // to display
-            document.getElementById("buttonreplacement").style.display = ""; //
-        }
+                //        function timedMsg()
+                //        {
+                //            var t=setTimeout("document.getElementById("buttonreplacement").style.display",5000)
+                //        }
 
-        //        function timedMsg()
-        //        {
-        //            var t=setTimeout("document.getElementById("buttonreplacement").style.display",5000)
-        //        }
-
-        // To disable restoring submit button, disable or delete next line.
-        document.onfocus = RestoreSubmitButton;
+                // To disable restoring submit button, disable or delete next line.
+                document.onfocus = RestoreSubmitButton;
     </script>
 
 </div>

@@ -1,16 +1,37 @@
 
 meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBaseURL) {
 
-    var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"]
+    var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"];
 
-    var ref = new Firebase(FireBaseURL);
-    this.days = $firebaseArray(ref.child("meetings"));
     this.parkedActivities = [];
-    
+
+    this.load = function (uid) {
+        var ref = new Firebase(FireBaseURL);
+        this.days = $firebaseArray(ref.child("meetings/"+uid));
+    };
+
+    this.save = function (day, index) {
+
+        this.days[index].start = day.getStart();
+        this.days[index].end = day.getEnd();
+        day = day.toJson();
+        this.days[index].uid = day.uid;
+        this.days[index].title = day.title;
+        this.days[index].date = day.date;
+        this.days[index].description = day.description;
+        this.days[index].important = day.important;
+        this.days[index].type = day.type;
+        this.days[index].activities = day.activities;
+
+        this.days.$save(this.days[index]).catch(function (error) {
+            alert("Something went wrong when trying to save: " + error);
+        });
+    };
+
     this.getDay = function (index) {
         return Day.fromJson(this.days[index]);
     }
-    
+
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
     this.addDay = function (startH, startM, uid) {
@@ -23,14 +44,13 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
         this.days.$add(day.toJson());
         return day;
     };
-    
+
     this.getActivities = function (day) {
         return activities = Day.fromJson(this.days[day]).getActivities();
     }
 
     // add an activity to model
     this.addActivity = function (activity, day, position) {
-
         if (day != null) {
             var tmp = Day.fromJson(this.days[day]);
             tmp._addActivity(activity, position);
@@ -69,7 +89,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
             day._moveActivity(oldPosition, newPosition);
             this.days[oldDay].activities = day.toJson().activities;
             this.days.$save(this.days[oldDay]).catch(function (error) {
-                alert ("Error:" + error);
+                alert("Error:" + error);
             });
         } else if (oldDay === -1 && newDay === -1) {
             var activity = this.removeParkedActivity(oldPosition);
