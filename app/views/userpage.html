@@ -7,8 +7,11 @@
                 <div class="meeting-box" ng-class="meeting.Info.Type">
                     <div class="meeting-detail-col">
                         <div class="info-list">
-                            <div class="title">
-                                <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
+                            <div class="tag-row">
+                                <div class="tags">
+                                    <div class="important-mark glyphicon glyphicon-star" ng-click="reverseImportantTag(meeting.Index)" ng-class="meeting.Importanttag">
+                                    </div>
+                                    <span class="type">{{meeting.Info.Type}}</span></div>
                                 <div class="dropdown">
                                     <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
                                     <ul class="dropdown-menu">
@@ -30,7 +33,11 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div><span class="type">{{meeting.Info.Type}}</span><span class="mark" ng-show="meeting.Info.Important">Marked</span></div>
+
+                            <div class="title">
+                                <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
+                            </div>
+
                             <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
                             <div class="info"><label>Time</label>{{meeting.Info.Time}}</div>
                             <div class="member">
@@ -46,10 +53,7 @@
                             </div>
                         </div>
                         <div class="footer">
-                            <div class="important-mark" ng-click="reverseImportantTag(meeting.Index)" ng-class="meeting.Importanttag">
-                                <span class="glyphicon glyphicon-star"></span>
-                            </div>
-                            <a >
+                            <a>
                                 <div ng-hide="viewMore[meeting.Index]" ng-click="setViewMore(meeting.Index, true)">
                                     View Description <span class="glyphicon glyphicon-chevron-down"></span>
                                 </div>
@@ -57,6 +61,7 @@
                                     Close All <span class="glyphicon glyphicon-chevron-up"></span>
                                 </div>
                             </a>
+                            <span class="mark glyphicon glyphicon-tag" ng-show="meeting.Info.Important"></span>
                         </div>
                     </div>
                 </div>

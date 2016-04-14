@@ -70,7 +70,7 @@
 .main-user-page .item .meeting-box{
     display: inline-block;
     width: 90%;
-    min-height: 300px;
+    min-height: 330px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
 }
@@ -78,7 +78,7 @@
 .main-user-page .meeting-box .info-list{
     display: inline-block;
     width: 100%;
-    min-height: 240px;
+    min-height: 270px;
 }
 
 .main-user-page .item .title{
@@ -129,17 +129,35 @@ other : #CC00CC
 /*
 End of the kinds
 */
-.main-user-page .meeting-title label{
+
+.main-user-page .item .tag-row{
+    margin-top: -10px;
+    width: 100%;
+    display: table;
+}
+.main-user-page .item .tags{
     display: table-cell;
-    font-size: 23px;
-    margin-top: 10px;
-    margin-bottom: 15px;
     width: calc(100% - 55px);
+}
+.main-user-page .meeting-title label{
+    display: block; /* Fallback for non-webkit */
+    vertical-align: middle;
+    display: -webkit-box;
+    font-size: 21px;
+    line-height: 1.4;
+    -webkit-line-clamp: 2;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 57px;
 }
 
 .main-user-page .item .dropdown{
     display: table-cell;
-    vertical-align: top;
+    vertical-align: middle;
     width: 25px;
 }
 .main-user-page .item .dropdown-menu{
@@ -168,8 +186,7 @@ End of the kinds
     color: #66B2FF;
 }
 
-.main-user-page .item .type,
-.main-user-page .item .mark{
+.main-user-page .item .type{
     display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
@@ -181,6 +198,10 @@ End of the kinds
 
 .main-user-page .item .mark{
     color: #CC0066;
+    font-size: 30px;
+    display: table-cell;
+    text-align: right;
+    vertical-align: bottom;
 }
 
 .main-user-page .item .info label{
@@ -210,31 +231,40 @@ End of the kinds
     height: 30px;
 }
 
-.main-user-page .item .footer a{
-    display: table-cell; 
+.main-user-page .item .tag-row .tags a{
+    display: inline-block; 
     vertical-align: middle;
-    width: 50%;
+    width: 30px;
     color: #E0E0E0;
 }
 
-.main-user-page .item .footer .important-mark{
+.main-user-page .item .footer a{
     display: table-cell;
+    text-align: left;
+    widows: 50%;
+    vertical-align: middle;
+    color: #E0E0E0;
+}
+
+.main-user-page .item .tag-row .important-mark{
+    display: inline-block;
     vertical-align: middle;
     text-align: left;
-    width: 50%;
+    margin-top: -6px;
+    width: 30px;
     color: #E0E0E0;
 }
 
-.main-user-page .item .footer .false:hover{
+.main-user-page .item .tag-row .false:hover{
     color: gray;
     cursor: pointer;
 }
 
-.main-user-page .item .footer .true{
+.main-user-page .item .tag-row .true{
     color: red;
 }
 
-.main-user-page .item .footer .true:hover{
+.main-user-page .item .tag-row .true:hover{
     color: #66B2FF;
     cursor: pointer;
 }
@@ -258,22 +288,7 @@ Animate test
     -o-animation:0.5s my_animation_r;
     animation:0.5s my_animation_r;
 }
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.ng-enter.ng-enter-active,
-.ng-move.ng-move-active {
-    /*opacity:1;*/
-}
 
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated-item class
-*/
 .ng-leave {
     -webkit-animation:0.4s my_animation;
     -moz-animation:0.4s my_animation;
@@ -329,7 +344,7 @@ End of animate test
 .main-user-page .add-new .meeting-box{
     display: inline-block;
     width: 90%;
-    min-height: 300px;
+    min-height: 330px;
     padding: 15px 15px 15px 15px;
 }
 .main-user-page .add-new .not-in{
@@ -429,6 +444,15 @@ End of animate test
     transition: all .5s linear;
 }
 
+.main-user-page .add-new .active .input-date a{
+    color: gray;
+}
+
+.main-user-page .add-new .active .input-date a:hover{
+    color: #1DA1F2;
+    text-decoration: none;
+}
+
 .main-user-page .add-new .info{
     min-height: 220px;
 }
@@ -460,6 +484,8 @@ End of animate test
     border: none;
     transition: all .5s linear;
 }
+
+
 .nav__menu {
     line-height: 45px;
     font-weight: 700;
@@ -486,8 +512,8 @@ End of animate test
     width: 160px;
     /*background-color: #ABA9A9;*/
     background-color: white;
-    padding-left: 20px;!important;
-    padding-right: 20px;!important;
+    padding-left: 20px;
+    padding-right: 20px;
 
 
 }
@@ -495,22 +521,22 @@ End of animate test
     /*padding-left: 0px;!important;*/
     padding-top: 10px;
     padding-bottom: 10px;
-    list-style: none;!important;
+    list-style: none;
     /*color: white;!important;*/
     color: white;
 
 }
 .nav__submenu-item:hover {
-    border-bottom: none;!important;
+    border-bottom: none;
     /*background: white;*/
     background-color: #ABA9A9;
-    color: white;!important;
+    color: white;
     /*text-emphasis-color: white;*/
 }
-#nav__submenu{ !important;
+#nav__submenu{ 
     float: left;
     min-width: 100%;
 }
-#nav__submenu a:hover{!important;
+#nav__submenu a:hover{
     font-weight: bold;
 }
