@@ -6,6 +6,10 @@
     margin-top: 15%;
 }
 
+.editMeeting .loadingLogo{
+   text-align: center;
+}
+
 .editMeeting .top{
     height: 20px;
     margin-top: 100px;
@@ -38,11 +42,6 @@
     width: 400px;
     margin-left: 5px;
 }
-
-
-
-
-
 
 
 

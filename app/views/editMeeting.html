@@ -2,7 +2,6 @@
 <div class="editMeeting">
     <section class="top container">
         <div class="row optionBar">
-            <img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading...">
         </div>
     </section >
     <section class="main container">
@@ -25,11 +24,13 @@
                         </tr>
                     </table> 
                 </div>
-            </div>  
-            <div class="midPanel col-xs-6 col-sm-4" ng-hide="loading">
+            </div>
+            <div class="midPanel col-xs-6 col-sm-4">
+                <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
                 <div class="col-xs-12"><h2>{{day.getTitle()}}</h2></div>
+                <div class="col-xs-12"><p>{{day.getDescription()}}</p></div>
                 <div class="col-xs-4"><uib-timepicker ng-model="date" ng-change="setStart(date)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker></div>
-                <div class="activityQueue">
+                <div class="activityQueue" g-hide="loading">
                     <table class="table-bordered"> 
                         <tr class="addedActivity" ng-repeat="activity in day._activities"  ng-model="day._activities" data-drop="true" jqyoui-droppable="{index: {{$index}}, onDrop: 'dropCallback()'}">
                             <td class="length .col-md-4">{{formatTime(day.getActivityStart($index))}}</td>
