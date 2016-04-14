@@ -12,7 +12,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
     $scope.parkedActivities = MeetingService.parkedActivities;
     $scope.bin = [];
-    
+
     MeetingService.load(currentAuth.uid);
 
     //When data from firebase is loaded initialize the variables
@@ -23,7 +23,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         $scope.date.setHours(Math.floor($scope.day.getStart() / 60));
         $scope.date.setMinutes($scope.day.getStart() % 60);
         $scope.date.setSeconds(0);
-        $scope.date.setMilliseconds(0); 
+        $scope.date.setMilliseconds(0);
 
         $scope.loading = false;
     });
@@ -40,7 +40,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
     //Add new activity to parkedActivities
     $scope.addActivity = function () {
-        
+
         MeetingService.addActivity(new Activity("Cellar party 1", 20, 1, "Help me"));
         MeetingService.addActivity(new Activity("Cellar party 2", 20, 2, "Help me"));
         MeetingService.addActivity(new Activity("Cellar party 3", 20, 3, "Help me"));
@@ -75,17 +75,8 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         return MeetingService.getActivityType(typeId);
     };
 
-    $scope.formatTime = function (totalMin) {
-        var hours = Math.floor(totalMin / 60);
-        var mins = totalMin % 60;
-
-        if (hours < 10)
-            hours = "0" + hours;
-
-        if (mins < 10)
-            mins = "0" + mins;
-
-        return hours + ":" + mins;
+    $scope.format = function (totalMin) {
+        return formatTime(totalMin);
     };
 
     $scope.hstep = 1;
@@ -94,5 +85,26 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     $scope.options = {
         hstep: [1, 2, 3],
         mstep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
     };
 });
