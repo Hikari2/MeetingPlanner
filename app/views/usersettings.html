@@ -46,6 +46,7 @@
 <!--</div>-->
 <!--</div>-->
 <!--</div>-->
+<!--suppress ALL -->
 <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl"></div>
 
 <div class="container" id="tempTry">
@@ -73,7 +74,7 @@
                         <label>Birthday</label>
                         <input ng-value="userInfo.Birthday" class="form-control short-input" type="text"/>
                         <label>Address</label>
-                        <input ng-value="userInfo.Address" class="form-control long-input" type="text"/>
+                        <a><input ng-value="userInfo.Address" class="form-control long-input" type="text"/></a>
                     </div>
                     <!--Second tab-->
                     <div class="tab-pane" id="profile">
@@ -109,5 +110,6 @@
         </div>
     </div>
 </div>
+<a href="/MeetingPlanner/app/views/restAPI.html">XXXXXXXXXX</a>
 <div ng-include src="'views/footer.html'"></div>
 
