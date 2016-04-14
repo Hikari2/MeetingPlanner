@@ -7,7 +7,6 @@ meetingAgendaBuilder.controller('AuthenticationCtrl', function ($scope, $locatio
 
     $scope.login = function () {
         $scope.authData = null;
-        $scope.error = null;
 
         AuthenticationService.login({
             email: $scope.email,
@@ -45,6 +44,8 @@ meetingAgendaBuilder.controller('AuthenticationCtrl', function ($scope, $locatio
             email: $scope.email,
             password: $scope.password
         }).then(function (authData) {
+            
+            
             $scope.login();
         }).catch(function (error) {
             if (error.code == "EMAIL_TAKEN") {

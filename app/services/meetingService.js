@@ -1,13 +1,13 @@
 
-meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBaseURL) {
+meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBaseDataService) {
 
     var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"];
 
     this.parkedActivities = [];
 
     this.load = function (uid) {
-        var ref = new Firebase(FireBaseURL);
-        this.days = $firebaseArray(ref.child("meetings/"+uid));
+        var dataObject = $firebaseAuth(FireBaseDataService.meetings);
+        this.days = $firebaseArray(dataObject);
     };
 
     this.save = function (day, index) {

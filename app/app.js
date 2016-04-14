@@ -1,4 +1,4 @@
-var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies','ngAnimate','ngDragDrop', "firebase",'ui.bootstrap']);
+var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies', 'ngAnimate', 'ngDragDrop', "firebase", 'ui.bootstrap']);
 
 meetingAgendaBuilder.config(['$routeProvider',
     function ($routeProvider) {
@@ -20,22 +20,22 @@ meetingAgendaBuilder.config(['$routeProvider',
                     controller: 'UserPageCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
                                 // $requireAuth returns a promise so the resolve waits for it to complete
                                 // If the promise is rejected, it will throw a $stateChangeError
-                                return FireBaseAuthService.$requireAuth();
+                                return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
-                        when('/userpage/settings', {
+                when('/userpage/settings', {
                     templateUrl: 'views/usersettings.html',
                     controller: 'UserPageCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
                                 // $requireAuth returns a promise so the resolve waits for it to complete
                                 // If the promise is rejected, it will throw a $stateChangeError
-                                return FireBaseAuthService.$requireAuth();
+                                return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
@@ -44,10 +44,10 @@ meetingAgendaBuilder.config(['$routeProvider',
                     controller: 'UserPageCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
                                 // $requireAuth returns a promise so the resolve waits for it to complete
                                 // If the promise is rejected, it will throw a $stateChangeError
-                                return FireBaseAuthService.$requireAuth();
+                                return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
@@ -56,22 +56,21 @@ meetingAgendaBuilder.config(['$routeProvider',
                     controller: 'UserPageCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
                                 // $requireAuth returns a promise so the resolve waits for it to complete
                                 // If the promise is rejected, it will throw a $stateChangeError
-                                return FireBaseAuthService.$requireAuth();
+                                return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
                 when('/editMeeting/:meetingId', {
                     templateUrl: 'views/editMeeting.html',
-                    controller: 'EditMeetingCtrl',
                     resolve: {
                         // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["FireBaseAuthService", function (FireBaseAuthService) {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
                                 // $requireAuth returns a promise so the resolve waits for it to complete
                                 // If the promise is rejected, it will throw a $stateChangeError
-                                return FireBaseAuthService.$requireAuth();
+                                return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
@@ -89,5 +88,3 @@ meetingAgendaBuilder.run(["$rootScope", "$location", function ($rootScope, $loca
             }
         });
     }]);
-
-meetingAgendaBuilder.constant("FireBaseURL", "https://meetingagendabuilder.firebaseio.com/");

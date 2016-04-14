@@ -1,20 +1,26 @@
 
-meetingAgendaBuilder.factory('AuthenticationService', function (FireBaseAuthService) {
+meetingAgendaBuilder.factory('AuthenticationService', function ($firebaseAuth, FireBaseDataService) {
+
+    var authObject = $firebaseAuth(FireBaseDataService.root);
 
     this.login = function (user) {
-        return FireBaseAuthService.$authWithPassword(user);
+        return authObject.$authWithPassword(user);
     }
 
     this.logout = function () {
-        FireBaseAuthService.$unauth();
+        authObject.$unauth();
     }
 
     this.register = function (user) {
-        return FireBaseAuthService.$createUser(user);
+        return authObject.$createUser(user);
     }
 
     this.isLoggedIn = function () {
-        return FireBaseAuthService.$getAuth();
+        return authObject.$getAuth();
+    }
+    
+    this.requireAuth = function () {
+        return authObject.$requireAuth();
     }
 
     return this;
