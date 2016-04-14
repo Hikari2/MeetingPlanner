@@ -1,4 +1,4 @@
-.userPage {
+.userPage,.user-messages,.user-settings{
     padding-top: 65px;
 }
 
@@ -66,12 +66,19 @@
 .main-user-page .item,.main-user-page .add-new{
     padding: 15px 15px 15px 15px;
 }
+
 .main-user-page .item .meeting-box{
     display: inline-block;
     width: 90%;
     min-height: 300px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.main-user-page .meeting-box .info-list{
+    display: inline-block;
+    width: 100%;
+    min-height: 240px;
 }
 
 .main-user-page .item .title{
@@ -81,7 +88,10 @@
 /*
 normal ; #00CCCC
 important : #CC0066
+weekly : #FFFF00
+other : #CC00CC
 */
+
 .main-user-page .Important{
     border-top: 3px solid #CC0066;
 }
@@ -99,7 +109,27 @@ important : #CC0066
     border: 1px solid #00CCCC;
 }
 
-.main-user-page .meeting-title{
+.main-user-page .Weekly{
+    border-top: 3px solid #CCCC00;
+}
+
+.main-user-page .Weekly .type{
+    color: #CCCC00;
+    border: 1px solid #CCCC00;
+}
+
+.main-user-page .Other{
+    border-top: 3px solid #CC00CC;
+}
+
+.main-user-page .Other .type{
+    color: #CC00CC;
+    border: 1px solid #CC00CC;
+}
+/*
+End of the kinds
+*/
+.main-user-page .meeting-title label{
     display: table-cell;
     font-size: 23px;
     margin-top: 10px;
@@ -107,10 +137,30 @@ important : #CC0066
     width: calc(100% - 55px);
 }
 
-.main-user-page .setting-btn{
+.main-user-page .item .dropdown{
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
     width: 25px;
+}
+.main-user-page .item .dropdown-menu{
+    left: auto;
+    right: -10px;
+    top: 30px;
+}
+
+.main-user-page .item .dropdown-menu span{
+    display: inline-block;
+    width: 30px;
+}
+
+.main-user-page .item .dropdown-menu a:hover{
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
+.main-user-page .setting-btn{
+    background-color: white;
+    border: none;
 }
 
 .main-user-page .setting-btn:hover{
@@ -118,13 +168,19 @@ important : #CC0066
     color: #66B2FF;
 }
 
-.main-user-page .item .type{
+.main-user-page .item .type,
+.main-user-page .item .mark{
     display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
     text-transform: uppercase;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.main-user-page .item .mark{
+    color: #CC0066;
 }
 
 .main-user-page .item .info label{
@@ -148,16 +204,39 @@ important : #CC0066
 }
 
 .main-user-page .item .footer{
-    display: table;
-    float: right;
+    width: 100%;
     text-align: right;
-    position: absolute;
-    bottom: 25px;
-    right: 15%;
+    display: table;
+    height: 30px;
 }
 
 .main-user-page .item .footer a{
+    display: table-cell; 
+    vertical-align: middle;
+    width: 50%;
     color: #E0E0E0;
+}
+
+.main-user-page .item .footer .important-mark{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    width: 50%;
+    color: #E0E0E0;
+}
+
+.main-user-page .item .footer .false:hover{
+    color: gray;
+    cursor: pointer;
+}
+
+.main-user-page .item .footer .true{
+    color: red;
+}
+
+.main-user-page .item .footer .true:hover{
+    color: #66B2FF;
+    cursor: pointer;
 }
 
 .main-user-page .item .footer a:hover{
@@ -170,6 +249,78 @@ important : #CC0066
     background-color: #FAFAFA;
 }
 
+/*
+Animate test
+*/
+.ng-enter,.ng-move{
+    -webkit-animation:0.5s my_animation_r;
+    -moz-animation:0.5s my_animation_r;
+    -o-animation:0.5s my_animation_r;
+    animation:0.5s my_animation_r;
+}
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.ng-enter.ng-enter-active,
+.ng-move.ng-move-active {
+    /*opacity:1;*/
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.ng-leave {
+    -webkit-animation:0.4s my_animation;
+    -moz-animation:0.4s my_animation;
+    -o-animation:0.4s my_animation;
+    animation:0.4s my_animation;
+}
+
+@keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+@keyframes my_animation_r{
+    from { opacity:0; }
+    to { opacity:1; }
+}
+@keyframes my_animation_repeat{
+    0%{ opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+@-webkit-keyframes my_animation_r {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+@-moz-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+@-moz-keyframes my_animation_r {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+@-o-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+@-o-keyframes my_animation_r {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+/*
+End of animate test
+*/
 .main-user-page .item .description p{
     display: inline-block;
     padding-bottom: 15px;
@@ -184,7 +335,7 @@ important : #CC0066
 .main-user-page .add-new .not-in{
     background-color: #FAFAFA;
     border: 2px dotted #E0E0E0;
-    transition: all .25s linear;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .in{
@@ -194,7 +345,12 @@ important : #CC0066
     cursor: pointer;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     border-top: 2px solid #E0E0E0;
-    transition: all .25s linear;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .in input:hover,
+.main-user-page .add-new .not-in input:hover{
+    cursor: pointer;
 }
 
 .main-user-page .add-new .active{
@@ -202,15 +358,36 @@ important : #CC0066
     border-top: 2px solid #E0E0E0;
     cursor: default;
     background-color: white;
+    transition: all .5s linear;
 }
 
-.main-user-page .add-new .active .btn{
+.main-user-page .add-new .active .footer .btn{
+    background-color: white;
+    color: #1DA1F2;
+    font-weight: bold;
+    border: 2px solid #1DA1F2;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .footer .btn:hover{
     background-color: #1DA1F2;
     color: white;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .btn:active,
+.main-user-page .add-new .active .btn:focus,
+.main-user-page .add-new .not-in .btn:active,
+.main-user-page .add-new .not-in .btn:focus,
+.main-user-page .add-new .in .btn:active,
+.main-user-page .add-new .in .btn:focus
+{
+    outline: none;
 }
 
 .main-user-page .add-new .active .title{
     color: black;
+    transition: all .5s linear;
 }
 
 .main-user-page .add-new .title{
@@ -218,21 +395,68 @@ important : #CC0066
     font-size: 23px;
     color: #ECECEC;
     text-align: center;
+    height: 60px;
+    transition: all .5s linear;
 }
+
+.main-user-page .add-new .input-date label,
+.main-user-page .add-new .input-title label{
+    font-weight: normal;
+}
+
+.main-user-page .add-new .active .input-title label,
+.main-user-page .add-new .active .input-date label{
+    color:  #1DA1F2;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .input-date a:hover{
+    color:  #1DA1F2;
+    cursor: pointer;
+}
+.main-user-page .add-new .not-in .input-title label,
+.main-user-page .add-new .not-in .input-date label
+{
+    color: #FAFAFA;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .in .input-title label,
+.main-user-page .add-new .in .input-date label,
+.main-user-page .add-new .in .input-date a,
+.main-user-page .add-new .not-in .input-date a{
+    color: #E0E0E0;
+    transition: all .5s linear;
+}
+
 .main-user-page .add-new .info{
     min-height: 220px;
 }
+
+.main-user-page .add-new .input-date input{
+    display: inline-block;
+    width: calc(100% - 30px);
+}
+
+.main-user-page .add-new .input-date a{
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    border: none;
+    background: none;
+}
+
 .main-user-page .add-new .footer{
     width: 100%;
     display: table;
 }
 
-.main-user-page .add-new .btn{
+.main-user-page .add-new .footer .btn{
     display: table-cell;
     width: 100%;
     height: 50px;
     background-color: #ECECEC;
     color: white;
     border: none;
+    transition: all .5s linear;
 }
-

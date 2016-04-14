@@ -2,27 +2,53 @@
     <div ng-include src="'views/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
     <div class="container userPage">
         <div class="row meeting-list">
-            <div class="item col-md-4 col-xs-12" ng-dblclick="open(meeting)" ng-repeat="meeting in meetingList">
+            <div class="item col-md-4 col-xs-12" ng-dblclick="open(meeting)" ng-repeat="meeting in meetingList"
+                 ng-animate="'animate'">
                 <div class="meeting-box" ng-class="meeting.Info.Type">
                     <div class="meeting-detail-col">
-                        <div class="title">
-                            <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
-                            <div class="setting-btn"><span class="glyphicon glyphicon-cog"></span></div>
-                        </div>
-                        <div class="type">{{meeting.Info.Type}}</div>
-                        <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
-                        <div class="info"><label>Time</label>{{meeting.Info.Time}}</div>
-                        <div class="member">
-                            <span class="meeting-member">
-                                <label>Members</label>
-                                <a ng-repeat="member in meeting.Info.Members">{{member}}</a>
-                            </span>
-                        </div>
-                        <div class="description animate-show" ng-show="viewMore[meeting.Index]" ng-animate="'animate'">
-                            <label>Remarks</label>
-                            <p>{{meeting.Info.Remark}}</p>
+                        <div class="info-list">
+                            <div class="title">
+                                <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
+                                <div class="dropdown">
+                                    <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#/editMeeting/{{meeting.Oldindex}}" target="view_window">
+                                                <span class="glyphicon glyphicon-pencil"></span>Manage
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="deleteFromList(meeting.Index)">
+                                                <span class="glyphicon glyphicon-trash"></span>Delete
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="reverseImportantTag(meeting.Index)" >
+                                                <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.Important">Mark</span><span ng-show="meeting.Info.Important">Unmark</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div><span class="type">{{meeting.Info.Type}}</span><span class="mark" ng-show="meeting.Info.Important">Marked</span></div>
+                            <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
+                            <div class="info"><label>Time</label>{{meeting.Info.Time}}</div>
+                            <div class="member">
+                                <span class="meeting-member">
+                                    <label>Members</label>
+                                    <a ng-repeat="member in meeting.Info.Members">{{member}}</a>
+                                </span>
+                            </div>
+                            <div class="description animate-show" ng-hide="!viewMore[meeting.Index]"
+                                 ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                                <label>Remarks</label>
+                                <p>{{meeting.Info.Remark}}</p>
+                            </div>
                         </div>
                         <div class="footer">
+                            <div class="important-mark" ng-click="reverseImportantTag(meeting.Index)" ng-class="meeting.Importanttag">
+                                <span class="glyphicon glyphicon-star"></span>
+                            </div>
                             <a >
                                 <div ng-hide="viewMore[meeting.Index]" ng-click="setViewMore(meeting.Index, true)">
                                     View Description <span class="glyphicon glyphicon-chevron-down"></span>
@@ -42,9 +68,17 @@
                         <div class="title">
                             <label>Add a New Meeting</label>
                         </div>
+                        <div class="input-title">
+                            <label>Meeting Title</label>
+                            <input ng-disabled="!addMoreAbled" class="form-control" type="text"/>
+                        </div>
+                        <div class="input-date">
+                            <label>Date</label>
+                            <input ng-disabled="!addMoreAbled" class="form-control" type="text"/><a class=" glyphicon glyphicon-calendar" ng-click="onCalendar()" ng-disabled="!addMoreAbled"></a>
+                        </div>
                     </div>
                     <div class="footer">
-                        <button class="btn btn-default" ng-disabled="">CREATE NEW MEETING</button>
+                        <button class="btn btn-default" ng-disabled="!addMoreAbled">CREATE NEW MEETING</button>
                     </div>
 
                 </div>
