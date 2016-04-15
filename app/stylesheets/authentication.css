@@ -38,13 +38,14 @@
 }
 
 .authentication .warnings img{
-    width: 50%;
+    width: 100px;
 }
 
 .authentication .warnings h2{
     width: 70%;
     display: block;
     margin: 0 auto;
+    font-weight: bold;
 }
 
 .authentication .warnings p{

@@ -13,7 +13,8 @@
 }
 
 #main-nav .navbar img{
-    height: 30px;
+    width: 35px;
+    height: 35px;
 }
 
 #main-nav .navbar a:hover{
@@ -45,7 +46,9 @@
     background-color: #DCDCDC;
 }
 
+#main-nav .navbar .dropdown-menu ul{
 
+}
 
 
 
@@ -133,10 +136,6 @@ footer a{
     text-align: center;
 }
 
-#home .carousel{
-    min-height: 650px;
-}
-
 #home .top hr{
     width: 400px;
 }
@@ -170,7 +169,7 @@ footer a{
 }
 
 #home .content-text{
-    min-height: 300px;
+    min-height: 250px;
     margin-top: 100px;
     margin-bottom: 100px;
     text-align: center;
