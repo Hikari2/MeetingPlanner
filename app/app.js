@@ -4,72 +4,40 @@ meetingAgendaBuilder.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
                 when('/home', {
-                    templateUrl: 'views/home.html',
+                    templateUrl: 'layout/home.html',
                     controller: 'AuthenticationCtrl'
                 }).
                 when('/login', {
-                    templateUrl: 'views/login.html',
+                    templateUrl: 'authentication/login.html',
                     controller: 'AuthenticationCtrl'
                 }).
                 when('/register', {
-                    templateUrl: 'views/register.html',
+                    templateUrl: 'authentication/register.html',
                     controller: 'AuthenticationCtrl'
                 }).
                 when('/userpage', {
-                    templateUrl: 'views/userpage.html',
+                    templateUrl: 'dashboard/userpage.html',
                     controller: 'UserPageCtrl',
                     resolve: {
-                        // controller will not be loaded until $requireAuth resolves
                         "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-                                // $requireAuth returns a promise so the resolve waits for it to complete
-                                // If the promise is rejected, it will throw a $stateChangeError
                                 return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
                 when('/userpage/settings', {
-                    templateUrl: 'views/usersettings.html',
+                    templateUrl: 'dashboard/settings/usersettings.html',
                     controller: 'UserPageCtrl',
                     resolve: {
-                        // controller will not be loaded until $requireAuth resolves
                         "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-                                // $requireAuth returns a promise so the resolve waits for it to complete
-                                // If the promise is rejected, it will throw a $stateChangeError
-                                return AuthenticationService.requireAuth();
-                            }]
-                    }
-                }).
-                when('/userpage/messages', {
-                    templateUrl: 'views/usermessages.html',
-                    controller: 'UserPageCtrl',
-                    resolve: {
-                        // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-                                // $requireAuth returns a promise so the resolve waits for it to complete
-                                // If the promise is rejected, it will throw a $stateChangeError
-                                return AuthenticationService.requireAuth();
-                            }]
-                    }
-                }).
-                when('/userpage/history', {
-                    templateUrl: 'views/userhistory.html',
-                    controller: 'UserPageCtrl',
-                    resolve: {
-                        // controller will not be loaded until $requireAuth resolves
-                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-                                // $requireAuth returns a promise so the resolve waits for it to complete
-                                // If the promise is rejected, it will throw a $stateChangeError
                                 return AuthenticationService.requireAuth();
                             }]
                     }
                 }).
                 when('/editMeeting/:meetingId', {
-                    templateUrl: 'views/editMeeting.html',
+                    templateUrl: 'meetings/editing/editMeeting.html',
+                    controller: 'EditMeetingCtrl',
                     resolve: {
-                        // controller will not be loaded until $requireAuth resolves
                         "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-                                // $requireAuth returns a promise so the resolve waits for it to complete
-                                // If the promise is rejected, it will throw a $stateChangeError
                                 return AuthenticationService.requireAuth();
                             }]
                     }

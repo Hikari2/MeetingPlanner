@@ -1,0 +1,69 @@
+
+/****         LOG IN        ****/
+/****         REGISTER      ****/
+
+.authentication{
+    position: absolute;
+    top: 0px; /* Header Height */
+    bottom: 0px; /* Footer Height */
+    width: 100%;
+}
+
+.authentication .container{
+    background-color: white;
+    width: 450px;
+    margin: 100px auto 40px auto;
+}
+
+.authentication hr{  
+
+}
+.authentication .authentication-form .btn-default{
+    background-color: #1da1f2;
+    color:white;
+}
+#btnRegister #btnSubmit{
+    background-color: #1da1f2;
+    color: white;
+}
+.authentication .authentication-form .btn-link{
+    border-color: #1da1f2;
+    color: #1da1f2;
+    border-radius: 4px;
+}
+.authentication .warnings{
+
+    width: 100%;
+    margin: 0 auto 40px auto;
+}
+
+.authentication .warnings img{
+    width: 50%;
+}
+
+.authentication .warnings h2{
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+
+.authentication .warnings p{
+    margin-top: 20px;
+    font-size: 18px;
+    color: red;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    background-color: rgba(254,70,77,.2);
+}
+
+.authentication-form{
+    background-color: white;
+    width: 320px;
+    margin: 0 auto 40px auto;
+}
+
+.authentication .authentication-form a{
+    text-decoration: none;
+    color: black;
+}

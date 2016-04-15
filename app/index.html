@@ -5,20 +5,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Meeting Agenda Builder</title>
+        <title>Meeting Planner</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <!-- Common CSS -->
-        <link rel="stylesheet" href="stylesheets/main.css">
-        <link rel="stylesheet" href="stylesheets/home.css">
-        <link rel="stylesheet" href="stylesheets/userpage.css">
-        <link rel="stylesheet" href="stylesheets/footer.css">
-        <link rel="stylesheet" href="stylesheets/modal.css">
-        <link rel="stylesheet" href="stylesheets/editMeetingPage.css">
-        <link rel="stylesheet" href="stylesheets/usersettings.css">
-        <link rel="stylesheet" href="stylesheets/usermessages.css">
-        <link rel="stylesheet" href="fonts/font1/stylesheet.css">
+        <link rel="stylesheet" href="stylesheets/meetings.css">
+        <link rel="stylesheet" href="stylesheets/layout.css">
+        <link rel="stylesheet" href="stylesheets/authentication.css">
+        <link rel="stylesheet" href="stylesheets/dashboard.userpage.css">
+        <link rel="stylesheet" href="stylesheets/dashboard.settings.css">
+
         <!-- jQuery -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
@@ -36,7 +33,7 @@
         <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
         <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
         <!-- Angular UI Bootstrap JavaScript-->
-        <script src="new_libraries/ui-bootstrap-tpls-1.3.1.min.js"></script>
+        <script src="common/ui-bootstrap-tpls-1.3.1.min.js"></script>
 
         <!-- Firebase -->
         <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
@@ -45,27 +42,29 @@
 
         <!-- The application JavaScript code -->
         <script src="app.js"></script>
-        <script src="controllers/authenticationCtrl.js"></script>
-        <script src="controllers/userPageCtrl.js"></script>
-        <script src="controllers/editMeetingCtrl.js"></script>
 
-        <script src="services/authenticationService.js"></script>
-        <script src="services/meetingService.js"></script>
-        <script src="services/fireBaseDataService.js"></script>
-        <script src="services/fireBaseAuthService.js"></script>
+        <!-- Authentication JavaScript code -->
+        <script src="authentication/authenticationCtrl.js"></script>
+        <script src="authentication/authenticationService.js"></script>
 
-        <script src="scripts/day.js"></script>
-        <script src="scripts/activity.js"></script>
-        <script src="scripts/utility.js"></script>
-        <script src="directives/draggable.js"></script>
-        <script src="directives/droppable.js"></script>
-        <!--Upload profile-Jian---->
-        <!--<script src="../scripts/jquery.min.js"></script>-->
-        <!--<script src="../scripts/jquery.Jcrop.min.js"></script>-->
-        <!--<link rel="stylesheet" href="stylesheets/jquery.Jcrop.css" type="text/css">-->
-        <script src="scripts/uploadImg.js"></script>
+        <!-- Dashboard JavaScript code -->
+        <script src="dashboard/userPageCtrl.js"></script>
+        <script src="dashboard/settings/uploadProfilePic.js"></script>
+
+        <!-- Meetings JavaScript code -->
+        <script src="meetings/meetingService.js"></script>
+        <script src="meetings/userService.js"></script>
+        <script src="meetings/day.js"></script>
+        <script src="meetings/activity.js"></script>
+        <script src="meetings/user.js"></script>
+        <script src="meetings/editing/editMeetingCtrl.js"></script>
+
+        <!-- Common JavaScript code -->
+        <script src="common/utility.js"></script>
+        <script src="common/fireBaseDataService.js"></script>
+
     <body>  
-        <div ng-view class="wrap">
+        <div ng-view id="wrap">
         </div>
     </body>
 </html>

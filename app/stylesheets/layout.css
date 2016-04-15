@@ -1,0 +1,263 @@
+#wrap{
+    height: 1200px;
+}
+
+
+
+
+/****         NAVIGATION BAR      ****/
+
+#main-nav .navbar{
+    background-color: white;
+    border-bottom: 2px solid #D8D8D8;
+}
+
+#main-nav .navbar img{
+    height: 30px;
+}
+
+#main-nav .navbar a:hover{
+    border-bottom: 5px solid #1da1f2;
+}
+
+#main-nav .navbar a{
+    border-bottom: 0px solid white;
+    height: 50px;
+    transition: all .15s ease-in-out;
+    text-decoration: none;
+    color: black;
+}
+
+#main-nav .navbar .navbar-left li{
+    max-width: 120px;
+}
+
+#main-nav .navbar .dropdown ul{
+    padding: 0 0 0 0;
+}
+
+#main-nav .navbar .dropdown a{
+    background-color: white;
+}
+
+#main-nav .navbar .dropdown li a:hover{
+    border-bottom: none;
+    background-color: #DCDCDC;
+}
+
+
+
+
+
+/****      FOOTER      ****/
+footer{
+    padding-bottom: 0px;
+    min-height: 120px;
+}
+
+footer h4{
+    text-align: center;
+}
+
+footer hr{  
+    border-top: 1px solid black;
+}
+
+footer a{  
+    display: block;
+    height: 50px;
+    text-decoration: none;
+    color: black;
+}
+
+#nav-footer{
+    /*height: 30px;*/
+    padding: 40px 0 40px 0;
+    /*color: #D9B580;*/
+    color: white;
+    border:none;
+    height: 40%;
+    /*padding-top: 10%;*/
+    background-color: #ABA9A9;
+    width: 100%;
+    min-width: 100%;
+    vertical-align: top;
+}
+#nav-footer a{
+    color: #0a0a0a;
+}
+
+#footer-bottom-table{
+    float: left;
+    display: table;
+    border-collapse: separate;
+    margin: 0 0 0 70%;
+    background-size: 100% 100%;
+
+}
+#footer-nav{
+    border-collapse: separate;
+}
+#footer-nav td{
+    padding-right: 0%;
+}
+#footer-nav td,th{
+    display: table-cell;
+    vertical-align: inherit;
+}
+#description{
+    width: auto;
+    text-align: right;
+    letter-spacing: 5px;
+    margin: 0;
+    font-size: 12px;
+}
+#footer-logo{
+
+}
+
+#buttonreplacement{
+    padding-top: 50px;
+}
+
+
+
+
+/****      HOME      ****/
+
+#home .top{
+    background-image: url("../resources/front-page.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 500px;
+    text-align: center;
+}
+
+#home .carousel{
+    min-height: 650px;
+}
+
+#home .top hr{
+    width: 400px;
+}
+
+#home .demo hr{
+    width: 100%;
+    border-top: 1px solid #D3D3D3;
+}
+
+#home .top h1{
+    margin-top: 15%;
+    color: white;
+    font-size: 62px;
+}
+
+#home .top h3{
+    color: white;
+
+}
+
+#home .top .btn{
+    font-size: 32px;
+    color: white;
+    background-color: #1da1f2;
+    padding: 10px 30px 10px 30px;
+    border-style: none;
+}
+
+#home .top .btn:hover{
+    background-color: #3b88c3;
+}
+
+#home .content-text{
+    min-height: 300px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+#home .content-text .headline{
+    margin-bottom: 50px;
+}
+
+#home .content-text img{
+    width: 64px;
+    margin-right: 20px;
+}
+
+#home .content-text p{
+    font-size: 22px;
+}
+
+#home .home-midVideo{
+    /*min-height: 600px;*/
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #222;
+    text-align: center;
+}
+
+#home .home-midVideo .video iframe{
+    min-height: 500px;
+    width: 100%;
+}
+
+#home .demo{
+    min-height: 300px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#home .demo .row{
+    margin-bottom: 80px;
+}
+
+#home .demo .demoImage img{
+    width: 100%;
+} 
+
+#home .demo .demoDescription p{
+    font-size: 22px;
+}
+
+@media screen and (max-width: 860px){
+
+    #home .top{
+        min-height: 500px;
+    }
+
+    #home .top h1{
+        margin-top: 100px;
+        font-size: 48px;
+    }
+
+    #home .top h2{
+        font-size: 21px;
+    }
+
+    #home .top hr{
+        width: 300px;
+    }
+
+    #home .content-text{
+        min-height: 200px;
+        margin-top: 100px;
+    }
+
+    #home .content-text .headline{
+        margin-bottom: 20px;
+    }
+
+    #home .content-text .headline h2{
+        font-size: 22px;
+    }
+
+    #home .content-text img{
+        width: 42px;
+        margin-right: 10px;
+    }
+
+    #home .content-text p{
+        font-size: 18px;
+    }
+}
