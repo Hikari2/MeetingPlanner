@@ -1,10 +1,11 @@
+<!--suppress ALL -->
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
 
 <div class="container" id="tempTry">
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row w">
             <div class="col-md-4">
-                <a onclick="uploadImg()" target="_blank"><img class="img-responsive"  src="http://d310a9hpolx59w.cloudfront.net/stores/avatars/33569/medium/logo.png?1337481625" alt="profile img" id="imghead"></a>
+                <a onclick="uploadImg()" target="_blank"><img class="img-responsive"  src="http://d310a9hpolx59w.cloudfront.net/stores/avatars/33569/medium/logo.png?1337481625" alt="profile img" id="originalImage"></a>
                 <ul class="nav nav-tabs nav-stacked" id="myTab">
                     <li class="active"><a href="#about">Personal Info</a></li>
                     <li><a href="#profile">Work Experience</a></li>
@@ -49,8 +50,11 @@
                     <!--Fourth tab-->
                     <div class="tab-pane" id="meetings">
                         <a href="#/userpage">Go to review my meetings</a>
+                        <hr>
+                        <a href="/MeetingPlanner/app/dashboard/restAPI.html">Find the meeting location</a>
                     </div>
                 </div>
+                <!--Show the different tabs- jiansun-->
                 <script type="text/javascript">
                             $('#myTab a').click(function (e) {
                                 e.preventDefault()
@@ -61,6 +65,5 @@
         </div>
     </div>
 </div>
-<a href="/MeetingPlanner/app/views/restAPI.html">XXXXXXXXXX</a>
 <div ng-include src="'layout/footer.html'"></div>
 

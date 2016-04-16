@@ -7,37 +7,40 @@ and open the template in the editor.
     Created on : Apr 8, 2016, 9:38:54 AM
     Author     : Hao
 */
-.user-settings ul{
+.user-settings ul {
     margin-top: 3vh;
     margin-left: -3vw;
     list-style-type: none;
 }
-.user-settings li{
+
+.user-settings li {
     margin-top: 2vh;
     width: 51.5vw;
 }
-.user-settings .info-list label{
+
+.user-settings .info-list label {
     text-align: left;
     margin-left: 1vw;
     width: 5vw;
 }
-.user-settings .short-input{
+
+.user-settings .short-input {
     display: table-cell;
     width: 19vw;
 }
 
-.user-settings .long-input{
+.user-settings .long-input {
     display: table-cell;
     width: 44.5vw;
 }
 
-.user-settings textArea{
+.user-settings textArea {
     margin-left: .5vw;
     width: 50.5vw;
     max-width: 50.5vw;
 }
 
-.user-settings .btn{
+.user-settings .btn {
     display: table-cell;
     font-weight: bold;
     width: 6vw;
@@ -49,11 +52,12 @@ and open the template in the editor.
     transition: all .25s linear;
 }
 
-.user-settings .btn:hover{
+.user-settings .btn:hover {
     background-color: #D9B580;
     color: white;
     transition: all .25s linear;
 }
+
 #tempTry {
     /*background-color: #f2f2f2;*/
     /*background-color: #00A000;*/
@@ -76,11 +80,11 @@ and open the template in the editor.
     /*background-size: cover;*/
 
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     color: #333;
 }
-
 
 /* Paragraph & Typographic */
 p {
@@ -132,12 +136,11 @@ a:after {
 .w {
     background-color: #ffffff;
     border: 1px solid #dddddd;
-    -moz-box-shadow: 5px 5px rgba(0,0,0,0.2);
-    -webkit-box-shadow: 5px 5px rgba(0,0,0,0.2);
-    box-shadow: 5px 5px rgba(0,0,0,0.2);
+    -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
     width: 120%;
 }
-
 
 .col-md-4 {
     padding-left: 0px;
@@ -148,7 +151,6 @@ a:after {
     padding-left: 0px;
     padding-right: 0px;
 }
-
 
 .nav-tabs {
     border-bottom: 1px solid #dddddd;
@@ -196,21 +198,37 @@ a:after {
 i {
     vertical-align: middle;
 }
-#about label{
+
+#about label {
     color: #1abc9c;
     /*color: #ABA9A9;*/
 }
-#profile label{
+
+#profile label {
     color: #1abc9c;
     /*color: #ABA9A9;*/
 }
-#contact label{
+
+#contact label {
     color: #1abc9c;
     /*color: #ABA9A9;*/
 }
-#meetings{
+
+#meetings {
     text-align: center;
 }
-img#imghead{
+
+img#originalImage {
     width: 100%;
+}
+
+#preview {!important;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    overflow: hidden;
+}
+
+#imghead {!important;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
 }

@@ -3003,6 +3003,7 @@ input[type="button"].btn-block {
 }
 .dropdown {
   position: relative;
+
 }
 .dropdown-toggle:focus {
   outline: 0;
@@ -3015,6 +3016,7 @@ input[type="button"].btn-block {
   display: none;
   float: left;
   min-width: 160px;
+  /*min-width: auto;*/
   padding: 5px 0;
   margin: 2px 0 0;
   font-size: 14px;
@@ -3036,6 +3038,8 @@ input[type="button"].btn-block {
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
+
+
 }
 .dropdown-menu > li > a {
   display: block;
@@ -3045,6 +3049,8 @@ input[type="button"].btn-block {
   line-height: 1.42857143;
   color: #333;
   white-space: nowrap;
+
+
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {

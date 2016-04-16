@@ -31,6 +31,7 @@
 
 #main-nav .navbar .navbar-left li{
     max-width: 120px;
+
 }
 
 #main-nav .navbar .dropdown ul{
@@ -39,11 +40,14 @@
 
 #main-nav .navbar .dropdown a{
     background-color: white;
+
 }
+
 
 #main-nav .navbar .dropdown li a:hover{
     border-bottom: none;
     background-color: #DCDCDC;
+
 }
 
 #main-nav .navbar .dropdown-menu ul{
@@ -260,3 +264,4 @@ footer a{
         font-size: 18px;
     }
 }
+
