@@ -12,68 +12,8 @@ function User() {
 
     this._profilePic = "https://cdn0.iconfinder.com/data/icons/users-android-l-lollipop-icon-pack/24/user-128.png";
 
-    this.setFirstName = function (fm) {
-        this._firstName = fm;
-    };
-
-    this.getFirstName = function () {
-        return this._firstName;
-    };
-
-    this.setLastName = function (lm) {
-        this._lastName = lm;
-    };
-
-    this.getLastName = function () {
-        return this._lastName;
-    };
-
-    this.setGender = function (gd) {
-        this._gender = gd;
-    };
-
-    this.getGender = function () {
-        return this._gender;
-    };
-
-    this.setBirthDay = function (bd) {
-        this._birthday = bd;
-    };
-
-    this.getBirthDay = function () {
-        return this._birthday;
-    };
-
-    this.setAddress = function (ad) {
-        this._address = ad;
-    };
-
-    this.getAddress = function () {
-        return this._address;
-    };
-
-    this.setEmail = function (em) {
-        this._email = em;
-    };
-
-    this.getEmail = function () {
-        return this._email;
-    };
-
-    this.setPhone = function (pn) {
-        this._phone = pn;
-    };
-
-    this.getPhone = function () {
-        return this._phone;
-    };
-
-    this.setProfilePic = function (pp) {
-        this._profilePic = pp;
-    };
-
-    this.getProfilePic = function () {
-        return this._profilePic;
+    this.getName = function () {
+      return (this._firstName +" "+ this._lastName);  
     };
 
     this.toJson = function () {

@@ -12,6 +12,7 @@ meetingAgendaBuilder.controller('AuthenticationCtrl', function ($scope, $locatio
             email: $scope.email,
             password: $scope.password
         }).then(function (authData) {
+            //Created only if there's none
             UserService.createUserProfile(authData, $scope.email);
             $location.path("/userpage");
         }).catch(function (error) {

@@ -1,25 +1,39 @@
 
-meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBaseDataService) {
+meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $firebaseObject, FireBaseDataService) {
 
     var ActivityType = ["Presentation", "Group_Work", "Discussion", "Break"];
-
+    this.days = [];
+    this.sharedDays = [];
     this.parkedActivities = [];
 
-    this.load = function (uid) {
+    this.loadMeetings = function (uid) {
         this.days = $firebaseArray(FireBaseDataService.meetings.child(uid));
+    };
+
+    this.loadSharedMeetings = function (uid) {
+        this.sharedDays = $firebaseArray(FireBaseDataService.shared.child(uid));
+    };
+
+    this.loadSharedMeeting = function (id) {
+        for (var i = 0; i < this.sharedDays.length; i++) {
+            if (this.sharedDays[i].id === id) {
+                this.sharedDay = $firebaseObject(FireBaseDataService.meetings.child(this.sharedDays[i].owner).child(id));
+                return;
+            }
+        }
+        this.sharedDay = $firebaseObject(FireBaseDataService.meetings.child("Some string").child("Some string"));
     };
 
     this.save = function (day) {
 
         var index = this.getDayIndex(day._id);
 
-        this.days[index].start = day.getStart();
-        this.days[index].end = day.getEnd();
-
         day = day.toJson();
         this.days[index].uid = day.uid;
         this.days[index].title = day.title;
         this.days[index].date = day.date;
+        this.days[index].start = day.start;
+        this.days[index].end = day.end;
         this.days[index].description = day.description;
         this.days[index].important = day.important;
         this.days[index].type = day.type;
@@ -36,6 +50,14 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
             if (this.days[i].$id === id)
                 return Day.fromJson(this.days[i]);
         }
+
+        if (this.sharedDay === undefined)
+            return null;
+
+        if (this.sharedDay.$id === id)
+            return Day.fromJson(this.sharedDay);
+
+        return null;
     };
 
     this.getDayIndex = function (id) {
@@ -43,15 +65,27 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
             if (this.days[i].$id === id)
                 return i;
         }
-    }
+    };
 
     this.getAllDays = function () {
         var days = [];
         for (var i = 0; i < this.days.length; i++) {
             days[i] = Day.fromJson(this.days[i]);
         }
+        ;
+
         return days;
-    }
+    };
+
+    this.getAllSharedDays = function () {
+        var sharedDays = [];
+        for (var i = 0; i < this.sharedDays.length; i++) {
+            sharedDays[i] = Day.fromJson(this.sharedDays[i]);
+        }
+        ;
+
+        return sharedDays;
+    };
 
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
@@ -137,13 +171,45 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
     };
 
     this.addParticipant = function (day, user, position) {
-        day.addParticipant(user, position);
+
+        if (day.addParticipant(user, position) !== undefined) {
+            var sharedMeetings = $firebaseArray(FireBaseDataService.shared.child(user));
+            var index = this.getDayIndex(day._id);
+            var id = this.days[index].$id;
+            var owner = this.days[index].uid;
+
+            sharedMeetings.$loaded().then(function () {
+                sharedMeetings.$add({id: id, owner: owner}).catch(function (error) {
+                    alert("Something went wrong when trying to share the meeting: " + error);
+                });
+            });
+        }
+
         this.save(day);
     };
 
     this.removeParticipant = function (day, position) {
 
-        day.removeParticipant(position);
+        var participant = day.removeParticipant(position);
+
+        if (participant !== undefined) {
+            var sharedMeetings = $firebaseArray(FireBaseDataService.shared.child(participant));
+            var index = this.getDayIndex(day._id);
+            var id = this.days[index].$id;
+
+            sharedMeetings.$loaded().then(function () {
+
+                $.each(sharedMeetings, function (index, meeting) {
+                    if (meeting.id === id) {
+                        sharedMeetings.$remove(meeting).catch(function (error) {
+                            alert("Something went wrong when trying to unshare the meeting: " + error);
+                        });
+                    }
+                    ;
+                });
+            });
+        }
+
         this.save(day);
     };
 

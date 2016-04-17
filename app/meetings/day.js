@@ -18,51 +18,9 @@ function Day(startH, startM, userId) {
     this._start = startH * 60 + startM;
     this._end = startH * 60 + startM;
 
-    this.setId = function (id) {
-        this._id = id;
-    };
-
-    this.getId = function () {
-        return this._id;
-    };
-
-    this.setTitle = function (title) {
-        this._title = title;
-    };
-
-    this.getTitle = function () {
-        return this._title;
-    };
-
-    this.setDate = function (date) {
-        this._date = date;
-    };
-
-    this.getDate = function () {
-        return this._date;
-    };
-
-    this.setDescription = function (description) {
-        this._description = description;
-    };
-    this.getDescription = function () {
-        return this._description;
-    };
-    this.setImportant = function (b) {
-        this._important = b;
-    };
-    this.getImportant = function () {
-        return this._important;
-    };
-    this.setType = function (typeId) {
-        this._type = MeetingType[typeId];
-    };
-    this.getType = function () {
-        return MeetingType[this._type];
-    };
-    // sets the start time to new value
     this.setStart = function (startH, startM) {
         this._start = startH * 60 + startM;
+        this._end = this._start + this.getTotalLength();
     };
 
 // returns the total length of the acitivities in
@@ -78,12 +36,12 @@ function Day(startH, startM, userId) {
     // the end time of the day
     this.getEnd = function () {
         this._end = this._start + this.getTotalLength();
-        return this._end;
+        return formatTime(this._end);
     };
     // returns the string representation Hours:Minutes of
     // the start time of the day
     this.getStart = function () {
-        return this._start;
+        return formatTime(this._start);
     };
     // returns the length (in minutes) of activities of certain type
     this.getLengthByType = function (typeid) {
@@ -138,7 +96,7 @@ function Day(startH, startM, userId) {
             counter += this._activities[i].getLength();
         }
 
-        return counter;
+        return formatTime(counter);
     };
 
     this.addParticipant = function (user, position) {
@@ -150,7 +108,7 @@ function Day(startH, startM, userId) {
 
         for (var i = 0; i < this._participants.length; i++) {
             if (this._participants[i] === id)
-                return null;
+                return undefined;
         }
 
         if (position !== null) {
@@ -158,6 +116,7 @@ function Day(startH, startM, userId) {
         } else {
             this._participants.push(id);
         }
+        return id;
     };
 
     this.removeParticipant = function (position) {
@@ -173,6 +132,19 @@ function Day(startH, startM, userId) {
         return this._participants;
     };
 
+    var formatTime = function (totalMin) {
+        var hours = Math.floor(totalMin / 60);
+        var mins = totalMin % 60;
+
+        if (hours < 10)
+            hours = "0" + hours;
+
+        if (mins < 10)
+            mins = "0" + mins;
+
+        return hours + ":" + mins;
+    };
+
     this.toJson = function () {
         var json = {
             uid: this._uid,
@@ -182,7 +154,7 @@ function Day(startH, startM, userId) {
             important: this._important,
             type: this._type,
             start: this._start,
-            end: this._end + this.getTotalLength(),
+            end:  this._start + this.getTotalLength(),
             activities: [],
             participants: []
         };
@@ -209,6 +181,8 @@ Day.fromJson = function (json) {
     day._description = json.description;
     day._important = json.important;
     day._type = json.type;
+    this._start = json.start;
+    this._end = json.end;
 
     if (json.activities) {
         $.each(json.activities, function (index, activity) {

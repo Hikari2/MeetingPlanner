@@ -42,6 +42,15 @@ meetingAgendaBuilder.config(['$routeProvider',
                             }]
                     }
                 }).
+                when('/spectateMeeting/:meetingId', {
+                    templateUrl: 'meetings/spectate/spectateMeeting.html',
+                    controller: 'SpectateMeetingCtrl',
+                    resolve: {
+                        "currentAuth": ["AuthenticationService", function (AuthenticationService) {
+                                return AuthenticationService.requireAuth();
+                            }]
+                    }
+                }).
                 otherwise({
                     redirectTo: '/home'
                 });

@@ -6,7 +6,8 @@ meetingAgendaBuilder.factory("FireBaseDataService", [
         var ref = {
             root: root,
             meetings: root.child("meetings"),
-            users: root.child("users")
+            users: root.child("users"),
+            shared: root.child("shared")
         };
         return ref;
     }

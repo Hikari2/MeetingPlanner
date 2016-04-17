@@ -1,26 +1,37 @@
-#editMeeting {
+
+
+#editMeeting, #spectateMeeting{
     margin-top: 150px;
     height: 800px;
 }
 
-#editMeeting .drag{
+#editMeeting table, #spectateMeeting table{
+    table-layout:fixed;
+    width: 100%;
+}
 
+#editMeeting #spectateMeeting .loadingLogo{
+    text-align: center; 
 }
 
 #editMeeting .uib-timepicker{
     padding-top: 50%;
 }
 
-#editMeeting .input-group{
-    margin-top: 15%;
+#editMeeting #top, #spectateMeeting #top{
+    text-align: center;
 }
 
-#editMeeting .loadingLogo{
-    text-align: center;
+#editMeeting #top .status h3, #spectateMeeting #top .status h3{
+    color: red;
 }
 
 #editMeeting #leftPanel{
     text-align: center;
+    width: 350px;
+}
+
+#spectateMeeting #leftPanel{
     width: 350px;
 }
 
@@ -37,14 +48,11 @@
     background-color: #61BEF7;
 }
 
-
-
-
-#editMeeting#editMeeting #midPanel{
+#editMeeting #midPanel, #spectateMeeting #midPanel{
     width: 350px;
 }
 
-#editMeeting#editMeeting #rightPanel{
+#editMeeting #rightPanel, #spectateMeeting #rightPanel{
     width: 300px;
 }
 
@@ -55,117 +63,111 @@
 
 
 
+/*      Activity Table       */
 
 
-
-#editMeeting table{
-    table-layout:fixed;
-    width: 100%;
-
-}
-
-#editMeeting .activityQueue{
+.activityQueue{
     padding: 1px 1px 1px 1px;
 }
 
-#editMeeting .activityQueue tr{
+.activityQueue tr{
     height: 50px;
     width: 100%;
     text-align: left;
 }
 
-#editMeeting .activityQueue tr td{
+.activityQueue tr td{
     padding: 10px 5px 10px 5px;
 }
 
-#editMeeting .activityQueue .filler{
+.activityQueue .filler{
     height: 100px;
 }
 
-#editMeeting .activityQueue .length{
+.activityQueue .length{
     width: 25%;
     text-align: center;
 }
 
-#editMeeting .activityQueue .title{
+.activityQueue .title{
     width: 75%;
     font-size: 12px;
     word-wrap:break-word;
     overflow: hidden;
 }
 
-#editMeeting .activityQueue .title:hover{
+.activityQueue .title:hover{
     box-shadow: 1px 1px 4px grey;
 }
 
-#editMeeting .activityQueue .title p{
+.activityQueue .title p{
     font-weight: bold;
     font-size: 16px;
 }
 
-#editMeeting .activityQueue .Presentation{
+.activityQueue .Presentation{
     background-color: #CEF6F5;
 }
 
-#editMeeting .activityQueue .Group_Work{
+.activityQueue .Group_Work{
     background-color: #BEF5EA;
 }
 
-#editMeeting .activityQueue .Discussion{
+.activityQueue .Discussion{
     background-color: #BCF5A9;
 }
 
-#editMeeting .activityQueue .Break{
+.activityQueue .Break{
     background-color: #F4F79F;
 }
 
-#editMeeting .activityQueue .bin{
+.activityQueue .bin{
     background-color: #E0E0E0;
     height: 80px;
     transition: all .25s ease-in-out;
 }
 
-#editMeeting .activityQueue .bin .dragHover{
+.activityQueue .bin .dragHover{
     height: 110px;
 }
 
 
 
 
-#editMeeting table{
-    table-layout:fixed;
-    width: 100%;
-}
 
-#editMeeting .participantTable{
+
+
+/*      Participant Table       */
+
+.participantTable{
     padding: 1px 1px 1px 1px;
     box-shadow: 3px 3px 4px grey;
 }
 
-#editMeeting .participantTable tr{
+.participantTable tr{
     height: 50px;
     width: 100%;
     text-align: left;
 }
 
-#editMeeting .participantTable tr td{
+.participantTable tr td{
     padding: 10px 5px 10px 5px;
 }
 
-#editMeeting .participantTable .userPic{
+.participantTable .userPic{
     width: 25%;
     text-align: center;
 }
 
-#editMeeting .participantTable .userPic img{
+.participantTable .userPic img{
     width: 100%;
 }
 
-#editMeeting .participantTable .filler{
+.participantTable .filler{
     height: 100px;
 }
 
-#editMeeting .participantTable .userName{
+.participantTable .userName{
     width: 75%;
     font-size: 16px;
     word-wrap:break-word;
@@ -175,11 +177,11 @@
     background-color: #F5F5F5;
 }
 
-#editMeeting .participantTable .userName:hover{
+.participantTable .userName:hover{
     box-shadow: 1px 1px 4px grey;
 }
 
-#editMeeting .participantTable .userName p{
+.participantTable .userName p{
     font-weight: bold;
     font-size: 16px;
 }

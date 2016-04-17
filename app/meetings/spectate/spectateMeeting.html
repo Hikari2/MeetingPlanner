@@ -1,0 +1,44 @@
+<div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
+<div id="spectateMeeting">
+    <div class="container">
+        <div class="row" >
+            <div id="top">
+                <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
+                <div class="loadingLogo col-xs-12"><h1 ng-show="loading">Loading...</h1></div>
+                <div class="status col-xs-12"><h3 ng-show="status != undefined">{{status}}</h3></div>
+            </div>
+        </div>
+        <div class="row" ng-hide="loading || status != undefined">
+            <div id="leftPanel" class="col-xs-6 col-sm-4">
+                <div class="col-sm-12"><h3>{{day._title}}</h3></div>
+                <div class="col-sm-12"><h4>Shared by {{owner._email}}</h4></div>
+                <div class="col-sm-12"><p>{{day._description}}</p></div>
+                <div class="col-sm-12"><h4>Date: {{day._date}}</h4></div>
+                <div class="col-sm-12"><h4>Starts at {{day.getStart()}}</h4></div>
+                <div class="col-sm-12"><h4>Ends at &nbsp{{day.getEnd()}}</h4></div>
+            </div>
+            <div id="midPanel" class="col-xs-6 col-sm-4">
+                <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
+                <div class="status col-xs-12"><h3 ng-show="status != undefined">{{status}}</h3></div>
+                <div class="activityQueue" ng-hide="loading">
+                    <table class="table-bordered"> 
+                        <tr class="addedActivity" ng-repeat="activity in day._activities">
+                            <td class="length col-md-4">{{day.getActivityStart($index)}}</td>
+                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8"><p>{{activity._name}}</p>{{activity._description}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="rightPanel" class="col-xs-6 col-sm-4">
+                <div class="participantTable">
+                    <table class="table-bordered"> 
+                        <tr class="participant" ng-repeat="user in participants">
+                            <td class="userPic col-md-4"><img src='{{user._profilePic}}'/></td>
+                            <td class="userName col-md-8">{{user._email}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

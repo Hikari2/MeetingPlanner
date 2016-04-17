@@ -1,7 +1,7 @@
 
 meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseObject, $firebaseArray, FireBaseDataService) {
 
-    this.loadUsers = function () {
+    this.load = function () {
         this.users = $firebaseArray(FireBaseDataService.users);
     };
 
@@ -27,8 +27,13 @@ meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseO
         return users;
     };
 
-    this.getUser = function (id) {
-        this.user = $firebaseObject(FireBaseDataService.users.child(id));
+    this.getProfile = function (id) {
+
+        for (var i = 0; i < this.users.length; i++) {
+            if (this.users[i].$id === id) {
+                return User.fromJson(this.users[i]);
+            }
+        }
     };
 
     this.createUserProfile = function (authData, email) {

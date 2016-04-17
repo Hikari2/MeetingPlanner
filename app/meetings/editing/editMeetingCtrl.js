@@ -1,6 +1,3 @@
-/**
- * Controller for edit meeting page
- */
 
 meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParams, currentAuth, MeetingService, UserService) {
 
@@ -13,24 +10,31 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     /*
      * Load activity and participant from database
      */
-    MeetingService.load(currentAuth.uid);
-    UserService.loadUsers();
+    MeetingService.loadMeetings(currentAuth.uid);
 
     MeetingService.days.$loaded().then(function () {
+
         $scope.day = MeetingService.getDay($scope.id);
 
+        if ($scope.day === null) {
+            $scope.loading = false;
+            $scope.status = "No meeting found, make sure you have the right id";
+            return;
+        }
+
+        UserService.load();
+        UserService.users.$loaded().then(function () {
+            $scope.users = UserService.users;
+            $scope.participants = UserService.getProfiles($scope.day._participants);
+        });
+
         $scope.date = new Date();
-        $scope.date.setHours(Math.floor($scope.day.getStart() / 60));
-        $scope.date.setMinutes($scope.day.getStart() % 60);
+        $scope.date.setHours(Math.floor($scope.day._start / 60));
+        $scope.date.setMinutes($scope.day._start  % 60);
         $scope.date.setSeconds(0);
         $scope.date.setMilliseconds(0);
 
         $scope.loading = false;
-    });
-
-    UserService.users.$loaded().then(function () {
-        $scope.users = UserService.users;
-        $scope.participants = UserService.getProfiles($scope.day._participants);
     });
 
     $scope.dropCallback = function (draggedItem, oldPosition, targetItem, newPosition, uid) {
@@ -47,7 +51,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
             }
             if (draggedItem === 2) {
                 MeetingService.removeParticipant($scope.day, oldPosition);
-                $scope.participants = UserService.getAllParticipants($scope.day._participants);
+                $scope.participants = UserService.getProfiles($scope.day._participants);
                 return;
             }
         }
@@ -120,10 +124,6 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     //Retrieve activity type 
     $scope.getActivityType = function (typeId) {
         return MeetingService.getActivityType(typeId);
-    };
-
-    $scope.format = function (totalMin) {
-        return formatTime(totalMin);
     };
 
     $scope.enlarge = function () {
