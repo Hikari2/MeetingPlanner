@@ -2,9 +2,44 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.user = currentAuth;
     $scope.dragedTarget = null;
-    $scope.viewMore = [];
     $scope.addMoreState = "not-in";
     $scope.addMoreAbled = false;
+    $scope.typeChoice = "Once";
+    $scope.week = [];
+    $scope.month = [];
+    var weekDays = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    $scope.typeList = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
+    $scope.monthList = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    $scope.lastdaySelected = false;
+    $scope.monthChoice = "Jan";
+    $scope.dayChoice = 1;
+    $scope.dayList = [];
+    $scope.fullDayList = [];
+    $scope.yearlySelectedDayList = [];
+
+    {
+        for (var i = 0; i < 7; i++)
+        {
+            var day = {
+                Day: weekDays[i],
+                Selected: false
+            };
+            $scope.week.push(day);
+        }
+        for (var i = 1; i <= 31; i++)
+        {
+            var day = {
+                ID: i,
+                Day: i,
+                Selected: false
+            };
+            $scope.month.push(day);
+            $scope.fullDayList.push(i);
+            $scope.dayList.push(i);
+        }
+    }
+
+    var canViewMore = true;
 
     $scope.userInfo = {
         Firstname: "Erik",
@@ -18,26 +53,64 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Address: "Björksätravägen XX XX, Skärholmen",
         Description: "Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
     };
-
-    $scope.setViewMore = function (index, newValue)
+    var fun = function ()
     {
-        $scope.viewMore[index] = newValue;
+        canViewMore = true;
     };
 
-    $scope.meetingViewMore = false;
-
-    $scope.setMeetingViewMore = function (newValue)
+    $scope.reverseViewMore = function (index)
     {
-        $scope.meetingViewMore = newValue;
+        if (canViewMore)
+        {
+            $scope.meetingList[index].Viewmore = !$scope.meetingList[index].Viewmore;
+            canViewMore = false;
+            window.setTimeout(fun, 500);
+        }
     };
+
+    $scope.reverseWeekSelection = function (id)
+    {
+        $scope.week[id].Selected = !$scope.week[id].Selected;
+    };
+    $scope.reverseMonthSelection = function (id)
+    {
+        $scope.month[id].Selected = !$scope.month[id].Selected;
+    };
+    $scope.reverseLastdaySelection = function (id)
+    {
+        $scope.lastdaySelected = !$scope.lastdaySelected;
+    };
+    
+    $scope.addDay = function()
+    {
+        var day={
+            Month: $scope.monthChoice,
+            Day: $scope.dayChoice
+        };
+        $scope.yearlySelectedDayList.push(day);
+    };
+    
+    $scope.deleteDay = function(id)
+    {
+        $scope.yearlySelectedDayList.splice(id,1);
+    };
+    /*
+     $scope.meetingViewMore = false;
+     $scope.setMeetingViewMore = function (newValue)
+     {
+     $scope.meetingViewMore = newValue;
+     };*/
 
     $scope.setMouseInAddMore = function (val)
     {
         if (val === 1)// mouse in the add more but not clicked
         {
-            $scope.addMoreState = "in";
-            $scope.addMoreAbled = false;
-        } else if (val === 0) {// the mouse is not in the filde
+            if ($scope.addMoreState === "not-in")
+            {
+                $scope.addMoreState = "in";
+                $scope.addMoreAbled = false;
+            }
+        } else if (val === 0) {// the mouse is not in
             $scope.addMoreState = "not-in";
             $scope.addMoreAbled = false;
         } else// mouse in the add more and is active
@@ -47,25 +120,59 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         }
     };
 
+    $scope.setTypeChoice = function (value)
+    {
+        $scope.typeChoice = value;
+    };
+
+    $scope.setDayChoice = function (value)
+    {
+        $scope.dayChoice = value;
+    };
+
+    $scope.setMonthChoice = function (value)
+    {
+        $scope.monthChoice = value;
+        var num = 30;
+        if (value === "Jan" || value === "Mar" || value === "May" || value === "Jul" || value === "Aug" || value === "Oct" || value === "Dec")
+        {
+            num = 31;
+        } else if (value === "Feb")
+        {
+            num = 29;
+        }
+        $scope.dayList.length = 0;
+        for (var i = 0; i < num; i++)
+        {
+            $scope.dayList.push($scope.fullDayList[i]);
+        }
+    };
+
     $scope.reverseImportantTag = function (index)
     {
         if ($scope.meetingList[index].Info.Important === false)
-        {
-            $scope.meetingList[index].Info.Important = true;
-            $scope.meetingList[index].Importanttag = "true";
-        } else
+                // mark the meeting as important, put it at the top pf the list
+                {
+                    $scope.meetingList[index].Info.Important = true;
+                    $scope.meetingList[index].Importanttag = "true";
+                    var tmp = $scope.meetingList[index];
+                    $scope.meetingList.splice(index, 1);
+                    $scope.meetingList.splice(0, 0, tmp);
+                } else
         {
             $scope.meetingList[index].Info.Important = false;
             $scope.meetingList[index].Importanttag = "false";
+            var tmp = $scope.meetingList[index];
+            $scope.meetingList.splice(index, 1);
+            $scope.meetingList.splice($scope.meetingList.length, 0, tmp);
         }
-        sortMeetingList();
     };
 
     $scope.onCalendar = function ()
     {
-        alert("haha");
+        $scope.open1();
     };
-    
+
     $scope.meetingList = [];
     var m1 = {
         ID: "1",
@@ -137,9 +244,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     {
         var me = {
             Info: list[i],
-            Index: i,
             Oldindex: i,
-            Importanttag: "false"
+            Importanttag: "false",
+            Viewmore: false
         };
         $scope.meetingList.push(me);
     }
@@ -156,32 +263,19 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 nlist.push($scope.meetingList[i]);
         }
         $scope.meetingList.length = 0;
-        var k = 0;
         for (var i = 0; i < ilist.length; i++)
         {
             $scope.meetingList.push(ilist[i]);
-            $scope.meetingList[k].Index = k;
-            k = k + 1;
         }
         for (var i = 0; i < nlist.length; i++)
         {
             $scope.meetingList.push(nlist[i]);
-            $scope.meetingList[k].Index = k;
-            k = k + 1;
-        }
-    };
-    var refreshIndex = function ()
-    {
-        for (var i = 0; i < $scope.meetingList.length; i++)
-        {
-            $scope.meetingList[i].Index = i;
         }
     };
     sortMeetingList();
     $scope.deleteFromList = function (index)
     {
         $scope.meetingList.splice(index, 1);
-        refreshIndex();
     };
 
     $scope.open = function (meeting) {
@@ -220,23 +314,100 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         });
     };
 
-    $scope.messageList = [];
-    $scope.noMessage = false;
-    var ms1 = {
-        Title: "Welcome Letter",
-        Date: "2016-4-8",
-        Time: "10:50",
-        Content: "We are pleased to welcome you as a new credit account customer with Doe Corporation. We are always happy when\
-                we can extend the privileges of a Doe credit card to customers like you. We are sure that you will find your credit \
-                card a convenient way to make purchases. In addition, you will now receive advance notification of all of our sales, and \
-                an extra discount available to credit customers only.As an example of the benefits to come, we are sending you a coupon for \
-                20% off any regularly-priced item. You will find it attached to the enclosed statement that details the terms of your account. \
-                Please read the statement carefully and call our customer service department at 555-5555 if you have any questions.Thanks for \
-                choosing Doe Corporation for all of your business supply needs. We look forward to serving you."
+    $scope.today = function () {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    // Disable weekend selection
+    function disabled(data) {
+        var date = data.date,
+                mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
     }
-    $scope.messageList.push(ms1);
-    if ($scope.messageList.length === 0)
-        $scope.noMessage = true;
+
+    $scope.toggleMin = function () {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.setDate = function (year, month, day) {
+        $scope.dt = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+                mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
+
 
 });
 
