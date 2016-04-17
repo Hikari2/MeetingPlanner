@@ -9,11 +9,13 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
         this.days = $firebaseArray(FireBaseDataService.meetings.child(uid));
     };
 
-    this.save = function (day, index) {
+    this.save = function (day) {
+
+        var index = this.getDayIndex(day._id);
 
         this.days[index].start = day.getStart();
         this.days[index].end = day.getEnd();
-        
+
         day = day.toJson();
         this.days[index].uid = day.uid;
         this.days[index].title = day.title;
@@ -22,16 +24,33 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
         this.days[index].important = day.important;
         this.days[index].type = day.type;
         this.days[index].activities = day.activities;
+        this.days[index].participants = day.participants;
 
         this.days.$save(this.days[index]).catch(function (error) {
             alert("Something went wrong when trying to save: " + error);
         });
     };
 
-    this.getDay = function (index) {
-        if(this.days[index] === undefined)
-            return null;
-        return Day.fromJson(this.days[index]);
+    this.getDay = function (id) {
+        for (var i = 0; i < this.days.length; i++) {
+            if (this.days[i].$id === id)
+                return Day.fromJson(this.days[i]);
+        }
+    };
+
+    this.getDayIndex = function (id) {
+        for (var i = 0; i < this.days.length; i++) {
+            if (this.days[i].$id === id)
+                return i;
+        }
+    }
+
+    this.getAllDays = function () {
+        var days = [];
+        for (var i = 0; i < this.days.length; i++) {
+            days[i] = Day.fromJson(this.days[i]);
+        }
+        return days;
     }
 
     // adds a new day. if startH and startM (start hours and minutes)
@@ -54,11 +73,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
     // add an activity to model
     this.addActivity = function (activity, day, position) {
         if (day != null) {
-            var tmp = Day.fromJson(this.days[day]);
-            tmp._addActivity(activity, position);
-            this.days[day].activities = tmp.toJson().activities;
-            this.days.$save(day);
-
+            this.days[day]._addActivity(activity, position);
         } else {
             if (position != null) {
                 this.parkedActivities.splice(position, 0, activity);
@@ -75,47 +90,69 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, FireBas
 
     // remove an activity on provided position from parked activites 
     this.removeParkedActivity = function (position) {
-        act = this.parkedActivities.splice(position, 1)[0];
+        var act = this.parkedActivities.splice(position, 1)[0];
         return act;
+    };
+
+    // remove an activity on provided position from parked activites 
+    this.removeActivity = function (day, position) {
+        day._removeActivity(position);
+        this.save(day);
     };
 
     // moves activity between the days, or day and parked activities.
     // to park activity you need to set the new day to null
     // to move a parked activity to let's say day 0 you set oldday to null
     // and new day to 0
-    this.moveActivity = function (oldDay, oldPosition, newDay, newPosition) {
-        //alert(oldDay + ", " + oldPosition + " > " +newDay + ", " + newPosition);
+    this.moveActivity = function (oldday, oldposition, newday, newposition) {
 
-        if (oldDay !== -1 && oldDay === newDay) {
-            var day = Day.fromJson(this.days[oldDay]);
-            day._moveActivity(oldPosition, newPosition);
-            this.days[oldDay].activities = day.toJson().activities;
-            this.days.$save(this.days[oldDay]).catch(function (error) {
-                alert("Error:" + error);
-            });
-        } else if (oldDay === -1 && newDay === -1) {
-            var activity = this.removeParkedActivity(oldPosition);
-            this.addParkedActivity(activity, newPosition);
-        } else if (oldDay == -1) {
+        if (oldday !== null && oldday === newday) {
+            oldday._moveActivity(oldposition, newposition);
+            this.save(oldday);
+        } else if (oldday === null && newday === null) {
             var activity = this.removeParkedActivity(oldposition);
-            this.days[newday]._addActivity(activity, newposition);
-        } else if (newday == -1) {
-            var activity = this.days[oldday]._removeActivity(oldposition);
             this.addParkedActivity(activity, newposition);
+        } else if (oldday === null) {
+            var activity = this.removeParkedActivity(oldposition);
+            newday._addActivity(activity, newposition);
+            this.save(newday);
+        } else if (newday === null) {
+            var activity = oldday._removeActivity(oldposition);
+            this.addParkedActivity(activity, newposition);
+            this.save(oldday);
         } else {
-            var activity = this.days[oldday]._removeActivity(oldposition);
-            this.days[newday]._addActivity(activity, newposition);
+            //var activity = this.days[oldday]._removeActivity(oldposition);
+            //this.days[newday]._addActivity(activity, newposition);
         }
     };
+
     // Return all available activity types
     this.getActivityTypes = function () {
         return ActivityType;
-    }
+    };
 
     // Return an acitivity type of a specific acitivity id
     this.getActivityType = function (activityTypeId) {
         return ActivityType[activityTypeId];
-    }
+    };
+
+    this.addParticipant = function (day, user, position) {
+        day.addParticipant(user, position);
+        this.save(day);
+    };
+
+    this.removeParticipant = function (day, position) {
+
+        day.removeParticipant(position);
+        this.save(day);
+    };
+
+    this.moveParticipant = function (oldday, oldPosition, newday, newPosition) {
+        oldday.moveParticipant(oldPosition, newPosition);
+        this.save(oldday);
+    };
+
+
 
     return this;
 });

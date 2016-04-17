@@ -4,34 +4,44 @@
 function Day(startH, startM, userId) {
 
     var MeetingType = ["Once", "Daily", "Weekly", "Monthly"];
-    
+
     this._uid = userId;
+    this._id = " ";
     this._title = "No title";
     this._date = "Today";
     this._description = " ";
     this._important = false;
     this._type = 0;
     this._activities = [];
-
+    this._participants = [this._uid];
+    
     this._start = startH * 60 + startM;
     this._end = startH * 60 + startM;
-    
+
+    this.setId = function (id) {
+        this._id = id;
+    };
+
+    this.getId = function () {
+        return this._id;
+    };
+
     this.setTitle = function (title) {
         this._title = title;
     };
-    
+
     this.getTitle = function () {
         return this._title;
     };
-    
-    this.setDate =  function (date) {
+
+    this.setDate = function (date) {
         this._date = date;
     };
-    
+
     this.getDate = function () {
         return this._date;
     };
-    
+
     this.setDescription = function (description) {
         this._description = description;
     };
@@ -53,7 +63,7 @@ function Day(startH, startM, userId) {
     // sets the start time to new value
     this.setStart = function (startH, startM) {
         this._start = startH * 60 + startM;
-    }
+    };
 
 // returns the total length of the acitivities in
 // a day in minutes
@@ -118,6 +128,7 @@ function Day(startH, startM, userId) {
         this._addActivity(activity, newposition);
         return this._activities;
     };
+
     this.getActivityStart = function (index) {
 
         var counter = this._start;
@@ -129,7 +140,40 @@ function Day(startH, startM, userId) {
 
         return counter;
     };
-    
+
+    this.addParticipant = function (user, position) {
+
+        var id;
+        if (user.$id !== undefined)
+            id = user.$id;
+        else
+            id = user;
+
+        for (var i = 0; i < this._participants.length; i++) {
+            if (this._participants[i] === id)
+                return null;
+        }
+
+        if (position !== null) {
+            this._participants.splice(position, 0, id);
+        } else {
+            this._participants.push(id);
+        }
+    }
+
+    this.removeParticipant = function (position) {
+        return this._participants.splice(position, 1)[0];
+    };
+
+    this.moveParticipant = function (oldposition, newposition) {
+        if (newposition > oldposition && newposition < this._participants.length - 1) {
+            //newposition--;
+        }
+        var participant = this.removeParticipant(oldposition);
+        this._participants.splice(newposition, 0, participant);
+        return this._participants;
+    };
+
     this.toJson = function () {
         var json = {
             uid: this._uid,
@@ -140,10 +184,15 @@ function Day(startH, startM, userId) {
             type: this._type,
             start: this._start,
             end: this._end + this.getTotalLength(),
-            activities: []
+            activities: [],
+            participants: []
         };
         $.each(this._activities, function (index, activity) {
             json.activities.push(activity.toJson());
+        });
+
+        $.each(this._participants, function (index, participant) {
+            json.participants.push(participant);
         });
         return json;
     };
@@ -151,11 +200,11 @@ function Day(startH, startM, userId) {
 
 Day.fromJson = function (json) {
 
-    if(json === undefined)
+    if (json === undefined)
         return new Day(null, null, json.uid);
-    
-    var day = new Day(Math.floor(json.start / 60), json.start % 60, json.uid);
 
+    var day = new Day(Math.floor(json.start / 60), json.start % 60, json.uid);
+    day._id = json.$id;
     day._title = json.title;
     day._date = json.date;
     day._description = json.description;
@@ -165,6 +214,12 @@ Day.fromJson = function (json) {
     if (json.activities) {
         $.each(json.activities, function (index, activity) {
             day._activities.push(Activity.fromJson(activity));
+        });
+    }
+
+    if (json.participants) {
+        $.each(json.participants, function (index, participant) {
+            day.addParticipant(participant);
         });
     }
 

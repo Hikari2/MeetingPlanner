@@ -1,3 +1,12 @@
+#editMeeting {
+    margin-top: 150px;
+    height: 800px;
+}
+
+#editMeeting .drag{
+
+}
+
 #editMeeting .uib-timepicker{
     padding-top: 50%;
 }
@@ -10,21 +19,12 @@
     text-align: center;
 }
 
-#editMeeting .top{
-    height: 20px;
-    margin-top: 100px;
-    margin-bottom: 25px;
+#editMeeting #leftPanel{
     text-align: center;
+    width: 350px;
 }
 
-
-#editMeeting .leftPanel{
-    margin-left: 0px;
-    width: 400px;
-    text-align: center;
-}
-
-#editMeeting .leftPanel button{
+#editMeeting #leftPanel button{
     width: 70%;
     height: 50px;
     background-color: #1da1f2;
@@ -33,15 +33,25 @@
     margin-bottom: 10px;
 }
 
-#editMeeting .leftPanel button:hover{
+#editMeeting #leftPanel button:hover{
     background-color: #61BEF7;
 }
 
-#editMeeting#editMeeting .midPanel{
-    height: 200px;
-    width: 400px;
-    margin-left: 5px;
+
+
+
+#editMeeting#editMeeting #midPanel{
+    width: 350px;
 }
+
+#editMeeting#editMeeting #rightPanel{
+    width: 300px;
+}
+
+
+
+
+
 
 
 
@@ -51,6 +61,7 @@
 #editMeeting table{
     table-layout:fixed;
     width: 100%;
+
 }
 
 #editMeeting .activityQueue{
@@ -58,7 +69,7 @@
 }
 
 #editMeeting .activityQueue tr{
-    height: 100px;
+    height: 50px;
     width: 100%;
     text-align: left;
 }
@@ -81,6 +92,10 @@
     font-size: 12px;
     word-wrap:break-word;
     overflow: hidden;
+}
+
+#editMeeting .activityQueue .title:hover{
+    box-shadow: 1px 1px 4px grey;
 }
 
 #editMeeting .activityQueue .title p{
@@ -106,6 +121,65 @@
 
 #editMeeting .activityQueue .bin{
     background-color: #E0E0E0;
-    height: 50px;
+    height: 80px;
+    transition: all .25s ease-in-out;
 }
 
+#editMeeting .activityQueue .bin .dragHover{
+    height: 110px;
+}
+
+
+
+
+#editMeeting table{
+    table-layout:fixed;
+    width: 100%;
+}
+
+#editMeeting .participantTable{
+    padding: 1px 1px 1px 1px;
+    box-shadow: 3px 3px 4px grey;
+}
+
+#editMeeting .participantTable tr{
+    height: 50px;
+    width: 100%;
+    text-align: left;
+}
+
+#editMeeting .participantTable tr td{
+    padding: 10px 5px 10px 5px;
+}
+
+#editMeeting .participantTable .userPic{
+    width: 25%;
+    text-align: center;
+}
+
+#editMeeting .participantTable .userPic img{
+    width: 100%;
+}
+
+#editMeeting .participantTable .filler{
+    height: 100px;
+}
+
+#editMeeting .participantTable .userName{
+    width: 75%;
+    font-size: 16px;
+    word-wrap:break-word;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+    background-color: #F5F5F5;
+}
+
+#editMeeting .participantTable .userName:hover{
+    box-shadow: 1px 1px 4px grey;
+}
+
+#editMeeting .participantTable .userName p{
+    font-weight: bold;
+    font-size: 16px;
+}

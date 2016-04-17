@@ -1,47 +1,82 @@
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
 <div id="editMeeting">
-    <section class="top container">
-        <div class="row optionBar">
-        </div>
-    </section >
-    <section class="main container">
+    <div class="container">
         <div class="row">
-            <div class="leftPanel col-xs-6 col-sm-4">
-                <div class="activityQueue">
+
+
+            <div id="leftPanel" class="col-xs-6 col-sm-4">
+
+                <div class="col-sm-12"><h3>{{day.getTitle()}}</h3></div>
+                <div class="col-xs-4 col-sm-6"><uib-timepicker ng-model="date" ng-change="setStart(date)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker></div>
+
+                <div class="activityQueue col-xs-12 col-sm-12">
                     <button type="button" class="btn btn-default" ng-click="addActivity()">+ Add activity</button>
+
                     <table class="table-bordered">
-                        <tr class="pendingActivity" ng-repeat="activity in parkedActivities" ng-model="parkedActivities" data-drop="true" jqyoui-droppable="{index: {{$index}}}">
-                            <td class="length .col-md-4">{{activity.getLength()}} min</td>
-                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="parkedActivities" jqyoui-draggable="{index: {{$index}}}"><p>{{activity._name}}</p>{{activity._description}}</td>
+                        <tr class="pendingActivity" ng-repeat="activity in parkedActivities">
+                            <td class="length col-md-4">{{activity.getLength()}} min</td>
+                            <td class="title {{getActivityType(activity._typeid)}} col-md-8" draggable droppable drop="dropCallback" index="$index"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
-                        <tr class="filler" ng-model="parkedActivities" data-drop="true" jqyoui-droppable="{index: 'activity.length', onDrop: 'dropCallback()'}">
-                            <td class="length .col-md-4"></td>
-                            <td class="title .col-md-8"></td>
+                        <tr class="pendingActivity filler">
+                            <td class="length col-md-4"></td>
+                            <td class="title col-md-8" droppable drop="dropCallback" index="parkedActivities.length"></td>
                         </tr>
-                        <tr class="bin" ng-model="bin" data-drop="true" jqyoui-droppable="{onDrop: 'dropCallback()'}">
-                            <td class="length .col-md-4"><span class="glyphicon glyphicon-trash"></span></td>
-                            <td class="title .col-md-8"></td>
+                        <tr class="bin">
+                            <td class="length col-md-4"><span class="glyphicon glyphicon-trash"></span></td>
+                            <td class="col-md-8" droppable drop="dropCallback" index="$index"></td>
                         </tr>
                     </table> 
+
                 </div>
             </div>
-            <div class="midPanel col-xs-6 col-sm-4">
+
+
+
+
+            <div id="midPanel" class="col-xs-6 col-sm-4">
                 <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
-                <div class="col-xs-12"><h2>{{day.getTitle()}}</h2></div>
-                <div class="col-xs-4"><uib-timepicker ng-model="date" ng-change="setStart(date)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker></div>
                 <div class="activityQueue" ng-hide="loading">
                     <table class="table-bordered"> 
-                        <tr class="addedActivity" ng-repeat="activity in day._activities"  ng-model="day._activities" data-drop="true" jqyoui-droppable="{index: {{$index}}, onDrop: 'dropCallback()'}">
-                            <td class="length .col-md-4">{{format(day.getActivityStart($index))}}</td>
-                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="day._activities" jqyoui-draggable="{index: {{$index}}}"><p>{{activity._name}}</p>{{activity._description}}</td>
+                        <tr class="addedActivity" ng-repeat="activity in day._activities">
+                            <td class="length col-md-4">{{format(day.getActivityStart($index))}}</td>
+                            <td class="title {{getActivityType(activity._typeid)}} .col-md-8"  draggable droppable drop="dropCallback" index="$index"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
-                        <tr class="filler" ng-model="day._activities" data-drop="true" jqyoui-droppable="{index: 'activity.length', onDrop: 'dropCallback()'}">
-                            <td class="length .col-md-4">{{format(day.getActivityStart(activities.length))}}</td>
-                            <td class="title .col-md-8"></td>
+                        <tr class="addedActivity filler">
+                            <td class="length col-md-4">{{format(day.getActivityStart(activities.length))}}</td>
+                            <td class="title col-md-8" droppable drop="dropCallback" index="day._activities.length"></td>
                         </tr>
                     </table>
                 </div>
             </div>
+
+
+
+
+
+            <div id="rightPanel" class="col-xs-6 col-sm-4" ng-hide="loading">
+                <div class="participantTable">
+                    <table class="table-bordered"> 
+                        <tr class="participant" ng-repeat="user in participants">
+                            <td class="userPic col-md-4"><img src='{{user._profilePic}}'/></td>
+                            <td class="userName col-md-8" draggable droppable drop="dropCallback" index="$index">{{user._email}}</td>
+                        </tr>
+                        <tr class="participant filler">
+                            <td class="userPic col-md-4"></td>
+                            <td class="userName col-md-8" droppable drop="dropCallback" index="day._participants.length"></td>
+                        </tr>
+                    </table>
+                    <input type="text" class="form-control" ng-model="searchTerm" placeholder="Search for other users...">
+                </div>
+                <div class="participantTable">
+                    <table class="table-bordered" ng-show="searchTerm"> 
+                        <tr class="user" ng-repeat="user in result = (users| filter:{'email':  searchTerm}) | limitTo: 5" index="{{getUserIndex(user)}}">
+                            <td class="userPic col-md-4"><img src='{{user.profilePic}}'/></td>
+                            <td class="userName col-md-8" draggable>{{user.email}}</td>
+                        </tr>
+                        <p ng-hide="result.length">There is no user with that email</p>
+                    </table> 
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 </div>

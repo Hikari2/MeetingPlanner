@@ -1,6 +1,6 @@
 
 function User() {
-
+    
     this._firstName = "John";
     this._lastName = "Doe";
     this._gender = " ";
