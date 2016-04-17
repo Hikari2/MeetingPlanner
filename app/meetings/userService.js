@@ -7,13 +7,14 @@ meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseO
 
     this.getAllUsers = function () {
         var users = [];
-        for (var i = 0; i < this.users.length; i++) {
-            users[i] = User.fromJson(this.users[i]);
-        }
+
+        $.each(this.users, function (index, user) {
+            users.push(User.fromJson(user));
+        });
         return users;
     };
 
-    this.getAllParticipants = function (id) {
+    this.getProfiles = function (id) {
         var users = [];
         for (var i = 0; i < id.length; i++) {
             for (var j = 0; j < this.users.length; j++) {
@@ -52,7 +53,7 @@ meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseO
         });
     };
 
-    this.updateProfile = function (authData, newProfile) {
+    this.updateProfile = function (authData, user) {
 
         var user = $firebaseObject(FireBaseDataService.users.child(authData.uid));
 

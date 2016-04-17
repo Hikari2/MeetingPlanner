@@ -14,7 +14,7 @@ function Day(startH, startM, userId) {
     this._type = 0;
     this._activities = [];
     this._participants = [this._uid];
-    
+
     this._start = startH * 60 + startM;
     this._end = startH * 60 + startM;
 
@@ -142,7 +142,6 @@ function Day(startH, startM, userId) {
     };
 
     this.addParticipant = function (user, position) {
-
         var id;
         if (user.$id !== undefined)
             id = user.$id;
@@ -159,7 +158,7 @@ function Day(startH, startM, userId) {
         } else {
             this._participants.push(id);
         }
-    }
+    };
 
     this.removeParticipant = function (position) {
         return this._participants.splice(position, 1)[0];
@@ -219,7 +218,7 @@ Day.fromJson = function (json) {
 
     if (json.participants) {
         $.each(json.participants, function (index, participant) {
-            day.addParticipant(participant);
+            day.addParticipant(participant, null);
         });
     }
 

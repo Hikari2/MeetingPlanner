@@ -14,24 +14,23 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
      * Load activity and participant from database
      */
     MeetingService.load(currentAuth.uid);
+    UserService.loadUsers();
 
     MeetingService.days.$loaded().then(function () {
         $scope.day = MeetingService.getDay($scope.id);
 
-        UserService.loadUsers();
-        UserService.users.$loaded().then(function () {
-            $scope.users = UserService.users;
+        $scope.date = new Date();
+        $scope.date.setHours(Math.floor($scope.day.getStart() / 60));
+        $scope.date.setMinutes($scope.day.getStart() % 60);
+        $scope.date.setSeconds(0);
+        $scope.date.setMilliseconds(0);
 
-            $scope.participants = UserService.getAllParticipants($scope.day._participants);
+        $scope.loading = false;
+    });
 
-            $scope.date = new Date();
-            $scope.date.setHours(Math.floor($scope.day.getStart() / 60));
-            $scope.date.setMinutes($scope.day.getStart() % 60);
-            $scope.date.setSeconds(0);
-            $scope.date.setMilliseconds(0);
-
-            $scope.loading = false;
-        });
+    UserService.users.$loaded().then(function () {
+        $scope.users = UserService.users;
+        $scope.participants = UserService.getProfiles($scope.day._participants);
     });
 
     $scope.dropCallback = function (draggedItem, oldPosition, targetItem, newPosition, uid) {
@@ -55,12 +54,12 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
         if (draggedItem === 2 && draggedItem === targetItem) {
             MeetingService.moveParticipant($scope.day, oldPosition, $scope.day, newPosition);
-            $scope.participants = UserService.getAllParticipants($scope.day._participants);
+            $scope.participants = UserService.getProfiles($scope.day._participants);
             return;
         }
         else if (draggedItem === 1 && targetItem === 2) {
             MeetingService.addParticipant($scope.day, uid, newPosition);
-            $scope.participants = UserService.getAllParticipants($scope.day._participants);
+            $scope.participants = UserService.getProfiles($scope.day._participants);
             return;
         }
 
