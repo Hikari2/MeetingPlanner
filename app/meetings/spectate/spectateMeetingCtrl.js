@@ -27,6 +27,7 @@ meetingAgendaBuilder.controller('SpectateMeetingCtrl', function ($scope, $routeP
                         
             UserService.load();
             UserService.users.$loaded().then(function () {
+ 
                 $scope.users = UserService.users;
                 $scope.participants = UserService.getProfiles($scope.day._participants);
                 $scope.owner = UserService.getProfile($scope.day._uid);

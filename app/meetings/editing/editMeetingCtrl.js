@@ -86,7 +86,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         MeetingService.addActivity(new Activity("Cellar party 3", 20, 3, "Help me"));
 
 
-        //MeetingService.addDay(null, null, currentAuth.uid);
+        MeetingService.addDay(null, null, currentAuth.uid);
         /*
          $scope.user = new User();
          $scope.user.setFirstName("Hikari");

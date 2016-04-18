@@ -16,7 +16,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
 
     this.loadSharedMeeting = function (id) {
         for (var i = 0; i < this.sharedDays.length; i++) {
-            if (this.sharedDays[i].id === id) {
+            if (this.sharedDays[i].$id === id) {
                 this.sharedDay = $firebaseObject(FireBaseDataService.meetings.child(this.sharedDays[i].owner).child(id));
                 return;
             }
@@ -173,13 +173,14 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
     this.addParticipant = function (day, user, position) {
 
         if (day.addParticipant(user, position) !== undefined) {
-            var sharedMeetings = $firebaseArray(FireBaseDataService.shared.child(user));
             var index = this.getDayIndex(day._id);
             var id = this.days[index].$id;
             var owner = this.days[index].uid;
+            var sharedMeeting = $firebaseObject(FireBaseDataService.shared.child(user + "/" + id));
 
-            sharedMeetings.$loaded().then(function () {
-                sharedMeetings.$add({id: id, owner: owner}).catch(function (error) {
+            sharedMeeting.$loaded().then(function () {
+                sharedMeeting.owner = owner;
+                sharedMeeting.$save().catch(function (error) {
                     alert("Something went wrong when trying to share the meeting: " + error);
                 });
             });
@@ -193,19 +194,14 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
         var participant = day.removeParticipant(position);
 
         if (participant !== undefined) {
-            var sharedMeetings = $firebaseArray(FireBaseDataService.shared.child(participant));
+
             var index = this.getDayIndex(day._id);
             var id = this.days[index].$id;
+            var sharedMeeting = $firebaseObject(FireBaseDataService.shared.child(participant + "/" + id));
 
-            sharedMeetings.$loaded().then(function () {
-
-                $.each(sharedMeetings, function (index, meeting) {
-                    if (meeting.id === id) {
-                        sharedMeetings.$remove(meeting).catch(function (error) {
-                            alert("Something went wrong when trying to unshare the meeting: " + error);
-                        });
-                    }
-                    ;
+            sharedMeeting.$loaded().then(function () {
+                sharedMeeting.$remove().catch(function (error) {
+                    alert("Something went wrong when trying to unshare the meeting: " + error);
                 });
             });
         }

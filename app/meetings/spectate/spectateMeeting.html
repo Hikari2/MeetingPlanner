@@ -5,7 +5,7 @@
             <div id="top">
                 <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
                 <div class="loadingLogo col-xs-12"><h1 ng-show="loading">Loading...</h1></div>
-                <div class="status col-xs-12"><h3 ng-show="status != undefined">{{status}}</h3></div>
+                <div class="status col-xs-12"><h3 ng-show="status != undefined" class="alert alert-danger" role="alert">{{status}}</h3></div>
             </div>
         </div>
         <div class="row" ng-hide="loading || status != undefined">
