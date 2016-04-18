@@ -68,17 +68,20 @@
 }
 
 .main-user-page .item .meeting-box{
+    /*background-color: white;*/
     display: inline-block;
     width: 90%;
-    min-height: 330px;
+    height: 345px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    background-image: url("../resources/bg.jpg"); 
 }
 
 .main-user-page .meeting-box .info-list{
     display: inline-block;
     width: 100%;
-    min-height: 270px;
+    min-height: 285px;
 }
 
 .main-user-page .item .title{
@@ -276,7 +279,7 @@ End of the kinds
 }
 
 .main-user-page .description{
-    background-color: #FAFAFA;
+    max-height: 260px;
 }
 
 /*
@@ -338,13 +341,12 @@ End of animate test
 */
 .main-user-page .item .description p{
     display: inline-block;
-    padding-bottom: 15px;
 }
 
 .main-user-page .add-new .meeting-box{
     display: inline-block;
     width: 90%;
-    min-height: 330px;
+    min-height: 345px;
     padding: 15px 15px 15px 15px;
 }
 .main-user-page .add-new .not-in{
@@ -354,7 +356,6 @@ End of animate test
 }
 
 .main-user-page .add-new .in{
-    background-color: #FAFAFA;
     border: none;
     background-color: white;
     cursor: pointer;
@@ -368,11 +369,16 @@ End of animate test
     cursor: pointer;
 }
 
+.main-user-page .add-new .input-type .text,
+.main-user-page .add-new .input-date .yearly .text{
+    text-align: left;
+    display: inline-block;
+    width: calc(100% - 15px);
+}
 .main-user-page .add-new .active{
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     border-top: 2px solid #E0E0E0;
     cursor: default;
-    background-color: white;
     transition: all .5s linear;
 }
 
@@ -407,22 +413,41 @@ End of animate test
 
 .main-user-page .add-new .title{
     width: 100%;
-    font-size: 23px;
+    font-size: 21px;
     color: #ECECEC;
     text-align: center;
-    height: 60px;
+    height: 40px;
     transition: all .5s linear;
 }
 
 .main-user-page .add-new .input-date label,
-.main-user-page .add-new .input-title label{
+.main-user-page .add-new .input-title label,
+.main-user-page .add-new .input-type label{
     font-weight: normal;
+    display: inline-block;
+    width: 100%;
+    margin-top: 5px;
 }
 
 .main-user-page .add-new .active .input-title label,
-.main-user-page .add-new .active .input-date label{
+.main-user-page .add-new .active .input-date label,
+.main-user-page .add-new .active .input-type label{
     color:  #1DA1F2;
     transition: all .5s linear;
+}
+
+.main-user-page .add-new .not-in input,
+.main-user-page .add-new .not-in button
+{
+    background-color: #E0E0E0;
+    color: #E0E0E0;
+    border: none;
+}
+.main-user-page .add-new .in input,
+.main-user-page .add-new .in button
+{
+    background-color: #E0E0E0;
+    color: white;
 }
 
 .main-user-page .add-new .active .input-date a:hover{
@@ -430,7 +455,8 @@ End of animate test
     cursor: pointer;
 }
 .main-user-page .add-new .not-in .input-title label,
-.main-user-page .add-new .not-in .input-date label
+.main-user-page .add-new .not-in .input-date label,
+.main-user-page .add-new .not-in .input-type label
 {
     color: #FAFAFA;
     transition: all .5s linear;
@@ -438,12 +464,16 @@ End of animate test
 
 .main-user-page .add-new .in .input-title label,
 .main-user-page .add-new .in .input-date label,
+.main-user-page .add-new .in .input-type label,
 .main-user-page .add-new .in .input-date a,
 .main-user-page .add-new .not-in .input-date a{
     color: #E0E0E0;
     transition: all .5s linear;
 }
 
+.main-user-page .add-new .drop-menu-type{
+    width: 100%;
+}
 .main-user-page .add-new .active .input-date a{
     color: gray;
 }
@@ -454,12 +484,17 @@ End of animate test
 }
 
 .main-user-page .add-new .info{
-    min-height: 220px;
+    min-height: 230px;
 }
 
 .main-user-page .add-new .input-date input{
     display: inline-block;
     width: calc(100% - 30px);
+}
+
+.main-user-page .add-new .input-type button{
+    width: 100%;
+    text-align: left;
 }
 
 .main-user-page .add-new .input-date a{
@@ -470,6 +505,121 @@ End of animate test
     background: none;
 }
 
+.main-user-page .add-new .input-date .input-group{
+    width: 100%;
+}
+
+.main-user-page .add-new .input-date .weekly .week-day{
+    display: inline-block;
+    width: 53px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.main-user-page .add-new .input-date .monthly .month-day{
+    display: inline-block;
+    width: 30px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.main-user-page .add-new .input-date .monthly .last-day{
+    display: inline-block;
+    width: 70px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+.main-user-page .add-new .active .input-date .weekly .week-day,
+.main-user-page .add-new .active .input-date .monthly .month-day,
+.main-user-page .add-new .active .input-date .monthly .last-day{
+    border: 2px solid gray;
+}
+
+.main-user-page .add-new .active .input-date .weekly .true,
+.main-user-page .add-new .active .input-date .monthly .true{
+    color: white;
+    background-color: #1DA1F2;
+    border-color: #1DA1F2;
+}
+
+.main-user-page .add-new .active .input-date .weekly .false:hover,
+.main-user-page .add-new .active .input-date .monthly .false:hover{
+    color: white;
+    background-color: gray;
+}
+
+.main-user-page .add-new .active .input-date .weekly .true:hover,
+.main-user-page .add-new .active .input-date .monthly .true:hover{
+    background-color: white;
+    color: #1DA1F2;
+}
+
+.main-user-page .add-new .active .yearly{
+    min-height: 200px;
+}
+.main-user-page .add-new .yearly .dropdown{
+    display: inline-block;
+    width: 40%;
+}
+.main-user-page .add-new .yearly .yearly-month-input button,
+.main-user-page .add-new .yearly .yearly-day-input button{
+    display: inline-block;
+    width: 100%;
+}
+
+.main-user-page .add-new .yearly .dropdown-menu{
+    width: 250%;
+}
+
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu{
+    margin-left: -100%;
+}
+
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu a{
+    display: inline-block;
+    width: 10px;
+}
+
+.main-user-page .add-new .yearly .add{
+    display: inline-block;
+    width: 17%;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.main-user-page .add-new .active .yearly .add{
+    color: #1DA1F2;
+}
+
+.main-user-page .add-new .active .yearly .add:hover{
+    cursor: pointer;
+}
+
+.main-user-page .add-new .yearly .selected-day{
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 10px
+}
+
+.main-user-page .add-new .yearly .selected-day .month,
+.main-user-page .add-new .yearly .selected-day .day{
+    display: inline-block;
+    width: 40%;
+}
+.main-user-page .add-new .not-in .yearly .selected-day,
+.main-user-page .add-new .in .yearly .selected-day{
+    color: #E0E0E0;
+}
+
+.main-user-page .add-new .active .yearly .selected-day .delete{
+    color: red;
+}
+
+.main-user-page .add-new .active .yearly .selected-day .delete:hover{
+    cursor: pointer;
+}
+
 .main-user-page .add-new .footer{
     width: 100%;
     display: table;
@@ -478,6 +628,7 @@ End of animate test
 .main-user-page .add-new .footer .btn{
     display: table-cell;
     width: 100%;
+    margin-top: 10px;
     height: 50px;
     background-color: #ECECEC;
     color: white;
