@@ -8,6 +8,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.week = [];
     $scope.month = [];
     var weekDays = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    var canAddDay = true;
     $scope.typeList = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
     $scope.monthList = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
     $scope.lastdaySelected = false;
@@ -16,6 +17,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.dayList = [];
     $scope.fullDayList = [];
     $scope.yearlySelectedDayList = [];
+    $scope.newTitle = "";
+    $scope.emptyTitle = false;
+    $scope.emptyDate = false;
 
     {
         for (var i = 0; i < 7; i++)
@@ -31,11 +35,12 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             var day = {
                 ID: i,
                 Day: i,
-                Selected: false
+                Selected: false,
+                Disabled: false
             };
             $scope.month.push(day);
-            $scope.fullDayList.push(i);
-            $scope.dayList.push(i);
+            $scope.fullDayList.push(day);
+            $scope.dayList.push(day);
         }
     }
 
@@ -71,28 +76,119 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.reverseWeekSelection = function (id)
     {
         $scope.week[id].Selected = !$scope.week[id].Selected;
+        var empty = true;
+        for (var i = 0; i < 7; i++)
+        {
+            if ($scope.week[i].Selected)
+                empty = false;
+        }
+        $scope.emptyDate = empty;
+
+    };
+
+    var checkDateEmpty = function ()
+    {
+        var empty = true;
+        for (var i = 0; i < 31; i++)
+        {
+            if ($scope.month[i].Selected)
+                empty = false;
+        }
+        if ($scope.lastdaySelected)
+            empty = false;
+        $scope.emptyDate = empty;
     };
     $scope.reverseMonthSelection = function (id)
     {
         $scope.month[id].Selected = !$scope.month[id].Selected;
+        checkDateEmpty();
     };
+
     $scope.reverseLastdaySelection = function (id)
     {
         $scope.lastdaySelected = !$scope.lastdaySelected;
+        checkDateEmpty();
     };
-    
-    $scope.addDay = function()
+
+    $scope.checkTitle = function ()
     {
-        var day={
-            Month: $scope.monthChoice,
-            Day: $scope.dayChoice
-        };
-        $scope.yearlySelectedDayList.push(day);
+        if ($scope.newTitle.length === 0)
+            $scope.emptyTitle = true;
+        else
+            $scope.emptyTitle = false;
     };
-    
-    $scope.deleteDay = function(id)
+
+    $scope.addDay = function ()
     {
-        $scope.yearlySelectedDayList.splice(id,1);
+        if (canAddDay)
+        {
+            var day = {
+                Month: $scope.monthChoice,
+                Day: $scope.dayChoice
+            };
+            $scope.dayList[$scope.dayChoice - 1].Disabled = true;
+            $scope.yearlySelectedDayList.push(day);
+            $scope.emptyDate = false;
+            canAddDay = false;
+        }
+    };
+
+    $scope.deleteDay = function (id)
+    {
+        var theDay=$scope.yearlySelectedDayList[id];
+        $scope.yearlySelectedDayList.splice(id, 1);
+        if ($scope.yearlySelectedDayList.length === 0)
+            $scope.emptyDate = true;
+        $scope.dayList[theDay.Day-1].Disabled=false;
+        canAddDay = true;
+    };
+
+    var updateAddDay = function ()
+    {
+        canAddDay = true;
+    };
+
+    $scope.crateNewMeeting = function ()
+    {
+        // check input validition
+        var selectedDate = [];
+        if ($scope.newTitle.length === 0) // empty title
+            $scope.emptyTitle = true;
+        else
+            $scope.emptyTitle = false;
+        if ($scope.typeChoice === "Weekly")
+        {
+            selectedDate.length = 0;
+            for (var i = 0; i < 7; i++)
+            {
+                if ($scope.week[i].Selected)
+                    selectedDate.push($scope.week[i]);
+            }
+            if (selectedDate.length === 0)//
+                $scope.emptyDate = true;
+            else
+                $scope.emptyDate = false;
+        } else if ($scope.typeChoice === "Monthly")
+        {
+            selectedDate.length = 0;
+            for (var i = 0; i < 31; i++)
+            {
+                if ($scope.month[i].Selected)
+                    selectedDate.push($scope.month[i]);
+            }
+            if ($scope.lastdaySelected)
+                selectedDate.push("last day");
+            if (selectedDate.length === 0)//
+                $scope.emptyDate = true;
+            else
+                $scope.emptyDate = false;
+        } else if ($scope.typeChoice === "Yearly")
+        {
+            if ($scope.yearlySelectedDayList.length === 0)//
+                $scope.emptyDate = true;
+            else
+                $scope.emptyDate = false;
+        }
     };
     /*
      $scope.meetingViewMore = false;
@@ -128,23 +224,35 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.setDayChoice = function (value)
     {
         $scope.dayChoice = value;
+        updateAddDay();
     };
 
     $scope.setMonthChoice = function (value)
     {
-        $scope.monthChoice = value;
-        var num = 30;
-        if (value === "Jan" || value === "Mar" || value === "May" || value === "Jul" || value === "Aug" || value === "Oct" || value === "Dec")
+        if ($scope.monthChoice !== value)
         {
-            num = 31;
-        } else if (value === "Feb")
-        {
-            num = 29;
-        }
-        $scope.dayList.length = 0;
-        for (var i = 0; i < num; i++)
-        {
-            $scope.dayList.push($scope.fullDayList[i]);
+            $scope.monthChoice = value;
+            var num = 30;
+            if (value === "Jan" || value === "Mar" || value === "May" || value === "Jul" || value === "Aug" || value === "Oct" || value === "Dec")
+            {
+                num = 31;
+            } else if (value === "Feb")
+            {
+                num = 29;
+            }
+            $scope.dayList.length = 0;
+            for (var i = 0; i < num; i++)
+            {
+                $scope.dayList.push($scope.fullDayList[i]);
+                $scope.dayList[i].Disabled = false;
+            }
+            for (var j = 0; j < $scope.yearlySelectedDayList.length; j++)
+            {
+                if ($scope.yearlySelectedDayList[j].Month === value)
+                    $scope.dayList[$scope.yearlySelectedDayList[j].Day - 1].Disabled = true;
+            }
+            if ($scope.dayList[$scope.dayChoice - 1].Disabled === false)
+                updateAddDay();
         }
     };
 
@@ -179,7 +287,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Title: "Project Meeting",
         Date: "2016-6-8",
         Time: "10:00-14:00",
-        Type: "Normal",
+        Type: "Once",
         Holder: "Hao Wang",
         Important: false,
         Members: ["Eric R", "Hao Wang", "Jian Sun"],
@@ -191,7 +299,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Title: "20th Annual Comference in KTH",
         Date: "2017-10-25",
         Time: "All day, 08:00-20:00",
-        Type: "Important",
+        Type: "Daily",
         Holder: "xMan",
         Important: true,
         Members: ["Hicari", "Eric R", "Hao Wang", "Jian Sun", "Yan Ma"],
@@ -203,7 +311,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Title: "Blabla Abracadabra Meetings",
         Date: "2004-6-6",
         Time: "All day, 08:00-20:00",
-        Type: "Normal",
+        Type: "Weekly",
         Holder: "Haha",
         Important: false,
         Members: ["Hicari", "Eric R", "Hao Wang", "Jian Sun", "Yan Ma", "Lei", "Haha", "Shashank"],
@@ -215,7 +323,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Title: "Really Do Not What Should Be Callled Meeting",
         Date: "2008-6-6",
         Time: "08:00-20:00",
-        Type: "Weekly",
+        Type: "Monthly",
         Holder: "Ok",
         Important: false,
         Members: ["Yan Ma", "Lei", "Haha", "Shashank"],
@@ -227,7 +335,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Title: "Dickbutt Meeting",
         Date: "2222-2-22",
         Time: "2:22-22:22",
-        Type: "Other",
+        Type: "Yearly",
         Holder: "Dickbutt",
         Important: false,
         Members: ["Yan Ma", "Lei", "Haha", "Dickbutt"],

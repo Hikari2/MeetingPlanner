@@ -89,46 +89,57 @@
     width: 100%;
 }
 /*
-normal ; #00CCCC
-important : #CC0066
-weekly : #FFFF00
-other : #CC00CC
+Once : #FF0000 red
+Yearly : #FF8000 orage
+Monthly : #CCCC00 yellow
+Weekly : #66CC00 green
+Daily ; #00CCCC blue
 */
 
-.main-user-page .Important{
-    border-top: 3px solid #CC0066;
+.main-user-page .Once{
+    border-top: 3px solid #FF0000;
 }
 
-.main-user-page .Important .type{
-    color: #CC0066;
-    border: 1px solid #CC0066;
+.main-user-page .Once .type{
+    color: #FF0000;
+    border: 1px solid #FF0000;
 }
-.main-user-page .Normal{
-    border-top: 3px solid #00CCCC;
-}
-
-.main-user-page .Normal .type{
-    color: #00CCCC;
-    border: 1px solid #00CCCC;
+.main-user-page .Yearly{
+    border-top: 3px solid #FF8000;
 }
 
-.main-user-page .Weekly{
+.main-user-page .Yearly .type{
+    color: #FF8000;
+    border: 1px solid #FF8000;
+}
+.main-user-page .Monthly{
     border-top: 3px solid #CCCC00;
 }
 
-.main-user-page .Weekly .type{
+.main-user-page .Monthly .type{
     color: #CCCC00;
     border: 1px solid #CCCC00;
 }
 
-.main-user-page .Other{
-    border-top: 3px solid #CC00CC;
+.main-user-page .Weekly{
+    border-top: 3px solid #66CC00;
 }
 
-.main-user-page .Other .type{
-    color: #CC00CC;
-    border: 1px solid #CC00CC;
+.main-user-page .Weekly .type{
+    color: #66CC00;
+    border: 1px solid #66CC00;
 }
+
+.main-user-page .Daily{
+    border-top: 3px solid #00CCCC;
+}
+
+.main-user-page .Daily .type{
+    color: #00CCCC;
+    border: 1px solid #00CCCC;
+}
+
+
 /*
 End of the kinds
 */
@@ -244,7 +255,7 @@ End of the kinds
 .main-user-page .item .footer a{
     display: table-cell;
     text-align: left;
-    widows: 50%;
+    width: 50%;
     vertical-align: middle;
     color: #E0E0E0;
 }
@@ -575,9 +586,39 @@ End of animate test
     margin-left: -100%;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu a{
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button{
     display: inline-block;
-    width: 10px;
+    width: 35px;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button{
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .disabled{
+    color: #E0E0E0;
+}
+
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .disabled:hover{
+    cursor: no-drop;
+}
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .non-disabled:hover,
+.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu .non-disabled:hover{
+    color: #1DA1F2;
+}
+
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button:focus,
+.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button:active,
+.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button:focus,
+.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button:active{
+    outline: none;
 }
 
 .main-user-page .add-new .yearly .add{
@@ -599,7 +640,8 @@ End of animate test
 .main-user-page .add-new .yearly .selected-day{
     display: inline-block;
     width: 50%;
-    margin-bottom: 10px
+    margin-top: 10px;
+    border-bottom: 1px dotted #1DA1F2;
 }
 
 .main-user-page .add-new .yearly .selected-day .month,
@@ -610,6 +652,7 @@ End of animate test
 .main-user-page .add-new .not-in .yearly .selected-day,
 .main-user-page .add-new .in .yearly .selected-day{
     color: #E0E0E0;
+    border-bottom: none;
 }
 
 .main-user-page .add-new .active .yearly .selected-day .delete{
@@ -636,6 +679,14 @@ End of animate test
     transition: all .5s linear;
 }
 
+.main-user-page .add-new .active .input-title .empty-title-warning,
+.main-user-page .add-new .active .input-date .empty-date-warning{
+    text-transform: uppercase;
+    color: red;
+    border: 2px solid red;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
 
 .nav__menu {
     line-height: 45px;

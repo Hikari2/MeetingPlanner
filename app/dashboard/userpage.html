@@ -79,7 +79,8 @@
                         </div>
                         <div class="input-title">
                             <label>Meeting Title</label>
-                            <input ng-disabled="!addMoreAbled" class="form-control" type="text"/>
+                            <label ng-show="emptyTitle" class="empty-title-warning">the title should not be empty</label>
+                            <input ng-disabled="!addMoreAbled" class="form-control" type="text" ng-model="newTitle" ng-change="checkTitle()"/>
                         </div>
                         <div class="input-type">
                             <label>Type</label>
@@ -104,11 +105,13 @@
                             </div>
                             <div class="weekly" ng-show="typeChoice === 'Weekly'">
                                 <label>Days In a Week</label>
+                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
                                 <a class="week-day" ng-repeat="day in week track by $index" ng-class="day.Selected == true && 'true' || 'false'" 
                                    ng-click="reverseWeekSelection($index)">{{day.Day}} <span class="glyphicon glyphicon-ok"></span></a>
                             </div>
-                            <div class="monthly" ng-show="typeChoice==='Monthly'">
+                            <div class="monthly" ng-show="typeChoice === 'Monthly'">
                                 <label>Days In a Month</label>
+                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
                                 <a class="month-day" ng-repeat="day in month track by $index" ng-class="day.Selected == true && 'true' || 'false'" 
                                    ng-click="reverseMonthSelection($index)">{{day.Day}}</a>
                                 <a class="last-day" ng-class="lastdaySelected == true && 'true' || 'false'" 
@@ -116,11 +119,7 @@
                             </div>
                             <div class="yearly" ng-show="typeChoice === 'Yearly'">
                                 <label>Days In a Year</label>
-                                <div class="selected">
-                                    <div class="selected-day" ng-repeat="day in yearlySelectedDayList track by $index">
-                                        <span class="month">{{day.Month}}</span><span class="day">{{day.Day}}</span><span class="delete glyphicon glyphicon-minus-sign" ng-click="deleteDay($index)"></span>
-                                    </div>
-                                </div>
+                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
                                 <div class="add-input">
                                     <div class="dropdown yearly-month-input">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-month" 
@@ -129,7 +128,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu drop-menu-month" aria-labelledby="dropdownMenu-month">
-                                            <li><a ng-repeat="month in monthList" ng-click="setMonthChoice(month)">{{month}}</a></li>
+                                            <li><button ng-repeat="month in monthList" ng-click="setMonthChoice(month)">{{month}}</button></li>
                                         </ul>
                                     </div>
                                     <div class="dropdown yearly-day-input">
@@ -139,16 +138,22 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu drop-menu-day" aria-labelledby="dropdownMenu-day">
-                                            <li><a ng-repeat="day in dayList" ng-click="setDayChoice(day)">{{day}}</a></li>
+                                            <li><button ng-repeat="day in dayList" ng-click="setDayChoice(day.Day)" ng-disabled="day.Disabled"
+                                                        ng-class="day.Disabled==true && 'disabled' || 'non-disabled'">{{day.Day}}</button></li>
                                         </ul>
                                     </div>
                                     <a class="add" ng-click="addDay()"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                </div>
+                                <div class="selected">
+                                    <div class="selected-day" ng-repeat="day in yearlySelectedDayList track by $index">
+                                        <span class="month">{{day.Month}}</span><span class="day">{{day.Day}}</span><span class="delete glyphicon glyphicon-minus-sign" ng-click="deleteDay($index)"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="footer">
-                        <button class="btn btn-default" ng-disabled="!addMoreAbled">CREATE NEW MEETING</button>
+                        <button class="btn btn-default" ng-disabled="!addMoreAbled" ng-click="crateNewMeeting()">CREATE NEW MEETING</button>
                     </div>
                 </div>
             </div>
