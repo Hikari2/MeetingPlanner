@@ -1,5 +1,5 @@
 
-meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParams, currentAuth, MeetingService, UserService) {
+meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParams, currentAuth, MeetingService, UserService, $uibModal) {
 
     $scope.id = $routeParams.meetingId;
     $scope.loading = true;
@@ -30,7 +30,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
         $scope.date = new Date();
         $scope.date.setHours(Math.floor($scope.day._start / 60));
-        $scope.date.setMinutes($scope.day._start  % 60);
+        $scope.date.setMinutes($scope.day._start % 60);
         $scope.date.setSeconds(0);
         $scope.date.setMilliseconds(0);
 
@@ -79,14 +79,14 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     };
 
     //Add new activity to parkedActivities
-    $scope.addActivity = function () {
+    $scope.addActivity = function (activity) {
+        MeetingService.addActivity(activity);
+        //MeetingService.addActivity(new Activity("Cellar party 1", 20, 1, "Help me"));
+        //MeetingService.addActivity(new Activity("Cellar party 2", 20, 2, "Help me"));
+        //MeetingService.addActivity(new Activity("Cellar party 3", 20, 3, "Help me"));
 
-        MeetingService.addActivity(new Activity("Cellar party 1", 20, 1, "Help me"));
-        MeetingService.addActivity(new Activity("Cellar party 2", 20, 2, "Help me"));
-        MeetingService.addActivity(new Activity("Cellar party 3", 20, 3, "Help me"));
 
-
-        MeetingService.addDay(null, null, currentAuth.uid);
+        //MeetingService.addDay(null, null, currentAuth.uid);
         /*
          $scope.user = new User();
          $scope.user.setFirstName("Hikari");
@@ -126,13 +126,9 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         return MeetingService.getActivityType(typeId);
     };
 
-    $scope.enlarge = function () {
-        enlarge();
-    };
 
-    $scope.normalize = function () {
-        normalize();
-    };
+
+
 
     $scope.hstep = 1;
     $scope.mstep = 15;
@@ -148,5 +144,23 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     $scope.setFilter = function () {
         $scope.searchFilter = {};
         $scope.userFilter[$scope.selectedPropertyOption || '$'] = $scope.searchTerm;
+    };
+
+    $scope.animationsEnabled = true;
+
+    $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'meetings/editing/addActivityModal.html',
+            controller: 'AddActivityCtrl',
+            size: size
+        });
+
+        $scope.name;
+
+        modalInstance.result.then(function (activity) {
+            $scope.addActivity(activity);
+        });
     };
 });

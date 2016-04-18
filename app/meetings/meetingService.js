@@ -107,7 +107,8 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
     // add an activity to model
     this.addActivity = function (activity, day, position) {
         if (day != null) {
-            this.days[day]._addActivity(activity, position);
+            var index =  this.getDayIndex(day);
+            this.days[index]._addActivity(activity, position);
         } else {
             if (position != null) {
                 this.parkedActivities.splice(position, 0, activity);
