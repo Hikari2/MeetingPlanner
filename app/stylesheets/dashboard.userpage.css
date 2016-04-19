@@ -740,5 +740,5 @@ End of animate test
     min-width: 100%;
 }
 #nav__submenu a:hover{
-    font-weight: bold;
+    /*font-weight: bold;*/
 }

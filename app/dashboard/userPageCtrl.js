@@ -56,7 +56,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Company: "KTH",
         Position: "None",
         Address: "Björksätravägen XX XX, Skärholmen",
-        Description: "Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
+        Description: "Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc.",
+        GPSlat:"59.3004",
+        GPSlong:"18.0026"
     };
     var fun = function ()
     {

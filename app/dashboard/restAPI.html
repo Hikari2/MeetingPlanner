@@ -1,78 +1,81 @@
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<head>-->
-<!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false">-->
-<!--</script>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rest API Google map</title>
+    <style>
+        #container{
+            margin: 0 auto;
+            width: 120%;
+            height: 120%;
+            padding-top: 100px;
+        }
+    </style>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>
+</head>
+<body>
 
-<!--<script>-->
-<!--var stockholm = new google.maps.LatLng(59.3004, 18.0722);-->
-<!--var kthBuilding = new google.maps.LatLng(59.3476, 18.0726);-->
-<!--function initialize() {-->
-<!--var mapProp = {-->
-<!--center: new google.maps.LatLng(59.3299, 18.0715),-->
-<!--zoom: 9,-->
-<!--mapTypeId: google.maps.MapTypeId.ROADMAP-->
-<!--};-->
-<!--var map = new google.maps.Map(document.getElementById("googleMap")-->
-<!--, mapProp);-->
+<section>
 
-<!--//          Just add a normal marker-Jian-->
-<!--var marker1 = new google.maps.Marker({-->
-<!--position: stockholm-->
-<!--});-->
-<!--marker1.setMap(map);-->
+    <div class="container" id="container">
 
-<!--//          Show the meeting point-Jian-->
-<!--var infowindow1 = new google.maps.InfoWindow({-->
-<!--content: 'This is meeting Place'-->
-<!--});-->
-<!--infowindow1.open(map, marker1);-->
+        <p id="showThePositiom">Click and show your location: <button onclick="getLocation()">Get Location</button></p>
 
-<!--}-->
-<!--google.maps.event.addDomListener(window, 'load', initialize);-->
+        <div id="displayMap"></div>
 
-<!--</script>-->
-
-<!--</head>-->
-
-<!--<body id="restAPI">-->
-<!--<div id="googleMap" style="width:900px;height:600px;"></div>-->
-
-
-<!--</body>-->
-<!--</html>-->
-<div class="main-user-page">
-    <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
-    <div id="googleMap" style="width:900px;height:600px;">
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false">
-        </script>
         <script>
-            var stockholm = new google.maps.LatLng(59.3004, 18.0722);
-            var kthBuilding = new google.maps.LatLng(59.3476, 18.0726);
-            function initialize() {
-                var mapProp = {
-                    center: new google.maps.LatLng(59.3299, 18.0715),
-                    zoom: 9,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("googleMap")
-                        , mapProp);
-
-//          Just add a normal marker-Jian
-                var marker1 = new google.maps.Marker({
-                    position: stockholm
-                });
-                marker1.setMap(map);
-
-//          Show the meeting point-Jian
-                var infowindow1 = new google.maps.InfoWindow({
-                    content: 'This is meeting Place'
-                });
-                infowindow1.open(map, marker1);
+            var myLocation=document.getElementById("showThePostion");
+            function getLocation()
+            {
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(showPosition,showError);
+                }
+                else{
+                    myLocation.innerHTML="Please use another browser because your browser can not support Geolocation";
+                }
 
             }
-            google.maps.event.addDomListener(window, 'load', initialize);
+//            we can focuse on different map size by using zoom
+            function showPosition(position)
+            {
+                var latAndLon=position.coords.latitude+","+position.coords.longitude;
+//
+                alert(latAndLon);
+
+                var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
+                        +latAndLon+"&zoom=13&size=750x500&sensor=false";
+
+
+
+                document.getElementById("displayMap").innerHTML="<img src='"+img_url+"' />";
+//                document.getElementById("displayMap").innerHTML=map;
+            }
+            document.getElementById("backButton").style.visibility=true;
+            function showError(error)
+            {
+                switch(error.code)
+                {
+                    case error.PERMISSION_DENIED:
+                        myLocation.innerHTML="PERMISSION DENIED";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        myLocation.innerHTML="POSITION UNAVAILABLE";
+                        break;
+                    case error.TIMEOUT:
+                        myLocation.innerHTML="TIMEOUT";
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        myLocation.innerHTML="UNKNOWN ERROR";
+                        break;
+                }
+            }
 
         </script>
+
     </div>
+</section>
+<div class="btn" id="backButton">
+    <input type="button" href="/MeetingPlanner/app/index.html#/userpage/settings" value="Back" >
 </div>
+</body>
+</html>
