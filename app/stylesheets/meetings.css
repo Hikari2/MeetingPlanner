@@ -31,6 +31,11 @@
     width: 350px;
 }
 
+#leftPanel .activityQueue{
+    padding: 1px 1px 1px 1px;
+    box-shadow: 2px 2px 3px grey;
+}
+
 #editMeeting #leftPanel button{
     width: 70%;
     height: 50px;
@@ -61,23 +66,27 @@
 
 /*      Activity Table       */
 
-
 .activityQueue{
     padding: 1px 1px 1px 1px;
 }
 
+.activityQueue table{
+
+}
+
 .activityQueue tr{
-    height: 50px;
     width: 100%;
     text-align: left;
+    margin-bottom: 4px;
 }
 
 .activityQueue tr td{
     padding: 10px 5px 10px 5px;
+
 }
 
 .activityQueue .filler{
-    height: 100px;
+    height: 85px;
 }
 
 .activityQueue .length{
@@ -93,7 +102,8 @@
 }
 
 .activityQueue .title:hover{
-    box-shadow: 1px 1px 4px grey;
+    border-style: double;
+    border-color: grey;
 }
 
 .activityQueue .title p{
@@ -102,7 +112,7 @@
 }
 
 .activityQueue .Presentation{
-    background-color: #CEF6F5;
+    background-color: #FFC0CB;
 }
 
 .activityQueue .Group_Work{
@@ -124,7 +134,7 @@
 }
 
 .activityQueue .bin .dragHover{
-    height: 110px;
+    height: 120px;
 }
 
 
@@ -141,13 +151,13 @@
 }
 
 .participantTable tr{
-    height: 50px;
+    height: 80px;
     width: 100%;
     text-align: left;
 }
 
 .participantTable tr td{
-    padding: 10px 5px 10px 5px;
+
 }
 
 .participantTable .userPic{
@@ -160,7 +170,7 @@
 }
 
 .participantTable .filler{
-    height: 100px;
+    height: 50px;
 }
 
 .participantTable .userName{
@@ -174,10 +184,77 @@
 }
 
 .participantTable .userName:hover{
-    box-shadow: 1px 1px 4px grey;
+    border-style: double;
+    border-color: grey;
 }
 
 .participantTable .userName p{
     font-weight: bold;
     font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+/*      Add activity modal      */
+
+.modal-body {
+    height: 500px;
+    height: 250px;
+    word-wrap:break-word;
+    font-size: 16px;
+}
+
+.modal-body .error {
+    color: red;
+}
+
+.modal-body #name{
+    margin-bottom: 25px;
+}
+
+.modal-body #length{
+    margin-bottom: 25px;
+}
+
+.modal-body #name{
+    margin-bottom: 25px;
+}
+
+.modal-body #type{
+    margin-bottom: 25px;
+}
+
+.modal-body #description{
+
+}
+
+.modal-body  option[value="0"]
+{
+    background-color: #FFC0CB;
+    height: 15px;
+}
+
+.modal-body  option[value="1"]
+{
+    background-color: #BEF5EA;
+}
+
+.modal-body  option[value="2"]
+{
+    background-color: #BCF5A9;
+}
+
+.modal-body  option[value="3"]
+{
+    background-color: #F4F79F;
+}
+
+.modal-footer {
+    border: none;
 }

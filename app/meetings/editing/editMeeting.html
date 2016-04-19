@@ -13,10 +13,8 @@
 
                 <div class="col-sm-12"><h3>{{day.getTitle()}}</h3></div>
                 <div class="col-xs-4 col-sm-6"><uib-timepicker ng-model="date" ng-change="setStart(date)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker></div>
-
+                <button type="button" class="btn btn-default" ng-click="open()">+ Add activity</button>
                 <div class="activityQueue col-xs-12 col-sm-12">
-                    <button type="button" class="btn btn-default" ng-click="open()">+ Add activity</button>
-
                     <table class="table-bordered">
                         <tr class="pendingActivity" ng-repeat="activity in parkedActivities">
                             <td class="length col-md-4">{{activity.getLength()}} min</td>
@@ -73,7 +71,7 @@
                 </div>
                 <div class="participantTable">
                     <table class="table-bordered" ng-show="searchTerm"> 
-                        <tr class="user" ng-repeat="user in result = (users| filter:{'email':  searchTerm}) | limitTo: 5" index="{{getUserIndex(user)}}">
+                        <tr class="user" ng-repeat="user in result = (users| filter:{'email':  searchTerm}) | limitTo: 5">
                             <td class="userPic col-md-4"><img src='{{user.profilePic}}'/></td>
                             <td class="userName col-md-8" draggable>{{user.email}}</td>
                         </tr>

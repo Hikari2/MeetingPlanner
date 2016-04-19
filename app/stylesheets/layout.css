@@ -70,22 +70,21 @@ footer hr{
     border-top: 1px solid black;
 }
 
-footer a{  
-    display: block;
-    height: 50px;
-    text-decoration: none;
+#nav-footer a{  
     color: black;
+    border-bottom: 0px solid white;
+    transition: all .15s ease-in-out;
+}
+
+#nav-footer a:hover{  
+    border-bottom: 3px solid #1da1f2;
 }
 
 #nav-footer{
-    /*height: 30px;*/
     padding: 40px 0 40px 0;
-    /*color: #D9B580;*/
     color: white;
     border:none;
     height: 40%;
-    /*padding-top: 10%;*/
-    background-color: #ABA9A9;
     width: 100%;
     min-width: 100%;
     vertical-align: top;
@@ -127,7 +126,10 @@ footer a{
     padding-top: 50px;
 }
 
-
+#nav-footer hr{
+    width: 70%;
+    border-top: 1px solid #D3D3D3;
+}
 
 
 /****      HOME      ****/
