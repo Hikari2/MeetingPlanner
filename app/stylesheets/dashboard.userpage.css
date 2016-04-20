@@ -1,87 +1,40 @@
-.userPage,.user-messages,.user-settings{
+.main-user-page,.user-messages,.user-settings{
     padding-top: 65px;
 }
 
 /* user page navbar css*/
 
-#user-nav {
-    min-height: 70px;
-    background-color: #D9B580;
-    border: 1px solid #D9B580;
-}
-
-#name-img{
-    height: 100%;
-    width: 100%;
-}
-
-.user-nav .navbar-right{
-    padding-right: 20px;
-    display: table;
-}
-
-.navbar-inverse .navbar-nav > li > a{
-    height: 68px;
-    display: table-cell;
-    font-family: steelfishregular;
-    vertical-align: middle;
-    color: white;
-    font-size: 25px;
-    transition: color .25s linear;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover,.navbar-inverse .navbar-nav > li > a:focus {
-    color: #C08636;
-    transition: color .25s linear;
-}
-
-.user-nav .navbar-left,.user-nav .navbar-left a{
-    max-height: 68px;
-    max-width: 100px;
-}
-
-.user-nav .navbar-header button{
-    background-color: #C08636;
-    color: #D9B580;
-    border: 2px solid #C08636;
-}
-
-.user-nav .navbar-header button:hover,.user-nav .navbar-header button:active,
-.user-nav .navbar-header button:focus{
-    background-color:  #D9B580;
-}
-
-.user-nav .navbar-toggle .icon-bar >*{
-    background-color: white;
-}
-
 .main-user-page{
     margin-bottom: 100px;
 }
 
+.main-user-page .loadingLogo{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
 .main-user-page .meeting-box ul{
     list-style-type: none;
 }
 
-.main-user-page .item,.main-user-page .add-new{
+.main-user-page .item{
     padding: 15px 15px 15px 15px;
 }
 
-.main-user-page .item .meeting-box{
-    /*background-color: white;*/
+.main-user-page  .meeting-box{
+    background-color: white;
     display: inline-block;
     width: 90%;
-    height: 345px;
+    height: 400px;
     padding: 15px 15px 15px 15px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
     overflow: hidden;
-    background-image: url("../resources/bg.jpg"); 
 }
 
 .main-user-page .meeting-box .info-list{
     display: inline-block;
     width: 100%;
-    min-height: 285px;
+    height: 340px;
 }
 
 .main-user-page .item .title{
@@ -354,239 +307,174 @@ End of animate test
     display: inline-block;
 }
 
-.main-user-page .add-new .meeting-box{
-    display: inline-block;
-    width: 90%;
-    min-height: 345px;
-    padding: 15px 15px 15px 15px;
-}
-.main-user-page .add-new .not-in{
-    background-color: #FAFAFA;
-    border: 2px dotted #E0E0E0;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .in{
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-    border-top: 2px solid #E0E0E0;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .in input:hover,
-.main-user-page .add-new .not-in input:hover{
-    cursor: pointer;
-}
-
-.main-user-page .add-new .input-type .text,
-.main-user-page .add-new .input-date .yearly .text{
+.main-user-page .edit-meeting .input-type .text,
+.main-user-page .edit-meeting .input-date .text{
     text-align: left;
     display: inline-block;
     width: calc(100% - 15px);
 }
-.main-user-page .add-new .active{
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-    border-top: 2px solid #E0E0E0;
-    cursor: default;
-    transition: all .5s linear;
-}
 
-.main-user-page .add-new .active .footer .btn{
-    background-color: white;
-    color: #1DA1F2;
-    font-weight: bold;
-    border: 2px solid #1DA1F2;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .active .footer .btn:hover{
-    background-color: #1DA1F2;
-    color: white;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .active .btn:active,
-.main-user-page .add-new .active .btn:focus,
-.main-user-page .add-new .not-in .btn:active,
-.main-user-page .add-new .not-in .btn:focus,
-.main-user-page .add-new .in .btn:active,
-.main-user-page .add-new .in .btn:focus
+button:active,
+button:focus
 {
     outline: none;
 }
 
-.main-user-page .add-new .active .title{
-    color: black;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .title{
-    width: 100%;
-    font-size: 21px;
-    color: #ECECEC;
-    text-align: center;
-    height: 40px;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .input-date label,
-.main-user-page .add-new .input-title label,
-.main-user-page .add-new .input-type label{
-    font-weight: normal;
-    display: inline-block;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.main-user-page .add-new .active .input-title label,
-.main-user-page .add-new .active .input-date label,
-.main-user-page .add-new .active .input-type label{
-    color:  #1DA1F2;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .not-in input,
-.main-user-page .add-new .not-in button
-{
-    background-color: #E0E0E0;
-    color: #E0E0E0;
-    border: none;
-}
-.main-user-page .add-new .in input,
-.main-user-page .add-new .in button
-{
-    background-color: #E0E0E0;
-    color: white;
-}
-
-.main-user-page .add-new .active .input-date a:hover{
-    color:  #1DA1F2;
-    cursor: pointer;
-}
-.main-user-page .add-new .not-in .input-title label,
-.main-user-page .add-new .not-in .input-date label,
-.main-user-page .add-new .not-in .input-type label
-{
-    color: #FAFAFA;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .in .input-title label,
-.main-user-page .add-new .in .input-date label,
-.main-user-page .add-new .in .input-type label,
-.main-user-page .add-new .in .input-date a,
-.main-user-page .add-new .not-in .input-date a{
-    color: #E0E0E0;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .drop-menu-type{
-    width: 100%;
-}
-.main-user-page .add-new .active .input-date a{
-    color: gray;
-}
-
-.main-user-page .add-new .active .input-date a:hover{
-    color: #1DA1F2;
-    text-decoration: none;
-}
-
-.main-user-page .add-new .info{
-    min-height: 230px;
-}
-
-.main-user-page .add-new .input-date input{
-    display: inline-block;
-    width: calc(100% - 30px);
-}
-
-.main-user-page .add-new .input-type button{
-    width: 100%;
-    text-align: left;
-}
-
-.main-user-page .add-new .input-date a{
-    display: inline-block;
-    width: 30px;
-    text-align: center;
-    border: none;
-    background: none;
-}
-
-.main-user-page .add-new .input-date .input-group{
+.main-user-page .edit-meeting .input-date .input-group{
     width: 100%;
 }
 
-.main-user-page .add-new .input-date .weekly .week-day{
+.main-user-page .edit-meeting .input-date .weekly .week-day{
     display: inline-block;
     width: 53px;
     margin-right: 5px;
     margin-top: 10px;
 }
 
-.main-user-page .add-new .input-date .monthly .month-day{
+.main-user-page .edit-meeting .input-date .weekly .week-day,
+.main-user-page .edit-meeting .input-date .monthly .month-day,
+.main-user-page .edit-meeting .input-date .monthly .last-day{
+    color: gray;
+    text-align: center;
+}
+
+.main-user-page .edit-meeting .input-date .monthly .month-day,
+.main-user-page .edit-meeting .once .calendar .calendar-days button{
     display: inline-block;
     width: 30px;
     margin-right: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
+    color: gray;
 }
 
-.main-user-page .add-new .input-date .monthly .last-day{
+.main-user-page .edit-meeting .input-date .monthly .last-day{
     display: inline-block;
     width: 70px;
     margin-right: 5px;
     margin-top: 10px;
 }
-.main-user-page .add-new .active .input-date .weekly .week-day,
-.main-user-page .add-new .active .input-date .monthly .month-day,
-.main-user-page .add-new .active .input-date .monthly .last-day{
+.main-user-page .edit-meeting .input-date .weekly .week-day,
+.main-user-page .edit-meeting .input-date .monthly .month-day,
+.main-user-page .edit-meeting .input-date .monthly .last-day,
+.main-user-page .edit-meeting .once .calendar .calendar-days button{
     border: 2px solid gray;
 }
 
+.main-user-page .edit-meeting .once .calendar .calendar-days .true{
+    color: white;
+    background-color: #1DA1F2;
+    border-color: #1DA1F2;
+}
+.main-user-page .Weekly .input-date .weekly .true,
+.main-user-page .Weekly .input-date .monthly .true
+.main-user-page .Weekly  .true{
+    color: white;
+    background-color: #66CC00;
+    border-color: #66CC00;
+}
+.main-user-page .Once .input-date .weekly .true,
+.main-user-page .Once .input-date .monthly .true{
+    color: white;
+    background-color: #FF0000;
+    border-color: #FF0000;
+}
+.main-user-page .Daily .input-date .weekly .true,
+.main-user-page .Daily .input-date .monthly .true{
+    color: white;
+    background-color: #00CCCC;
+    border-color: #00CCCC;
+}.main-user-page .Monthly .input-date .weekly .true,
+.main-user-page .Monthly .input-date .monthly .true{
+    color: white;
+    background-color: #CCCC00;
+    border-color: #CCCC00;
+}.main-user-page .Yearly .input-date .weekly .true,
+.main-user-page .Yearly .input-date .monthly .true{
+    color: white;
+    background-color: #FF8000;
+    border-color: #FF8000;
+} 
 .main-user-page .add-new .active .input-date .weekly .true,
 .main-user-page .add-new .active .input-date .monthly .true{
     color: white;
     background-color: #1DA1F2;
     border-color: #1DA1F2;
+} 
+.main-user-page .add-new .not-in .input-date .weekly .true,
+.main-user-page .add-new .in .input-date .weekly .true{
+     color: white;
+    background-color: #E0E0E0;
+    border-color: #E0E0E0;
 }
-
-.main-user-page .add-new .active .input-date .weekly .false:hover,
-.main-user-page .add-new .active .input-date .monthly .false:hover{
+.main-user-page .edit-meeting .input-date .weekly .false:hover,
+.main-user-page .edit-meeting .input-date .monthly .false:hover,
+.main-user-page .edit-meeting .once .calendar .calendar-days .false:hover{
+    cursor: pointer;
     color: white;
     background-color: gray;
 }
 
+.main-user-page .weekly .true:hover,
+.main-user-page .monthly .true:hover{
+    cursor: pointer;
+    background-color: white;
+}
+.main-user-page .Weekly .input-date .weekly .true:hover,
+.main-user-page .Weekly .input-date .monthly .true:hover{
+    color: #66CC00;
+    background-color: white;
+}
+.main-user-page .Once .input-date .weekly .true:hover,
+.main-user-page .Once .input-date .monthly .true:hover{
+    color: #FF0000;
+    background-color: white;
+}
+.main-user-page .Daily .input-date .weekly .true:hover,
+.main-user-page .Daily .input-date .monthly .true:hover{
+    color: #00CCCC;
+    background-color: white;
+}
+.main-user-page .Monthly .input-date .weekly .true:hover,
+.main-user-page .Monthly .input-date .monthly .true:hover{
+    color: #CCCC00;
+    background-color: white;
+}
+.main-user-page .Yearly .input-date .weekly .true:hover,
+.main-user-page .Yearly .input-date .monthly .true:hover{
+    color: #1DA1F2;
+    background-color: white;
+}
 .main-user-page .add-new .active .input-date .weekly .true:hover,
 .main-user-page .add-new .active .input-date .monthly .true:hover{
-    background-color: white;
     color: #1DA1F2;
+    background-color: white;
 }
 
-.main-user-page .add-new .active .yearly{
-    min-height: 200px;
-}
-.main-user-page .add-new .yearly .dropdown{
+.main-user-page .edit-meeting .yearly .dropdown{
     display: inline-block;
     width: 40%;
 }
-.main-user-page .add-new .yearly .yearly-month-input button,
-.main-user-page .add-new .yearly .yearly-day-input button{
+
+.main-user-page .edit-meeting .yearly .yearly-month-input button,
+.main-user-page .edit-meeting .yearly .yearly-day-input button{
     display: inline-block;
     width: 100%;
 }
 
-.main-user-page .add-new .yearly .dropdown-menu{
+.main-user-page .edit-meeting .yearly .dropdown-menu{
     width: 250%;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu{
-    margin-left: -100%;
+.main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu{
+    margin-right: calc(-50% + 15px);
+    margin-top: 5px;
+}
+.main-user-page .edit-meeting .yearly .yearly-month-input .dropdown-menu{
+    margin-right: calc(-150% + 15px);
+    margin-top: 5px;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button{
+.main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu button{
     display: inline-block;
     width: 35px;
     text-align: center;
@@ -594,7 +482,7 @@ End of animate test
     border: none;
 }
 
-.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button{
+.main-user-page .edit-meeting .yearly .yearly-month-input .dropdown-menu button{
     display: inline-block;
     width: 45px;
     text-align: center;
@@ -602,26 +490,21 @@ End of animate test
     border: none;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .disabled{
+.main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu .disabled{
     color: #E0E0E0;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .disabled:hover{
+.main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu .disabled:hover{
     cursor: no-drop;
 }
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu .non-disabled:hover,
-.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu .non-disabled:hover{
+
+.main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu .non-disabled:hover,
+.main-user-page .edit-meeting .yearly .yearly-month-input .dropdown-menu button:hover{
     color: #1DA1F2;
 }
 
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button:focus,
-.main-user-page .add-new .yearly .yearly-day-input .dropdown-menu button:active,
-.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button:focus,
-.main-user-page .add-new .yearly .yearly-month-input .dropdown-menu button:active{
-    outline: none;
-}
 
-.main-user-page .add-new .yearly .add{
+.main-user-page .edit-meeting .yearly .add{
     display: inline-block;
     width: 17%;
     text-align: center;
@@ -629,65 +512,225 @@ End of animate test
     vertical-align: middle;
 }
 
-.main-user-page .add-new .active .yearly .add{
+.main-user-page .edit-meeting .yearly .add{
     color: #1DA1F2;
 }
 
-.main-user-page .add-new .active .yearly .add:hover{
+.main-user-page .edit-meeting .yearly .add:hover{
     cursor: pointer;
 }
 
-.main-user-page .add-new .yearly .selected-day{
+.main-user-page .edit-meeting .yearly .selected{
+    max-height: 175px;
+    overflow-y: scroll;
+}
+
+.main-user-page .edit-meeting .yearly .selected-day{
     display: inline-block;
     width: 50%;
     margin-top: 10px;
     border-bottom: 1px dotted #1DA1F2;
 }
 
-.main-user-page .add-new .yearly .selected-day .month,
-.main-user-page .add-new .yearly .selected-day .day{
+.main-user-page .edit-meeting .yearly .selected-day .month,
+.main-user-page .edit-meeting .yearly .selected-day .day{
     display: inline-block;
     width: 40%;
 }
-.main-user-page .add-new .not-in .yearly .selected-day,
-.main-user-page .add-new .in .yearly .selected-day{
+
+.main-user-page .edit-meeting .not-in .yearly .selected-day,
+.main-user-page .edit-meeting .in .yearly .selected-day{
     color: #E0E0E0;
     border-bottom: none;
 }
 
-.main-user-page .add-new .active .yearly .selected-day .delete{
+.main-user-page .edit-meeting .yearly .selected-day .delete{
     color: red;
 }
 
-.main-user-page .add-new .active .yearly .selected-day .delete:hover{
+.main-user-page .edit-meeting .yearly .selected-day .delete:hover{
     cursor: pointer;
 }
 
-.main-user-page .add-new .footer{
-    width: 100%;
-    display: table;
-}
 
-.main-user-page .add-new .footer .btn{
-    display: table-cell;
+.main-user-page .empty-title-warning,
+.main-user-page .empty-date-warning{
     width: 100%;
-    margin-top: 10px;
-    height: 50px;
-    background-color: #ECECEC;
-    color: white;
-    border: none;
-    transition: all .5s linear;
-}
-
-.main-user-page .add-new .active .input-title .empty-title-warning,
-.main-user-page .add-new .active .input-date .empty-date-warning{
+    font-weight: normal;
     text-transform: uppercase;
     color: red;
-    border: 2px solid red;
+    border: 1px solid red;
     text-align: center;
     padding: 5px 5px 5px 5px;
 }
 
+.main-user-page .user-profile img{
+    width: 100%;
+    max-height: 50%;
+}
+
+.main-user-page .user-profile .name{
+    display: inline-block;
+    width: 100%;
+    font-size: 20px;
+    height: 40px;
+}
+
+.main-user-page .user-profile .email,
+.main-user-page .user-profile .phone{
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.main-user-page .user-profile span{
+    display: inline-block;
+    width: 20%;
+}
+
+.main-user-page .user-profile .description label{
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    height: 36px;
+    margin-top: 10px;
+}
+.main-user-page .edit-meeting .titles .title{
+    padding-left: 15px;
+    display: table;
+    width: 100%;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.main-user-page .Yearly .edit-meeting .titles .title{
+    border-bottom: 2px solid #FF8000;
+    color: #FF8000;
+}
+.main-user-page .Monthly .edit-meeting .titles .title{
+    border-bottom: 2px solid #CCCC00;
+    color: #CCCC00;
+}
+.main-user-page .Weekly .edit-meeting .titles .title{
+    border-bottom: 2px solid #66CC00;
+    color: #66CC00;
+}
+.main-user-page .Daily .edit-meeting .titles .title{
+    border-bottom: 2px solid #00CCCC;
+    color: #00CCCC;
+}
+.main-user-page .Once .edit-meeting .titles .title{
+    border-bottom: 2px solid #FF0000;
+    color: #FF0000;
+}
+.main-user-page .add-new .active .edit-meeting .titles .title{
+    border-bottom: 2px solid #1DA1F2;
+    color: #1DA1F2;
+}
+
+.main-user-page .edit-meeting .titles .text{
+    font-weight: bold;
+    text-transform: uppercase;
+    display: table-cell;
+    width: calc(100% - 25px);
+    vertical-align: middle;
+}
+.main-user-page .edit-meeting .titles .glyphicon{
+    display: table-cell;
+    width: 25px;
+    vertical-align: middle;
+}
+.main-user-page .edit-meeting .input-type,
+.main-user-page .edit-meeting .dropdown{
+    display: inline-block;
+    width: 100%;
+}
+.main-user-page .edit-meeting .input-field{
+    display: inline-block;
+    width: 100%;
+    height: 225px;
+    padding-top: 10px;
+}
+.main-user-page .edit-meeting .warning{
+    min-height: 40px;
+}
+.main-user-page .edit-meeting .input-type button{
+    margin-top: 25px;
+}
+.main-user-page .edit-meeting .input-title input,
+.main-user-page .edit-meeting .input-type button{
+    display: table;
+    width: 100%;
+}
+.main-user-page .edit-meeting .dropdown-menu{
+    width: 100%;
+    margin-top: 35px;
+    margin-right: 10px;
+}
+.main-user-page .edit-meeting .titles .warning-in-title{
+    font-weight: normal;
+    border: 1px solid red;
+    color: red;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.main-user-page .footer .save{
+    text-align: right;
+}
+
+.main-user-page .tab-2 textArea{
+    display: inline-block;
+    width: 100%;
+    height: 225px;
+}
+
+.main-user-page .edit-meeting .once .selected,
+.main-user-page .edit-meeting .once .calendar-head{
+    display: inline-block;
+    text-align: center;
+    width:100%;
+}
+
+.main-user-page .edit-meeting .once .calendar button{
+    background: none;
+    border: none;
+}
+
+.main-user-page .edit-meeting .once .calendar .calendar-days button{
+    display: inline-block;
+    width: 30px;
+}
+
+.main-user-page .add-new .not-in{
+    background-color: #FAFAFA;
+    border: 2px dotted #E0E0E0;
+    color: #E0E0E0;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .in{
+    border: none;
+    color: #E0E0E0;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    border-top: 2px solid #E0E0E0;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active{
+    border-top: 3px solid  #1DA1F2;
+    transition: all .5s linear;
+}
+
+.main-user-page .add-new .active .footer .save{
+    color: black;
+}
+.main-user-page .add-new .active .footer .save:hover{
+    color: #1DA1F2;
+}
 .nav__menu {
     line-height: 45px;
     font-weight: 700;
@@ -740,5 +783,5 @@ End of animate test
     min-width: 100%;
 }
 #nav__submenu a:hover{
-    /*font-weight: bold;*/
+    font-weight: bold;
 }

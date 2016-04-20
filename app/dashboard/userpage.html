@@ -1,159 +1,219 @@
 <div class="main-user-page">
     <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
-    <div class="container userPage">
+    <div id="top">
+        <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
+        <div class="loadingLogo col-xs-12"><h1 ng-show="loading">Loading...</h1></div>
+    </div>
+    <div class="container userPage" ng-hide="loading">
         <div class="row meeting-list">
             <div class="item col-md-4 col-xs-12" ng-repeat="meeting in meetingList track by $index" ng-model="meetingList"
-                 ng-animate="'animate'" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" 
+                 ng-animate="'animate'" data-drag="{{!meeting.Viewmore}}" data-jqyoui-options="{revert: 'invalid'}" 
                  jqyoui-draggable="{index:{{$index}},animate:true, insertInline: true}"
-                 data-drop="true" jqyoui-droppable="{index: {{$index}}}">
-                <div class="meeting-box" ng-class="meeting.Info.Type">
-                    <div class="meeting-detail-col">
-                        <div class="info-list" >
-                            <div class="collapse description animate-show" ng-attr-id="{{ 'view-more-description' + $index}}" 
-                                 ng-show="meeting.Viewmore" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-                                <label>Remarks</label>
-                                <p>{{meeting.Info.Remark}}</p>
-                            </div>
-                            <div class="detail" ng-hide="meeting.Viewmore">
-                                <div class="tag-row">
-                                    <div class="tags">
-                                        <div class="important-mark glyphicon glyphicon-star" ng-click="reverseImportantTag($index)" ng-class="meeting.Importanttag">
+                 data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-class="meeting.isNewMeeting && 'add-new' || 'normal'"
+                 ng-mouseenter="setMouseInAddMore($index, 1)"  ng-mouseleave="setMouseInAddMore($index, 0)" ng-click="setMouseInAddMore($index, 2)"
+                 >
+                <div  class="meeting-box" ng-class="meeting.Typetag">
+                        <div class="meeting-detail-col">
+                            <div class="info-list" >
+                                <!-- ng-attr-id="{{ 'view-more-description' + $index}}" -->
+                                <div class=" description animate-show" ng-show="meeting.Viewmore" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                                    <label>Remarks</label>
+                                    <p>{{meeting.Info.description}}</p>
+                                </div>
+                                <div class=" user-profile animate-show" ng-show="meeting.Userprofile" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <img src='{{meeting.Memberstag[meeting.Selecteduser]._profilePic}}'/>
                                         </div>
-                                        <span class="type">{{meeting.Info.Type}}</span></div>
-                                    <div class="dropdown">
-                                        <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="#/editMeeting/{{meeting.Oldindex}}" target="view_window">
-                                                    <span class="glyphicon glyphicon-pencil"></span>Manage
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a ng-click="deleteFromList($index)">
-                                                    <span class="glyphicon glyphicon-trash"></span>Delete
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a ng-click="reverseImportantTag($index)" >
-                                                    <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.Important">Mark</span><span ng-show="meeting.Info.Important">Unmark</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <div class="name"><label>{{meeting.Memberstag[meeting.Selecteduser]._firstName}} {{meeting.Memberstag[meeting.Selecteduser]._lastName}}</label></div>
+                                            <div class="email"><span class="glyphicon glyphicon-envelope"></span> {{meeting.Memberstag[meeting.Selecteduser]._email}}</div>
+                                            <div class="phone"><span class="glyphicon glyphicon-earphone"></span> {{meeting.Memberstag[meeting.Selecteduser]._phone}}</div>
+                                        </div>
+                                        <div class="description col-md-12 col-xs-12">
+                                            <label>Personal Description</label>
+                                            <p></p>
+                                        </div>
+                                    </div>  
                                 </div>
+                                <div class="edit-meeting" ng-show="meeting.Edittag">
+                                    <div class="titles top-titles" ng-repeat="title in titleList track by $index" ng-show="meeting.Tabshow[$index]">
+                                        <div class="title" ng-click="setSelectedTab($parent, $index)">
+                                            <span class="text" >{{title}} 
+                                                <span class="warning-in-title" ng-show="meeting.emptyTitle && $index === 0">errors</span>
+                                                <span class="warning-in-title" ng-show="meeting.emptyDate && $index === 1">errors</span>
+                                            </span>
+                                            <span class="glyphicon glyphicon-plus" ng-show="meeting.Selectedtab !== $index"></span>
+                                            <span class="glyphicon glyphicon-minus" ng-show="meeting.Selectedtab === $index"></span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field">
+                                        <div class="tab-0" ng-show="meeting.Selectedtab === 0">
+                                            <div class="input-title">
+                                                <div class="warning"><label ng-show="meeting.emptyTitle" class="empty-title-warning">the title should not be empty</label></div>
+                                                <input placeholder="Meeting Title" ng-value="meeting.Info.title" class="form-control" type="text" ng-model="meeting.newTitle" ng-change="checkTitle($index)"/>
+                                            </div>
+                                            <div class="input-type">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-type" 
+                                                            data-toggle="dropdown" aria-haspopup="true">
+                                                        <span class="text">{{meeting.typeChoice}}</span>
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu drop-menu-type" aria-labelledby="dropdownMenu-type">
+                                                        <li><a ng-repeat="type in typeList" ng-click="setTypeChoice($parent, type)">{{type}}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-1 input-date" >
+                                            <label ng-show="meeting.emptyDate && meeting.Selectedtab === 1" class="empty-date-warning">select at least one day</label>
+                                            <div class="once" ng-show="meeting.Selectedtab === 1 && meeting.typeChoice === 'Once'">
+                                                <div class="selected"><label><span></span> {{meeting.onceYearChoice}} - {{meeting.onceMonthChoice}} - {{meeting.onceDayChoice}}</label></div>
+                                                <div class="calendar">
+                                                    <div class="calendar-head">
+                                                        <button class="pre-year" ng-click="onPreYear($index)"><span class="glyphicon glyphicon-fast-backward"></span></button>
+                                                        <button class="pre-month" ng-click="onPreMonth($index)"><span class="glyphicon glyphicon-step-backward"></span></button>
+                                                        <label>{{meeting.onceYearDisplay}} - {{meeting.onceMonthDisplay}}</label>
+                                                        <button class="next-month" ng-click="onNextMonth($index)"><span class="glyphicon glyphicon-step-forward"></span></button>
+                                                        <button class="next-year" ng-click="onNextYear($index)"><span class="glyphicon glyphicon-fast-forward"></span></button>
+                                                    </div>
+                                                    <div class="calendar-days">
+                                                        <button  ng-repeat="day in meeting.onceDayList" ng-class="day.Selected === true && 'true' || 'false'" ng-click="setOnceDaySlected($parent, $index)">{{day.Day}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="weekly" ng-show="meeting.Selectedtab === 1 && meeting.typeChoice === 'Weekly'">
 
-                                <div class="title">
-                                    <span class="meeting-title"><label>{{meeting.Info.Title}}</label></span>
+                                                <a class="week-day" ng-repeat="day in week track by $index" ng-class="meeting.weekSelected[$index] == true && 'true' || 'false'" 
+                                                   ng-click="reverseWeekSelection($parent, $index)">{{day.Day}} <span class="glyphicon glyphicon-ok"></span></a>
+                                            </div>
+                                            <div class="monthly" ng-show="meeting.Selectedtab === 1 && meeting.typeChoice === 'Monthly'">
+                                                <a class="month-day" ng-repeat="day in meeting.fullDayList track by $index" ng-class="meeting.monthSelected[$index] == true && 'true' || 'false'" 
+                                                   ng-click="reverseMonthSelection($parent, $index)">{{day.Day}}</a>
+                                                <a class="last-day" ng-class="meeting.lastdaySelected == true && 'true' || 'false'" 
+                                                   ng-click="reverseLastdaySelection($index)">Last Day</a>
+                                            </div>
+                                            <div class="yearly" ng-show="meeting.Selectedtab === 1 && meeting.typeChoice === 'Yearly'">
+                                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
+                                                <div class="add-input">
+                                                    <div class="dropdown yearly-month-input">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-month" 
+                                                                data-toggle="dropdown" aria-haspopup="true">
+                                                            <span class="text">{{meeting.yearlyMonthChoice}}</span>
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu drop-menu-month" aria-labelledby="dropdownMenu-month">
+                                                            <li><button ng-repeat="month in monthList" ng-click="setMonthChoice($parent, month)">{{month}}</button></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="dropdown yearly-day-input">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-day" 
+                                                                data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled">
+                                                            <span class="text">{{meeting.yearlyDayChoice}}</span>
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu drop-menu-day" aria-labelledby="dropdownMenu-day">
+                                                            <li><button ng-repeat="day in meeting.dayList" ng-click="setDayChoice($parent, day.Day)" ng-disabled="day.Disabled"
+                                                                        ng-class="day.Disabled == true && 'disabled' || 'non-disabled'">{{day.Day}}</button></li>
+                                                        </ul>
+                                                    </div>
+                                                    <a class="add" ng-click="addDay($index)"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                                </div>
+                                                <div class="selected">
+                                                    <div class="selected-day" ng-repeat="day in meeting.yearlySelectedDayList track by $index">
+                                                        <span class="month">{{day.Month}}</span><span class="day">{{day.Day}}</span><span class="delete glyphicon glyphicon-minus-sign" ng-click="deleteDay($parent, $index)"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-2" ng-show="meeting.Selectedtab === 2">
+                                            <textarea ng-model="meeting.newDescription">{{meeting.Info.description}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="titles top-titles" ng-repeat="title in titleList" ng-show="!meeting.Tabshow[$index]">
+                                        <div class="title" ng-click="setSelectedTab($parent, $index)">
+                                            <span class="text" >{{title}} 
+                                                <span class="warning-in-title" ng-show="meeting.emptyTitle && $index === 0">errors</span>
+                                                <span class="warning-in-title" ng-show="meeting.emptyDate && $index === 1">errors</span>
+                                            </span>
+                                            <span class="glyphicon glyphicon-plus" ng-show="meeting.Selectedtab !== $index"></span>
+                                            <span class="glyphicon glyphicon-minus" ng-show="meeting.Selectedtab === $index"></span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="detail" ng-hide="meeting.Viewmore || meeting.Userprofile || meeting.Edittag">
+                                    <div class="tag-row">
+                                        <div class="tags">
+                                            <div class="important-mark glyphicon glyphicon-star" ng-click="reverseImportantTag($index)" ng-class="meeting.Importanttag">
+                                            </div>
+                                            <span class="type">{{meeting.Typetag}}</span>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#/editMeeting/{{meeting.Info.$id}}" target="view_window">
+                                                        <span class="glyphicon glyphicon-briefcase"></span>Manage
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="deleteFromList($index)">
+                                                        <span class="glyphicon glyphicon-trash"></span>Delete
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="reverseImportantTag($index)" >
+                                                        <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.important">Mark</span><span ng-show="meeting.Info.important">Unmark</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="editMeeting($index)" >
+                                                        <span class="glyphicon glyphicon-pencil"></span>Edit
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                                <div class="info"><label>Date</label>{{meeting.Info.Date}}</div>
-                                <div class="info"><label>Time</label>{{meeting.Info.Time}}</div>
-                                <div class="member">
-                                    <span class="meeting-member">
-                                        <label>Members</label>
-                                        <a ng-repeat="member in meeting.Info.Members" ng-click="open(meeting)">{{member}}</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="footer" >
-                            <a data-toggle="collapse" data-target="#{{ 'view-more-description' + $index}}" ng-click="reverseViewMore($index)">
-                                <div ng-hide="meeting.Viewmore" >
-                                    View Description <span class="glyphicon glyphicon-chevron-down"></span>
-                                </div>
-                                <div ng-show="meeting.Viewmore">
-                                    Close All <span class="glyphicon glyphicon-chevron-up"></span>
-                                </div>
-                            </a>
-                            <span class="mark glyphicon glyphicon-tag" ng-show="meeting.Info.Important"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="add-new col-md-4 col-xs-12">
-                <div class="meeting-box" ng-mouseenter="setMouseInAddMore(1)" ng-class="addMoreState"
-                     ng-mouseleave="setMouseInAddMore(0)" ng-click="setMouseInAddMore(2)">
-                    <div class="info">                  
-                        <div class="title">
-                            <label>Add a New Meeting</label>
-                        </div>
-                        <div class="input-title">
-                            <label>Meeting Title</label>
-                            <label ng-show="emptyTitle" class="empty-title-warning">the title should not be empty</label>
-                            <input ng-disabled="!addMoreAbled" class="form-control" type="text" ng-model="newTitle" ng-change="checkTitle()"/>
-                        </div>
-                        <div class="input-type">
-                            <label>Type</label>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-type" 
-                                        data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled">
-                                    <span class="text">{{typeChoice}}</span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu drop-menu-type" aria-labelledby="dropdownMenu-type">
-                                    <li><a ng-repeat="type in typeList" ng-click="setTypeChoice(type)">{{type}}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="input-date">
-                            <div class="once" ng-show="typeChoice === 'Once'">
-                                <label>Date</label>
-                                <p class="input-group">
-                                    <input ng-disabled="!addMoreAbled" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" 
-                                           close-text="Close" alt-input-formats="altInputFormats" /><a class=" glyphicon glyphicon-calendar" ng-click="open1()" ng-disabled="!addMoreAbled"></a>
-                                </p>
-                            </div>
-                            <div class="weekly" ng-show="typeChoice === 'Weekly'">
-                                <label>Days In a Week</label>
-                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
-                                <a class="week-day" ng-repeat="day in week track by $index" ng-class="day.Selected == true && 'true' || 'false'" 
-                                   ng-click="reverseWeekSelection($index)">{{day.Day}} <span class="glyphicon glyphicon-ok"></span></a>
-                            </div>
-                            <div class="monthly" ng-show="typeChoice === 'Monthly'">
-                                <label>Days In a Month</label>
-                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
-                                <a class="month-day" ng-repeat="day in month track by $index" ng-class="day.Selected == true && 'true' || 'false'" 
-                                   ng-click="reverseMonthSelection($index)">{{day.Day}}</a>
-                                <a class="last-day" ng-class="lastdaySelected == true && 'true' || 'false'" 
-                                   ng-click="reverseLastdaySelection($index)">Last Day</a>
-                            </div>
-                            <div class="yearly" ng-show="typeChoice === 'Yearly'">
-                                <label>Days In a Year</label>
-                                <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
-                                <div class="add-input">
-                                    <div class="dropdown yearly-month-input">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-month" 
-                                                data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled">
-                                            <span class="text">{{monthChoice}}</span>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu drop-menu-month" aria-labelledby="dropdownMenu-month">
-                                            <li><button ng-repeat="month in monthList" ng-click="setMonthChoice(month)">{{month}}</button></li>
-                                        </ul>
+                                    <div class="title">
+                                        <span class="meeting-title"><label>{{meeting.Info.title}}</label></span>
                                     </div>
-                                    <div class="dropdown yearly-day-input">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-day" 
-                                                data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled">
-                                            <span class="text">{{dayChoice}}</span>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu drop-menu-day" aria-labelledby="dropdownMenu-day">
-                                            <li><button ng-repeat="day in dayList" ng-click="setDayChoice(day.Day)" ng-disabled="day.Disabled"
-                                                        ng-class="day.Disabled==true && 'disabled' || 'non-disabled'">{{day.Day}}</button></li>
-                                        </ul>
-                                    </div>
-                                    <a class="add" ng-click="addDay()"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                                </div>
-                                <div class="selected">
-                                    <div class="selected-day" ng-repeat="day in yearlySelectedDayList track by $index">
-                                        <span class="month">{{day.Month}}</span><span class="day">{{day.Day}}</span><span class="delete glyphicon glyphicon-minus-sign" ng-click="deleteDay($index)"></span>
+
+                                    <div class="info"><label>Date</label>{{meeting.Info.Date}}</div><!-- need update -->
+                                    <div class="info"><label>Time</label>{{meeting.Timetag}}</div>
+                                    <div class="member">
+                                        <span class="meeting-member">
+                                            <label>Members</label>
+                                            <a ng-repeat="member in meeting.Memberstag" ng-click="showProfile($index, $parent)">{{member._firstName + " " + member._lastName}}</a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+                            <div class="footer">
+                                <!--data-toggle="collapse" data-target="#{{ 'view-more-description' + $index}}"-->
+                                <a >
+                                    <div ng-show="!meeting.Viewmore && !meeting.Userprofile && !meeting.Edittag" ng-click="reverseViewMore($index)" >
+                                        View Description <span class="glyphicon glyphicon-chevron-down"></span>
+                                    </div>
+                                    <div ng-show="meeting.Viewmore" ng-click="reverseViewMore($index)">
+                                        Close All <span class="glyphicon glyphicon-chevron-up"></span>
+                                    </div>
+                                    <div ng-show="meeting.Userprofile" ng-click="reverseUserprofile($index)">
+                                        Go Back<span class="glyphicon glyphicon-arrow-left"></span>
+                                    </div>
+                                    <div ng-show="meeting.Edittag && !meeting.isNewMeeting" ng-click="reverseEdittag($index)">
+                                        Go Back<span class="glyphicon glyphicon-arrow-left"></span>
+                                    </div >
+                                </a>
+                                <a>
+                                    <div class="save" ng-show="meeting.Edittag" ng-click="saveMeetingChange($index)">
+                                        Save <span class="glyphicon glyphicon-floppy-save"></span>
+                                    </div>
+                                </a>
+                                <span class="mark glyphicon glyphicon-tag" ng-show="meeting.Info.important && !meeting.Edittag"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <button class="btn btn-default" ng-disabled="!addMoreAbled" ng-click="crateNewMeeting()">CREATE NEW MEETING</button>
                     </div>
                 </div>
             </div>

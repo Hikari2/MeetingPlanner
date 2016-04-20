@@ -26,6 +26,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
 
     this.save = function (day) {
 
+        console.log(day);
         var index = this.getDayIndex(day._id);
 
         day = day.toJson();
@@ -65,6 +66,8 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
             if (this.days[i].$id === id)
                 return i;
         }
+        // must return a value
+        return this.days.length-1;
     };
 
     this.getAllDays = function () {
