@@ -26,13 +26,12 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
 
     this.save = function (day) {
 
-        console.log(day);
         var index = this.getDayIndex(day._id);
 
         day = day.toJson();
         this.days[index].uid = day.uid;
         this.days[index].title = day.title;
-        this.days[index].date = day.date;
+        this.days[index].days = day.days;
         this.days[index].start = day.start;
         this.days[index].end = day.end;
         this.days[index].description = day.description;
@@ -67,7 +66,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
                 return i;
         }
         // must return a value
-        return this.days.length-1;
+        return this.days.length - 1;
     };
 
     this.getAllDays = function () {
@@ -103,6 +102,25 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
         return day;
     };
 
+    this.removeDay = function (day) {
+
+        day = day.toJson();
+        var participants = day.participants;
+
+        if (participants) {
+            $.each(participants, function (index, participant) {
+
+                if (day.removeParticipant(index) !== undefined) {
+                    var index = this.getDayIndex(day._id);
+                    var id = this.days[index].$id;
+                    FireBaseDataService.shared.child(participant + "/" + id).remove().catch(function (error) {
+                        alert("Something went wrong while trying to remove a shared meeting: " + error);
+                    });
+                }
+            });
+        }
+    };
+
     this.getActivities = function (day) {
         return activities = Day.fromJson(this.days[day]).getActivities();
     }
@@ -110,7 +128,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
     // add an activity to model
     this.addActivity = function (activity, day, position) {
         if (day != null) {
-            var index =  this.getDayIndex(day);
+            var index = this.getDayIndex(day);
             this.days[index]._addActivity(activity, position);
         } else {
             if (position != null) {
