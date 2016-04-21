@@ -8,7 +8,7 @@ function Day(startH, startM, userId) {
     this._uid = userId;
     this._id = " ";
     this._title = "No title";
-    this._date = "Today";
+    this._days = [];
     this._description = " ";
     this._important = false;
     this._type = 0;
@@ -149,15 +149,20 @@ function Day(startH, startM, userId) {
         var json = {
             uid: this._uid,
             title: this._title,
-            date: this._date,
+            days: [],
             description: this._description,
             important: this._important,
             type: this._type,
             start: this._start,
-            end:  this._start + this.getTotalLength(),
+            end: this._start + this.getTotalLength(),
             activities: [],
             participants: []
         };
+
+        $.each(this._days, function (index, date) {
+            json.days.push(date);
+        });
+
         $.each(this._activities, function (index, activity) {
             json.activities.push(activity.toJson());
         });
@@ -177,12 +182,17 @@ Day.fromJson = function (json) {
     var day = new Day(Math.floor(json.start / 60), json.start % 60, json.uid);
     day._id = json.$id;
     day._title = json.title;
-    day._date = json.date;
     day._description = json.description;
     day._important = json.important;
     day._type = json.type;
     this._start = json.start;
     this._end = json.end;
+
+    if (json.days) {
+        $.each(json.days, function (index, date) {
+            day._days.push(date);
+        });
+    }
 
     if (json.activities) {
         $.each(json.activities, function (index, activity) {

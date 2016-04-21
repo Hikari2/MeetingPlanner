@@ -75,7 +75,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     {
         $scope.rawList.length = 0;
         $scope.rawList = MeetingService.days;
-        console.log($scope.rawList);
+
         // no meetings available
         if ($scope.day === null) {
             $scope.loading = false;
