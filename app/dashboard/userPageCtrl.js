@@ -5,12 +5,10 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.dragedTarget = null;
     $scope.addMoreState = "not-in";
     $scope.addMoreAbled = true;
-    $scope.typeChoice = "Once";
     $scope.week = [];
     $scope.month = [];
     var weekDays = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     var types = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
-    var canAddDay = true;
     var newMeeting;
     $scope.typeList = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
     $scope.monthList = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
@@ -21,7 +19,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.fullDayList = [];
     $scope.yearlySelectedDayList = [];
     $scope.model = {
-        newTitle: ""
+        newTitle: "",
+        typeChoice: "Once",
+        newDescription: ""
     };
     $scope.emptyTitle = false;
     $scope.emptyDate = false;
@@ -156,9 +156,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                     $scope.month.push(day);
                 me.fullDayList.push(day);
                 me.dayList.push(day);
-                me.onceDayList.push(day);
             }
             $scope.meetingList.push(me);
+            refillOnceDayList($scope.meetingList.length-1);
         }
         sortMeetingList();
         UserService.load();
@@ -172,6 +172,57 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             }
         });
     };
+
+    var checkDisbledDays = function (index)
+    {
+        var canAdd = true;
+        for (var i = 0; i < $scope.meetingList[index].yearlySelectedDayList.length; i++)
+        {
+            if ($scope.meetingList[index].yearlySelectedDayList[i].Month === $scope.meetingList[index].yearlyMonthChoice)
+            {
+                $scope.meetingList[index].dayList[$scope.meetingList[index].yearlySelectedDayList[i].Day - 1].Disabled = true;
+                if ($scope.meetingList[index].yearlySelectedDayList[i].Day === $scope.meetingList[index].yearlyDayChoice)
+                    canAdd = false;
+            }
+        }
+        $scope.meetingList[index].canAddDay = canAdd;
+    };
+
+    var setSlectedDates = function (index)
+    {
+        var type = $scope.meetingList[index].Info.type;
+        if (type === 0) // once
+        {
+            var year = $scope.meetingList[index].Info.days[0];
+            var month = $scope.meetingList[index].Info.days[1];
+            var day = $scope.meetingList[index].Info.days[2];
+            $scope.meetingList[index].onceYearChoice = year;
+            $scope.meetingList[index].onceMonthChoice = month;
+            $scope.meetingList[index].onceDayChoice = day;
+            $scope.meetingList[index].onceYearDisplay = year;
+            $scope.meetingList[index].onceMonthDisplay = month;
+            $scope.meetingList[index].onceDayDisplay = day;
+        } else if (type === 2) // weekly
+        {
+            $scope.meetingList[index].weekSelected.length = 0;
+            $scope.meetingList[index].weekSelected = $scope.meetingList[index].Info.days;
+        } // monhtly
+        else if (type === 3)
+        {
+            $scope.meetingList[index].monthSelected.length = 0;
+            for (var i = 0; i < 31; i++)
+            {
+                $scope.meetingList[index].monthSelected.push($scope.meetingList[index].Info.days[i]);
+            }
+            $scope.meetingList[index].lastdaySelected = $scope.meetingList[index].Info.days[31];
+        } else if (type === 4)
+        {
+            $scope.meetingList[index].yearlySelectedDayList.length = 0;
+            $scope.meetingList[index].yearlySelectedDayList = $scope.meetingList[index].Info.days;
+            checkDisbledDays(index);
+        }
+    };
+
     var getTimeTag = function (time)
     {
         var minute = time % 60;
@@ -379,7 +430,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 return true;
         }
     };
-    var refileOnceDayList = function (index)
+    var refillOnceDayList = function (index)
     {
         var month = $scope.meetingList[index].onceMonthDisplay;
         var year = $scope.meetingList[index].onceYearDisplay;
@@ -395,7 +446,6 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 num = 28;
         }
         $scope.meetingList[index].onceDayList.length = 0;
-        console.log("y " + $scope.meetingList[index].onceYearChoice + " m " + $scope.meetingList[index].onceMonthChoice + " d " + $scope.meetingList[index].onceDayChoice)
         for (var i = 0; i < num; i++)
         {
             if (year === $scope.meetingList[index].onceYearChoice && month === $scope.meetingList[index].onceMonthChoice && i === ($scope.meetingList[index].onceDayChoice - 1))
@@ -405,10 +455,11 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             $scope.meetingList[index].onceDayList.push($scope.meetingList[[index]].fullDayList[i]);
         }
     };
+
     $scope.onPreYear = function (index)
     {
         $scope.meetingList[index].onceYearDisplay = $scope.meetingList[index].onceYearDisplay - 1;
-        refileOnceDayList(index);
+        refillOnceDayList(index);
     };
 
     $scope.onPreMonth = function (index)
@@ -417,7 +468,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             $scope.meetingList[index].onceMonthDisplay = $scope.meetingList[index].onceMonthDisplay - 1;
         else
             return;
-        refileOnceDayList(index);
+        refillOnceDayList(index);
     };
 
     $scope.onNextMonth = function (index)
@@ -426,13 +477,13 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             $scope.meetingList[index].onceMonthDisplay = $scope.meetingList[index].onceMonthDisplay + 1;
         else
             return;
-        refileOnceDayList(index);
+        refillOnceDayList(index);
     };
 
     $scope.onNextYear = function (index)
     {
         $scope.meetingList[index].onceYearDisplay = $scope.meetingList[index].onceYearDisplay + 1;
-        refileOnceDayList(index);
+        refillOnceDayList(index);
     };
 
     var updateAddDay = function (index)
@@ -440,6 +491,48 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         $scope.meetingList[index].canAddDay = true;
     };
 
+    var getDateArray = function (index, type)
+    {
+        var dates = [];
+        if (type === 0) // once meeting
+        {
+            if (index === -1)
+            {
+                dates.push($scope.model.onceYearChoice);
+                dates.push($scope.model.onceMonthChoice);
+                dates.push($scope.model.onceDayChoice);
+            } else {
+                dates.push($scope.meetingList[index].onceYearChoice);
+                dates.push($scope.meetingList[index].onceMonthChoice);
+                dates.push($scope.meetingList[index].onceDayChoice);
+            }
+        } else if (type === 1)
+        {
+            dates = [];
+        } else if (type === 2) // weekly meeting
+        {
+            if (index === -1)
+                dates = $scope.model.weekSelected;
+            else
+                dates = $scope.meetingList[index].weekSelected;
+        } else if (type === 3) // monthly meeting
+        {
+            if (index === -1)
+            {
+                dates = $scope.model.monthSelected;
+                dates.push($scope.model.lastdaySelected);
+            } else {
+                dates = $scope.meetingList[index].monthSelected;
+                dates.push($scope.meetingList[index].lastdaySelected);
+            }
+        } else {
+            if (index === -1)
+                dates = $scope.model.yearlySelectedDayList;
+            else
+                dates = $scope.meetingList[index].yearlySelectedDayList;
+        }
+        return dates;
+    };
     /*
      $scope.meetingViewMore = false;
      $scope.setMeetingViewMore = function (newValue)
@@ -483,7 +576,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         $scope.meetingList[index].onceMonthChoice = $scope.meetingList[index].onceMonthDisplay;
         $scope.meetingList[index].onceYearChoice = $scope.meetingList[index].onceYearDisplay;
         $scope.meetingList[index].onceDayChoice = id + 1;
-        refileOnceDayList(index);
+        refillOnceDayList(index);
     };
 
     $scope.setDayChoice = function (parent, value)
@@ -513,13 +606,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 $scope.meetingList[index].dayList.push($scope.meetingList[index].fullDayList[i]);
                 $scope.meetingList[index].dayList[i].Disabled = false;
             }
-            for (var j = 0; j < $scope.meetingList[index].yearlySelectedDayList.length; j++)
-            {
-                if ($scope.meetingList[index].yearlySelectedDayList[j].Month === value)
-                    $scope.dayList[$scope.meetingList[index].yearlySelectedDayList[j].Day - 1].Disabled = true;
-            }
-            if ($scope.dayList[$scope.meetingList[index].yearlyDayChoice - 1].Disabled === false)
-                updateAddDay(index);
+            checkDisbledDays(index);
         }
     };
 
@@ -558,8 +645,11 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.deleteFromList = function (index)
     {
+        var theDay = Day.fromJson($scope.meetingList[index]);
+        MeetingService.removeDay(theDay);
         $scope.meetingList.splice(index, 1);
     };
+
     $scope.saveMeetingChange = function (index)
     {
         if ($scope.meetingList[index].emptyTitle || $scope.meetingList[index].emptyDate)
@@ -579,13 +669,23 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         {
             $scope.loading = true;
             $scope.model.newTitle = $scope.meetingList[index].newTitle;
-            $scope.typeChoice = getIntType($scope.meetingList[index].typeChoice);
+            $scope.model.typeChoice = getIntType($scope.meetingList[index].typeChoice);
+            $scope.model.newDescription = $scope.meetingList[index].newDescription;
+            $scope.model.weekSelected = $scope.meetingList[index].weekSelected;
+            $scope.model.monthSelected = $scope.meetingList[index].monthSelected;
+            $scope.model.lastdaySelected = $scope.meetingList[index].lastdaySelected;
+            $scope.model.onceYearChoice = $scope.meetingList[index].onceYearChoice;
+            $scope.model.onceMonthChoice = $scope.meetingList[index].onceMonthChoice;
+            $scope.model.onceDayChoice = $scope.meetingList[index].onceDayChoice;
+            $scope.model.yearlySelectedDayList = $scope.meetingList[index].yearlySelectedDayList;
             newMeeting = MeetingService.addDay(null, null, currentAuth.uid);
             MeetingService.loadMeetings(currentAuth.uid);
             MeetingService.days.$loaded().then(function () {
                 refreshMeetingList();
                 newMeeting._title = $scope.model.newTitle;
-                newMeeting._type = $scope.typeChoice;
+                newMeeting._type = $scope.model.typeChoice;
+                newMeeting._days = getDateArray(-1, $scope.model.typeChoice);
+                newMeeting._description = $scope.model.newDescription;
                 MeetingService.save(newMeeting);
                 loadData();
             });
@@ -593,51 +693,12 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             $scope.meetingList[index].Info.title = $scope.meetingList[index].newTitle;
             $scope.meetingList[index].Info.type = getIntType($scope.meetingList[index].typeChoice);
             $scope.meetingList[index].Info.description = $scope.meetingList[index].newDescription;
+            $scope.meetingList[index].Info.days = getDateArray(index, $scope.meetingList[index].Info.type);
             var day = Day.fromJson($scope.meetingList[index].Info);
             MeetingService.save(day);
             $scope.meetingList[index].Edittag = false;
             loadData();
         }
-    };
-
-    $scope.updateNewMeeting = function (newVal)
-    {
-        for (var i = 0; i < $scope.meetingList.length; i++)
-        {
-            if ($scope.meetingList[i].ID === newVal.ID)
-            {
-                // update the corrtesponding data
-                $scope.meetingList[i].Time = newVal.Time;
-                $scope.meetingList[i].Type = newVal.Type;
-                $scope.meetingList[i].Holder = newVal.Holder;
-                $scope.meetingList[i].Date = newVal.Date;
-                $scope.meetingList[i].Remark = newVal.Remark;
-                break;
-            }
-        }
-    };
-
-    $scope.today = function () {
-        $scope.dt = new Date();
-    };
-    $scope.today();
-
-    $scope.clear = function () {
-        $scope.dt = null;
-    };
-
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(),
-        startingDay: 1
     };
 
     $scope.editMeeting = function (id)
@@ -646,78 +707,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         $scope.meetingList[id].newTitle = $scope.meetingList[id].Info.title;
         $scope.meetingList[id].typeChoice = getStringType($scope.meetingList[id].Info.type);
         $scope.meetingList[id].newDescription = $scope.meetingList[id].Info.description;
+        setSlectedDates(id);
+        refillOnceDayList(id);
     };
-
-    // Disable weekend selection
-    function disabled(data) {
-        var date = data.date,
-                mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
-
-    $scope.toggleMin = function () {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
-
-    $scope.toggleMin();
-
-    $scope.open1 = function () {
-        $scope.popup1.opened = true;
-    };
-
-    $scope.open2 = function () {
-        $scope.popup2.opened = true;
-    };
-
-    $scope.setDate = function (year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
-
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    $scope.altInputFormats = ['M!/d!/yyyy'];
-
-    $scope.popup1 = {
-        opened: false
-    };
-
-    $scope.popup2 = {
-        opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-        },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-        }
-    ];
-
-    function getDayClass(data) {
-        var date = data.date,
-                mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
-    }
-
 
 });

@@ -15,7 +15,6 @@
                 <div  class="meeting-box" ng-class="meeting.Typetag">
                         <div class="meeting-detail-col">
                             <div class="info-list" >
-                                <!-- ng-attr-id="{{ 'view-more-description' + $index}}" -->
                                 <div class=" description animate-show" ng-show="meeting.Viewmore" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
                                     <label>Remarks</label>
                                     <p>{{meeting.Info.description}}</p>
@@ -109,7 +108,7 @@
                                                     </div>
                                                     <div class="dropdown yearly-day-input">
                                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-day" 
-                                                                data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled">
+                                                                data-toggle="dropdown" aria-haspopup="true" ng-disabled="!addMoreAbled && meeting.isNewMeeting">
                                                             <span class="text">{{meeting.yearlyDayChoice}}</span>
                                                             <span class="caret"></span>
                                                         </button>
@@ -158,6 +157,11 @@
                                                     </a>
                                                 </li>
                                                 <li>
+                                                    <a ng-click="editMeeting($index)" >
+                                                        <span class="glyphicon glyphicon-pencil"></span>Edit
+                                                    </a>
+                                                </li>
+                                                <li>
                                                     <a ng-click="deleteFromList($index)">
                                                         <span class="glyphicon glyphicon-trash"></span>Delete
                                                     </a>
@@ -167,17 +171,11 @@
                                                         <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.important">Mark</span><span ng-show="meeting.Info.important">Unmark</span>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a ng-click="editMeeting($index)" >
-                                                        <span class="glyphicon glyphicon-pencil"></span>Edit
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-
                                     <div class="title">
-                                        <span class="meeting-title"><label>{{meeting.Info.title}}</label></span>
+                                        <a href="#/editMeeting/{{meeting.Info.$id}}" target="view_window"><span class="meeting-title"><label>{{meeting.Info.title}}</label></span></a>
                                     </div>
 
                                     <div class="info"><label>Date</label>{{meeting.Info.Date}}</div><!-- need update -->
