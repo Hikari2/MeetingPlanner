@@ -44,6 +44,7 @@
     width: 100%;
 }
 
+
 .main-user-page .item .title a{
     color: black;
 }
@@ -183,10 +184,59 @@ End of the kinds
 }
 
 .main-user-page .item .info label{
-    width: 25%;
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
 }
 
+.main-user-page .item  .date .day-table{
+    display: inline-block;
+    width: 75%;
+    max-height: 85px;
+    overflow-y: auto;
+}
+.main-user-page .item  .date .once span,
+.main-user-page .item  .date .daily span{
+    display: inline-block;
+    width: 100px;
+    border: 1px solid black;
+    text-align: center;
+}
+.main-user-page .item .date .week-day{
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
+.main-user-page .item .date .month-day{
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
+.main-user-page .item .date .last-day{
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
+
+.main-user-page .item .date .year-day{
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
 .main-user-page .item .member label{
+    display: inline-block;
     width: 100%;
 }
 
@@ -412,7 +462,7 @@ button:focus
 } 
 .main-user-page .add-new .not-in .input-date .weekly .true,
 .main-user-page .add-new .in .input-date .weekly .true{
-     color: white;
+    color: white;
     background-color: #E0E0E0;
     border-color: #E0E0E0;
 }

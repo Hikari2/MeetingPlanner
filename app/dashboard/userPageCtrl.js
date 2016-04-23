@@ -32,28 +32,53 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     // put the meetings with important tag at the top
     var sortMeetingList = function () {
-        var ilist = [];
-        var nlist = [];
-        var addNew = $scope.meetingList.pop();
-        for (var i = 0; i < $scope.meetingList.length; i++)
-        {
+        for (var i = 0; i < $scope.meetingList.length - 1; i++)
             if ($scope.meetingList[i].Info.important === true)
-            {
                 $scope.meetingList[i].Importanttag = "true";
-                ilist.push($scope.meetingList[i]);
-            } else
-                nlist.push($scope.meetingList[i]);
-        }
-        $scope.meetingList.length = 0;
-        for (var i = 0; i < ilist.length; i++)
-        {
-            $scope.meetingList.push(ilist[i]);
-        }
-        for (var i = 0; i < nlist.length; i++)
-        {
-            $scope.meetingList.push(nlist[i]);
-        }
-        $scope.meetingList.push(addNew);
+        $scope.meetingList.sort(function (a, b) {
+            if (a.isNewMeeting && !b.isNewMeeting)
+                return 1;
+            else if (!a.isNewMeeting && b.isNewMeeting)
+                return -1;
+            else if (!a.isNewMeeting && !b.isNewMeeting)
+            {
+                if (a.Info.important && !b.Info.important)
+                    return -1;
+                else if (!a.Info.important && b.Info.important)
+                    return 1;
+                else
+                {
+                    var typeDif = a.Info.type - b.Info.type;
+                    if (typeDif > 0)
+                        return 1;
+                    else if (typeDif < 0)
+                        return -1;
+                    else
+                    {
+                        if (a.Info.type === 0)
+                        {
+                            var yearDif = a.Info.days[0] - b.Info.days[0];
+                            if (yearDif > 0)
+                                return 1;
+                            else if (yearDif < 0)
+                                return -1;
+                            else
+                            {
+                                var monthDif = a.Info.days[1] - b.Info.days[1];
+                                if (monthDif > 0)
+                                    return 1;
+                                else if (monthDif < 0)
+                                    return -1;
+                                else{
+
+                                }
+                            }
+                        } else
+                            return 0;
+                    }
+                }
+            }
+        });
     };
 
     var getStringType = function (i)
@@ -71,9 +96,10 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         return null;
     };
 
-    var refreshMeetingList = function ()
+    var refreshMeetingList = function (sortList)
     {
         $scope.rawList.length = 0;
+        $scope.month.length = 0;
         $scope.rawList = MeetingService.days;
 
         // no meetings available
@@ -152,25 +178,30 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                     Selected: false,
                     Disabled: false
                 };
-                if (i === 0)
+                if (i === 0) {
                     $scope.month.push(day);
+                }
                 me.fullDayList.push(day);
                 me.dayList.push(day);
             }
             $scope.meetingList.push(me);
             refillOnceDayList($scope.meetingList.length - 1);
+            if ($scope.meetingList[i].isNewMeeting === false)
+                sortYearlySelectedDayList(i);
         }
-        sortMeetingList();
-        UserService.load();
-
-        UserService.users.$loaded().then(function () {
-            $scope.users = UserService.users;
-            for (var i = 0; i < $scope.rawList.length; i++)
-            {
-                $scope.meetingList[i].Memberstag = UserService.getProfiles($scope.rawList[i].participants);
-                console.log($scope.meetingList[i].Memberstag);
-            }
-        });
+        if (sortList)
+        {
+            UserService.load();
+            UserService.users.$loaded().then(function () {
+                $scope.users = UserService.users;
+                for (var i = 0; i < $scope.meetingList.length-1; i++)
+                {
+                    $scope.meetingList[i].Memberstag = UserService.getProfiles($scope.meetingList[i].Info.participants);
+                }
+            });
+            
+            sortMeetingList();
+        }
     };
 
     var checkDisbledDays = function (index)
@@ -223,6 +254,30 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         }
     };
 
+    var sortYearlySelectedDayList = function (index)
+    {
+        if ($scope.meetingList[index].Info.type !== 4)
+            return;
+        $scope.meetingList[index].Info.days.sort(function (a, b) {
+            var dif = $scope.monthList.indexOf(a.Month) - $scope.monthList.indexOf(b.Month);
+            if (dif > 0)
+            {
+                return 1;
+            } else if (dif < 0)
+            {
+                return -1;
+            } else {
+                var difDay = a.Day - b.Day;
+                if (difDay > 0)
+                    return 1;
+                else if (difDay < 0)
+                    return -1;
+                else
+                    return 0;
+            }
+        });
+    }
+
     var getTimeTag = function (time)
     {
         var minute = time % 60;
@@ -241,17 +296,17 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         ;
     };
     // load data
-    var loadData = function ()
+    var loadData = function (sortList)
     {
         MeetingService.loadMeetings(currentAuth.uid);
         MeetingService.days.$loaded().then(function () {
 
-            refreshMeetingList();
+            refreshMeetingList(sortList);
             $scope.loading = false;
 
         });
     };
-    loadData();
+    loadData(true);
 
     {
         for (var i = 0; i < 7; i++)
@@ -278,6 +333,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         Address: "Björksätravägen XX XX, Skärholmen",
         Description: "Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
     };
+
     var fun = function ()
     {
         canViewMore = true;
@@ -629,8 +685,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             MeetingService.save(day);
             var tmp = $scope.meetingList[index];
             $scope.meetingList.splice(index, 1);
-            $scope.meetingList.splice($scope.meetingList.length, 0, tmp);
+            $scope.meetingList.splice($scope.meetingList.length - 1, 0, tmp);
         }
+        sortMeetingList();
     };
 
     $scope.reverseEdittag = function (id)
@@ -646,7 +703,6 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.deleteFromList = function (index)
     {
         var theDay = Day.fromJson($scope.meetingList[index].Info);
-
         MeetingService.removeDay(theDay);
         $scope.meetingList.splice(index, 1);
     };
@@ -682,13 +738,13 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             newMeeting = MeetingService.addDay(null, null, currentAuth.uid);
             MeetingService.loadMeetings(currentAuth.uid);
             MeetingService.days.$loaded().then(function () {
-                refreshMeetingList();
+                refreshMeetingList(false); // do not sort the list
                 newMeeting._title = $scope.model.newTitle;
                 newMeeting._type = $scope.model.typeChoice;
                 newMeeting._days = getDateArray(-1, $scope.model.typeChoice);
                 newMeeting._description = $scope.model.newDescription;
                 MeetingService.save(newMeeting);
-                loadData();
+                loadData(true);
             });
         } else {
             $scope.meetingList[index].Info.title = $scope.meetingList[index].newTitle;
@@ -698,7 +754,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             var day = Day.fromJson($scope.meetingList[index].Info);
             MeetingService.save(day);
             $scope.meetingList[index].Edittag = false;
-            loadData();
+            loadData(true);
         }
     };
 
