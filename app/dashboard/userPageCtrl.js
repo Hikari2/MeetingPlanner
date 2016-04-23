@@ -158,7 +158,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 me.dayList.push(day);
             }
             $scope.meetingList.push(me);
-            refillOnceDayList($scope.meetingList.length-1);
+            refillOnceDayList($scope.meetingList.length - 1);
         }
         sortMeetingList();
         UserService.load();
@@ -645,7 +645,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.deleteFromList = function (index)
     {
-        var theDay = Day.fromJson($scope.meetingList[index]);
+        var theDay = Day.fromJson($scope.meetingList[index].Info);
+
         MeetingService.removeDay(theDay);
         $scope.meetingList.splice(index, 1);
     };

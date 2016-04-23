@@ -103,22 +103,15 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
     };
 
     this.removeDay = function (day) {
-
-        day = day.toJson();
-        var participants = day.participants;
+        var participants = day._participants;
 
         if (participants) {
             $.each(participants, function (index, participant) {
-
-                if (day.removeParticipant(index) !== undefined) {
-                    var index = this.getDayIndex(day._id);
-                    var id = this.days[index].$id;
-                    FireBaseDataService.shared.child(participant + "/" + id).remove().catch(function (error) {
-                        alert("Something went wrong while trying to remove a shared meeting: " + error);
-                    });
-                }
+                FireBaseDataService.shared.child(participant + "/" + day._id).remove();
             });
         }
+
+        FireBaseDataService.meetings.child(day._uid + "/" + day._id).remove();
     };
 
     this.getActivities = function (day) {
