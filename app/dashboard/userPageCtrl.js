@@ -212,7 +212,6 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 }
             }
             if (!bool)  max = last;
-            console.log(max);
             var theDate = new Date(today.getFullYear(), $scope.monthList.indexOf(max.Month), max.Day);
             var todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             dif = Math.round((theDate - todayDate) / (1000 * 60 * 60 * 24));
@@ -407,6 +406,11 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     };
     var loadSharedMeetingAtNo = function (index, sortList)
     {
+        if(MeetingService.sharedDays.length ===0) 
+        {
+            fillMeetingList(true);
+            return;
+        }
         MeetingService.loadSharedMeeting(MeetingService.sharedDays[index].$id);
         sortListGlobal = sortList;
         MeetingService.sharedDay.$loaded().then(function ()
