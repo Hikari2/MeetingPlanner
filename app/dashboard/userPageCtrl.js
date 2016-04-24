@@ -86,7 +86,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             else
                 return 0;
         }
-    }
+    };
     // put the meetings with important tag at the top
     var sortByType = function (a, b) {
         if (a.isNewMeeting && !b.isNewMeeting)
@@ -161,14 +161,15 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         {
             var max = 0;
             var min = 0;
-            
-            var bool=false;
-            var minBool=false;       
+
+            var bool = false;
+            var minBool = false;
             for (var i = 1; i < 31; i++)
             {
                 if (m.Info.days[i])
                 {
-                    if(!minBool) min = i+1;
+                    if (!minBool)
+                        min = i + 1;
                     minBool = true;
                     if (i + 1 >= today.getDate())
                     {
@@ -178,8 +179,10 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                     }
                 }
             }
-            if (!minBool) min=getMonthDayNum(today.getMonth() + 1, today.getFullYear());
-            if (!bool && m.Info.days[31]) max=getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+            if (!minBool)
+                min = getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+            if (!bool && m.Info.days[31])
+                max = getMonthDayNum(today.getMonth() + 1, today.getFullYear());
             if (max < today.getDate())
             {
                 dif = dif - today.getDate() + getMonthDayNum(today.getMonth() + 1, today.getFullYear());
@@ -211,7 +214,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                     }
                 }
             }
-            if (!bool)  max = last;
+            if (!bool)
+                max = last;
             var theDate = new Date(today.getFullYear(), $scope.monthList.indexOf(max.Month), max.Day);
             var todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             dif = Math.round((theDate - todayDate) / (1000 * 60 * 60 * 24));
@@ -222,7 +226,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             }
         }
 
-        if(dif<0) m.latestDate = "Passed";
+        if (dif < 0)
+            m.latestDate = "Passed";
         else if (dif === 0)
             m.latestDate = "Today";
         else if (dif === 1)
@@ -230,9 +235,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         else if (dif === 2)
             m.latestDate = "Day-After-Tomorrow";
         else {
-            var ms=today.getTime() + (dif * 1000 * 60 * 60 * 24);
+            var ms = today.getTime() + (dif * 1000 * 60 * 60 * 24);
             var date = new Date(ms);
-            m.latestDate = date.getFullYear()+" - "+(date.getMonth()+1)+" - "+date.getDate();
+            m.latestDate = date.getFullYear() + " - " + (date.getMonth() + 1) + " - " + date.getDate();
         }
         return dif;
     };
@@ -270,7 +275,12 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         if ($scope.sortingType === "Type")
             $scope.meetingList.sort(sortByType);
         else if ($scope.sortingType === "Time")
+        {
+            // only one meeting in the list tag the time label
+            if ($scope.meetingList.length === 2)
+                sortByTime($scope.meetingList[0], $scope.meetingList[0]);
             $scope.meetingList.sort(sortByTime);
+        }
     };
 
     var getStringType = function (i)
@@ -406,9 +416,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     };
     var loadSharedMeetingAtNo = function (index, sortList)
     {
-        if(MeetingService.sharedDays.length ===0) 
+        if (MeetingService.sharedDays.length === 0)
         {
-            fillMeetingList(true);
+            fillMeetingList(sortList);
             return;
         }
         MeetingService.loadSharedMeeting(MeetingService.sharedDays[index].$id);
@@ -864,7 +874,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.reverseImportantTag = function (index)
     {
-        if ($scope.meetingList[index].cardType !== "normal") return;
+        if ($scope.meetingList[index].cardType !== "normal")
+            return;
         if ($scope.meetingList[index].Info.important === false)// mark the meeting as important, put it at the top pf the list
         {
             $scope.meetingList[index].Info.important = true;
@@ -900,8 +911,10 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.deleteFromList = function (index)
     {
         var theDay = Day.fromJson($scope.meetingList[index].Info);
-        if($scope.meetingList[index].cardType ==="normal") MeetingService.removeDay(theDay);
-        else if($scope.meetingList[index].cardType ==="shared") MeetingService.removeSharedDay(theDay,currentAuth.uid);
+        if ($scope.meetingList[index].cardType === "normal")
+            MeetingService.removeDay(theDay);
+        else if ($scope.meetingList[index].cardType === "shared")
+            MeetingService.removeSharedDay(theDay, currentAuth.uid);
         $scope.meetingList.splice(index, 1);
     };
 
