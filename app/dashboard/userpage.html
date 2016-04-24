@@ -152,17 +152,17 @@
                                         <button class="setting-btn dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="#/editMeeting/{{meeting.Info.$id}}" target="view_window">
-                                                    <span class="glyphicon glyphicon-briefcase"></span>Manage
+                                                <a href="{{meeting.linkToDetail}}" target="view_window">
+                                                    <span class="glyphicon glyphicon-briefcase" ></span ><span ng-show="meeting.cardType==='normal'">Manage</span><span ng-show="meeting.cardType==='shared'">See Details</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a ng-click="editMeeting($index)" >
+                                                <a ng-click="editMeeting($index)" ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-pencil"></span>Edit
                                                 </a>
                                             </li>
                                             <li>
-                                                <a ng-click="deleteFromList($index)">
+                                                <a ng-click="deleteFromList($index)"  ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-trash"></span>Delete
                                                 </a>
                                             </li>
@@ -175,9 +175,9 @@
                                     </div>
                                 </div>
                                 <div class="title">
-                                    <a href="#/editMeeting/{{meeting.Info.$id}}" target="view_window"><span class="meeting-title"><label>{{meeting.Info.title}}</label></span></a>
+                                    <a href="{{meeting.linkToDetail}}"target="view_window"><span class="meeting-title"><label>{{meeting.Info.title}}</label></span></a>
                                 </div>
-
+                                <div class="shared-tag" ng-show="meeting.cardType==='shared'"><label>Shared by {{meeting.Memberstag[0]._email}}</label></div>
                                 <div class="info date"><label >Date</label>
                                     <div class="day-table once" ng-show="meeting.Info.type === 0">
                                         <span>{{meeting.Info.days[0]}} - {{meeting.Info.days[1]}} - {{meeting.Info.days[2]}}</span>

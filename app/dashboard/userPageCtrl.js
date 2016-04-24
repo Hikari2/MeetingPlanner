@@ -10,6 +10,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     var weekDays = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     var types = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
     var newMeeting;
+    var sharedRowList = [];
+    var shoredLoadedNum = 0;
+    var sortListGlobal = false;
     $scope.typeList = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
     $scope.monthList = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
     $scope.lastdaySelected = false;
@@ -69,7 +72,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                                     return 1;
                                 else if (monthDif < 0)
                                     return -1;
-                                else{
+                                else {
 
                                 }
                             }
@@ -96,12 +99,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         return null;
     };
 
-    var refreshMeetingList = function (sortList)
+    var fillMeetingList = function (sortList)
     {
-        $scope.rawList.length = 0;
-        $scope.month.length = 0;
-        $scope.rawList = MeetingService.days;
-
         // no meetings available
         if ($scope.day === null) {
             $scope.loading = false;
@@ -109,17 +108,30 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             return;
         }
         $scope.meetingList.length = 0;
+        var normalNum=$scope.rawList.length - sharedRowList.length;
         for (var i = 0; i < $scope.rawList.length + 1; i++)
         {
             var newMeetingBool = false;
             var editTagBool = false;
             var meeting = null;
-            if (i === $scope.rawList.length)
+            var card = "normal";
+            var link = "";
+            if (i >= normalNum && i !==$scope.rawList.length) // shared meetings
+            {
+                
+                meeting = $scope.rawList[i];
+                card = "shared";
+                link = "#/spectateMeeting/"+sharedRowList[i-normalNum].$id;
+            }
+            else if (i === $scope.rawList.length)
             {
                 newMeetingBool = true;
                 editTagBool = true;
-            } else {
+            } 
+            else 
+            {
                 meeting = $scope.rawList[i];
+                link = "#/editMeeting/"+meeting.$id;
             }
             var theType = "not-in";
             if (!newMeetingBool)
@@ -160,7 +172,9 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 onceMonthDisplay: 1,
                 onceYearDisplay: 2016,
                 onceDayList: [],
-                isNewMeeting: newMeetingBool
+                isNewMeeting: newMeetingBool,
+                cardType: card,
+                linkToDetail: link
             };
             for (var j = 0; j < 7; j++)
             {
@@ -194,14 +208,44 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             UserService.load();
             UserService.users.$loaded().then(function () {
                 $scope.users = UserService.users;
-                for (var i = 0; i < $scope.meetingList.length-1; i++)
+                for (var i = 0; i < $scope.meetingList.length - 1; i++)
                 {
                     $scope.meetingList[i].Memberstag = UserService.getProfiles($scope.meetingList[i].Info.participants);
                 }
             });
-            
             sortMeetingList();
         }
+        console.log($scope.meetingList);
+    };
+    var loadSharedMeetingAtNo = function (index, sortList)
+    {
+        MeetingService.loadSharedMeeting(MeetingService.sharedDays[index].$id);
+        sortListGlobal = sortList;
+        MeetingService.sharedDay.$loaded().then(function ()
+        {
+            var day = MeetingService.getDay(MeetingService.sharedDays[index].$id);
+            $scope.rawList.push(day.toJson());
+            // load one more shared meeting
+            shoredLoadedNum = shoredLoadedNum + 1;
+            if (shoredLoadedNum < sharedRowList.length)
+            {
+                loadSharedMeetingAtNo(shoredLoadedNum, sortListGlobal);
+            } else
+            {
+                fillMeetingList(sortListGlobal);
+            }
+        });
+    };
+    var refreshMeetingList = function (sortList)
+    {
+        $scope.rawList.length = 0;
+        $scope.month.length = 0;
+
+        $scope.rawList = MeetingService.days;
+        sharedRowList = MeetingService.sharedDays;
+        shoredLoadedNum = 0;
+        // start from the first one in the shared list
+        loadSharedMeetingAtNo(shoredLoadedNum, sortList);
     };
 
     var checkDisbledDays = function (index)
@@ -298,12 +342,17 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     // load data
     var loadData = function (sortList)
     {
+        // load the meetings created by the user first
         MeetingService.loadMeetings(currentAuth.uid);
         MeetingService.days.$loaded().then(function () {
+            // then lolad the meetings shared by other users
+            MeetingService.loadSharedMeetings(currentAuth.uid);
+            MeetingService.sharedDays.$loaded().then(function () {
 
-            refreshMeetingList(sortList);
-            $scope.loading = false;
+                refreshMeetingList(sortList);
+                $scope.loading = false;
 
+            });
         });
     };
     loadData(true);

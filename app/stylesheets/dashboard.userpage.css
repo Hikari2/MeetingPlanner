@@ -53,6 +53,13 @@
     cursor: pointer !important;
     color: #1DA1F2;
 }
+
+.main-user-page .item .shared-tag{
+    display: inline-block;
+    width: 100%;
+    color: red;
+    margin-bottom: 10px;
+}
 /*
 Once : #FF0000 red
 Yearly : #FF8000 orage
