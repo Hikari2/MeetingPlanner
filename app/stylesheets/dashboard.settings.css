@@ -98,7 +98,8 @@ p {
 
 /* Links */
 a {
-    color: #1abc9c;
+    /*color: #1abc9c;*/
+    color: #1da1f2;
     word-wrap: break-word;
 
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -160,7 +161,8 @@ a:after {
     color: #555555;
     cursor: default;
     background-color: #ffffff;
-    border-left: 5px solid #1abc9c;
+    /*border-left: 5px solid #1abc9c;*/
+    border-left: 5px solid #1da1f2;
     /*border-left: 5px solid #ABA9A9;*/
     border-bottom-color: transparent;
     border-top-color: transparent;
@@ -200,17 +202,20 @@ i {
 }
 
 #about label {
-    color: #1abc9c;
+    /*color: #1abc9c;*/
     /*color: #ABA9A9;*/
+    color: #1da1f2;
 }
 
 #profile label {
-    color: #1abc9c;
+    /*color: #1abc9c;*/
+    color: #1da1f2;
     /*color: #ABA9A9;*/
 }
 
 #contact label {
-    color: #1abc9c;
+    /*color: #1abc9c;*/
+    color: #1da1f2;
     /*color: #ABA9A9;*/
 }
 
@@ -222,13 +227,21 @@ img#originalImage {
     width: 100%;
 }
 
-#preview {!important;
+#preview {
+!important;
     width: 100px;
     height: 100px;
     border: 1px solid #000;
     overflow: hidden;
 }
 
-#imghead {!important;
+#imghead {
+!important;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+}
+
+#saveBtn {
+    margin-top: 10%;
+    margin-left: 80%;
+    background-color: #1da1f2;
 }
