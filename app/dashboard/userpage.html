@@ -5,6 +5,19 @@
         <div class="loadingLogo col-xs-12"><h1 ng-show="loading">Loading...</h1></div>
     </div>
     <div class="container userPage" ng-hide="loading">
+        <div class="filter">
+            <div class="dropdown">
+                Sorting: <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{sortingType}}</button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="setSortingType('Time')">Time</a>
+                    </li>
+                    <li>
+                        <a ng-click="setSortingType('Type')">Type</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="row meeting-list">
             <div class="item col-md-4 col-xs-12" ng-repeat="meeting in meetingList track by $index" ng-model="meetingList"
                  ng-animate="'animate'" data-drag="{{!meeting.Viewmore}}" data-jqyoui-options="{revert: 'invalid'}" 
@@ -153,7 +166,7 @@
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a href="{{meeting.linkToDetail}}" target="view_window">
-                                                    <span class="glyphicon glyphicon-briefcase" ></span ><span ng-show="meeting.cardType==='normal'">Manage</span><span ng-show="meeting.cardType==='shared'">See Details</span>
+                                                    <span class="glyphicon glyphicon-briefcase" ></span ><span ng-show="meeting.cardType !== 'shared'">Manage</span><span ng-show="meeting.cardType === 'shared'">See Details</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -177,7 +190,7 @@
                                 <div class="title">
                                     <a href="{{meeting.linkToDetail}}"target="view_window"><span class="meeting-title"><label>{{meeting.Info.title}}</label></span></a>
                                 </div>
-                                <div class="shared-tag" ng-show="meeting.cardType==='shared'"><label>Shared by {{meeting.Memberstag[0]._email}}</label></div>
+                                <div class="shared-tag" ng-show="meeting.cardType === 'shared'"><label>Shared by {{meeting.Memberstag[0]._email}}</label></div>
                                 <div class="info date"><label >Date</label>
                                     <div class="day-table once" ng-show="meeting.Info.type === 0">
                                         <span>{{meeting.Info.days[0]}} - {{meeting.Info.days[1]}} - {{meeting.Info.days[2]}}</span>
@@ -194,7 +207,8 @@
                                     <div class="day-table yearly" ng-show="meeting.Info.type === 4">
                                         <span class="year-day" ng-repeat="day in meeting.Info.days track by $index">{{day.Month}} - {{day.Day}}</span>
                                     </div>
-                                </div><!-- need update -->
+                                </div>
+                                <div class="info latest"><label>Latest</label><span ng-class="meeting.latestDate">{{meeting.latestDate}}</span></div>
                                 <div class="info"><label>Time</label>{{meeting.Timetag}}</div>
                                 <div class="member">
                                     <span class="meeting-member">

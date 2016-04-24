@@ -3,10 +3,12 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.user = currentAuth;
     $scope.dragedTarget = null;
+    $scope.sortingType = "Time";
     $scope.addMoreState = "not-in";
     $scope.addMoreAbled = true;
     $scope.week = [];
     $scope.month = [];
+    var today = new Date();
     var weekDays = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     var types = new Array("Once", "Daily", "Weekly", "Monthly", "Yearly");
     var newMeeting;
@@ -33,55 +35,258 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.meetingList = [];
     $scope.titleList = new Array("Title & Type", "Dates", "Description");
 
+
+    var checkLeapYear = function (year)
+    {
+        if (year % 4 !== 0)
+        {
+            return false;
+        } else
+        {
+            if (year % 100 === 0)
+            {
+                if (year % 400 === 0)
+                    return true;
+                else
+                    return false;
+            } else
+                return true;
+        }
+    };
+    var getMonthDayNum = function (month, year)
+    {
+        var num = 30;
+        if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12)
+        {
+            num = 31;
+        } else if (month === 2)
+        {
+            if (checkLeapYear(year))
+                num = 29;
+            else
+                num = 28;
+        }
+        return num;
+    };
+
+    var dateComparator = function (a, b) {
+        var dif = $scope.monthList.indexOf(a.Month) - $scope.monthList.indexOf(b.Month);
+        if (dif > 0)
+        {
+            return 1;
+        } else if (dif < 0)
+        {
+            return -1;
+        } else {
+            var difDay = a.Day - b.Day;
+            if (difDay > 0)
+                return 1;
+            else if (difDay < 0)
+                return -1;
+            else
+                return 0;
+        }
+    }
     // put the meetings with important tag at the top
+    var sortByType = function (a, b) {
+        if (a.isNewMeeting && !b.isNewMeeting)
+            return 1;
+        else if (!a.isNewMeeting && b.isNewMeeting)
+            return -1;
+        else if (!a.isNewMeeting && !b.isNewMeeting)
+        {
+            if (a.Info.important && !b.Info.important)
+                return -1;
+            else if (!a.Info.important && b.Info.important)
+                return 1;
+            else
+            {
+                var typeDif = a.Info.type - b.Info.type;
+                if (typeDif > 0)
+                    return 1;
+                else if (typeDif < 0)
+                    return -1;
+                else
+                {
+                    if (a.Info.type === 0)
+                    {
+                        var yearDif = a.Info.days[0] - b.Info.days[0];
+                        if (yearDif > 0)
+                            return 1;
+                        else if (yearDif < 0)
+                            return -1;
+                        else
+                        {
+                            var monthDif = a.Info.days[1] - b.Info.days[1];
+                            if (monthDif > 0)
+                                return 1;
+                            else if (monthDif < 0)
+                                return -1;
+                            else {
+
+                            }
+                        }
+                    } else
+                        return 0;
+                }
+            }
+        }
+    };
+
+    var getNeraestDayOfMeeting = function (m)
+    {
+        var dif = 0;
+        if (m.Info.type === 0) // once 
+        {
+            var year = m.Info.days[0];
+            var todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            var month = m.Info.days[1] - 1;
+            var day = m.Info.days[2];
+            var meetingDate = new Date(year, month, day);
+            dif = Math.round((meetingDate - todayDate) / (1000 * 60 * 60 * 24));
+        } else if (m.Info.type === 1) // daily
+            dif = 0;
+        else if (m.Info.type === 2) // weekly
+        {
+            var todayDay = today.getDay();
+            for (var i = 0; i < 7; i++)
+            {
+                if (m.Info.days[i])
+                {
+                    dif = i - todayDay;
+                    break;
+                }
+            }
+        } else if (m.Info.type === 3) // monthly
+        {
+            var minDate = -1;
+            var max = 0;
+            if (m.Info.days[31])
+                max = getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+            else {
+                for (var i = 30; i >= 0; i--)
+                {
+                    if (m.Info.days[i])
+                    {
+                        max = i + 1;
+                        break;
+                    }
+                }
+            }
+            var bool = false;
+            for (var i = 1; i < 31; i++)
+            {
+                if (m.Info.days[i])
+                {
+                    if (i + 1 >= today.getDate())
+                    {
+                        bool = true;
+                        minDate = i + 1;
+                        break;
+                    }
+                }
+            }
+            if (!bool)
+                minDate = max;
+            if (minDate < today.getDate())
+            {
+                dif = dif + getMonthDayNum(today.getMonth() + 1, today.getFullYear()) - today.getDate();
+                dif = dif + minDate;
+                minDate = getMonthDayNum(today.getMonth() + 2, today.getFullYear());
+                i = 2;
+                while (minDate < today.getDate())
+                {
+                    dif = dif + getMonthDayNum(today.getMonth() + i, today.getFullYear());
+                    i++;
+                    minDate = getMonthDayNum(today.getMonth() + i, today.getFullYear());
+                }
+            } else
+                dif = dif - today.getDate() + minDate;
+        } else if (m.Info.type === 4) // yearly
+        {
+            m.Info.days.sort(dateComparator);
+            var max = m.Info.days[m.Info.days.length - 1];
+            var minDate = null;
+            var bool = false;
+            for (var i = 0; i < m.Info.days.length; i++)
+            {
+                var mon = $scope.monthList.indexOf(m.Info.days[i].Month);
+                if (mon > today.getMonth() + 1)
+                {
+                    minDate = m.Info.days[i];
+                    bool = true;
+                    break;
+                } else if (mon === today.getMonth())
+                {
+                    if (m.Info.days[i].Day >= today.getDate())
+                    {
+                        minDate = m.Info.days[i];
+                        bool = true;
+                        break;
+                    }
+                }
+            }
+            if (!bool)
+                minDate = max;
+            var min = new Date(today.getFullYear(), $scope.monthList.indexOf(minDate.Month), minDate.Day);
+            var todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            dif = Math.round((min - todayDate) / (1000 * 60 * 60 * 24));
+            if (dif < 0)
+            {
+                min = new Date(today.getFullYear() + 1, $scope.monthList.indexOf(minDate.Month), minDate.Day);
+                dif = Math.round((min - todayDate) / (1000 * 60 * 60 * 24));
+            }
+        }
+        //console.log("dif: " + dif);
+        if(dif<0) m.latestDate = "Passed";
+        else if (dif === 0)
+            m.latestDate = "Today";
+        else if (dif === 1)
+            m.latestDate = "Tomorrow";
+        else if (dif === 2)
+            m.latestDate = "Day-After-Tomorrow";
+        else {
+            var ms=today.getTime() + (dif * 1000 * 60 * 60 * 24);
+            var date = new Date(ms);
+            m.latestDate = date.getFullYear()+" - "+(date.getMonth()+1)+" - "+date.getDate();
+        }
+        return dif;
+    };
+
+    var sortByTime = function (a, b)
+    {
+        if (a.isNewMeeting)
+            return 1;
+        else if (b.isNewMeeting)
+            return -1;
+        else
+        {
+            var ad = getNeraestDayOfMeeting(a);
+            var bd = getNeraestDayOfMeeting(b);
+            var dateDif = ad - bd;
+            if ((ad >= 0 && bd >= 0) || (ad < 0 && bd < 0))
+            {
+                if (dateDif > 0)
+                    return 1;
+                else if (dateDif < 0)
+                    return -1;
+                else
+                    return 0;
+            } else if (ad >= 0 && bd < 0)
+                return -1;
+            else if (ad < 0 && bd >= 0)
+                return 1;
+        }
+    };
+
     var sortMeetingList = function () {
         for (var i = 0; i < $scope.meetingList.length - 1; i++)
             if ($scope.meetingList[i].Info.important === true)
                 $scope.meetingList[i].Importanttag = "true";
-        $scope.meetingList.sort(function (a, b) {
-            if (a.isNewMeeting && !b.isNewMeeting)
-                return 1;
-            else if (!a.isNewMeeting && b.isNewMeeting)
-                return -1;
-            else if (!a.isNewMeeting && !b.isNewMeeting)
-            {
-                if (a.Info.important && !b.Info.important)
-                    return -1;
-                else if (!a.Info.important && b.Info.important)
-                    return 1;
-                else
-                {
-                    var typeDif = a.Info.type - b.Info.type;
-                    if (typeDif > 0)
-                        return 1;
-                    else if (typeDif < 0)
-                        return -1;
-                    else
-                    {
-                        if (a.Info.type === 0)
-                        {
-                            var yearDif = a.Info.days[0] - b.Info.days[0];
-                            if (yearDif > 0)
-                                return 1;
-                            else if (yearDif < 0)
-                                return -1;
-                            else
-                            {
-                                var monthDif = a.Info.days[1] - b.Info.days[1];
-                                if (monthDif > 0)
-                                    return 1;
-                                else if (monthDif < 0)
-                                    return -1;
-                                else {
-
-                                }
-                            }
-                        } else
-                            return 0;
-                    }
-                }
-            }
-        });
+        if ($scope.sortingType === "Type")
+            $scope.meetingList.sort(sortByType);
+        else if ($scope.sortingType === "Time")
+            $scope.meetingList.sort(sortByTime);
     };
 
     var getStringType = function (i)
@@ -108,7 +313,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             return;
         }
         $scope.meetingList.length = 0;
-        var normalNum=$scope.rawList.length - sharedRowList.length;
+        var normalNum = $scope.rawList.length - sharedRowList.length;
         for (var i = 0; i < $scope.rawList.length + 1; i++)
         {
             var newMeetingBool = false;
@@ -116,22 +321,20 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             var meeting = null;
             var card = "normal";
             var link = "";
-            if (i >= normalNum && i !==$scope.rawList.length) // shared meetings
+            if (i >= normalNum && i !== $scope.rawList.length) // shared meetings
             {
-                
+
                 meeting = $scope.rawList[i];
                 card = "shared";
-                link = "#/spectateMeeting/"+sharedRowList[i-normalNum].$id;
-            }
-            else if (i === $scope.rawList.length)
+                link = "#/spectateMeeting/" + sharedRowList[i - normalNum].$id;
+            } else if (i === $scope.rawList.length)
             {
                 newMeetingBool = true;
                 editTagBool = true;
-            } 
-            else 
+            } else
             {
                 meeting = $scope.rawList[i];
-                link = "#/editMeeting/"+meeting.$id;
+                link = "#/editMeeting/" + meeting.$id;
             }
             var theType = "not-in";
             if (!newMeetingBool)
@@ -174,7 +377,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
                 onceDayList: [],
                 isNewMeeting: newMeetingBool,
                 cardType: card,
-                linkToDetail: link
+                linkToDetail: link,
+                latestDate: "2016-4-5"
             };
             for (var j = 0; j < 7; j++)
             {
@@ -215,7 +419,6 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             });
             sortMeetingList();
         }
-        console.log($scope.meetingList);
     };
     var loadSharedMeetingAtNo = function (index, sortList)
     {
@@ -236,6 +439,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             }
         });
     };
+
     var refreshMeetingList = function (sortList)
     {
         $scope.rawList.length = 0;
@@ -302,24 +506,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     {
         if ($scope.meetingList[index].Info.type !== 4)
             return;
-        $scope.meetingList[index].Info.days.sort(function (a, b) {
-            var dif = $scope.monthList.indexOf(a.Month) - $scope.monthList.indexOf(b.Month);
-            if (dif > 0)
-            {
-                return 1;
-            } else if (dif < 0)
-            {
-                return -1;
-            } else {
-                var difDay = a.Day - b.Day;
-                if (difDay > 0)
-                    return 1;
-                else if (difDay < 0)
-                    return -1;
-                else
-                    return 0;
-            }
-        });
+        $scope.meetingList[index].Info.days.sort(dateComparator);
     }
 
     var getTimeTag = function (time)
@@ -370,25 +557,19 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     var canViewMore = true;
 
-    $scope.userInfo = {
-        Firstname: "Erik",
-        Lastname: "Shasha",
-        Email: "eric@kth.se",
-        Phoneno: "076-123456",
-        Gender: "Male",
-        Birthday: "1993-8-8",
-        Company: "KTH",
-        Position: "None",
-        Address: "Björksätravägen XX XX, Skärholmen",
-        Description: "Welcome to your personal menu! Personal menu is displayed at the top of the entire kth.se website, so you always can reach your personal pages and functions e.g. academic overview, schedule, registrations, examination, results etc."
-    };
-
     var fun = function ()
     {
         canViewMore = true;
     };
 
-
+    $scope.setSortingType = function (val)
+    {
+        if (val !== $scope.sortingType)
+        {
+            $scope.sortingType = val;
+            sortMeetingList();
+        }
+    };
     $scope.showProfile = function (id, parent)
     {
         var index = parent.$index;
@@ -415,6 +596,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     {
         if (canViewMore)
         {
+            getNeraestDayOfMeeting($scope.meetingList[index]);
             $scope.meetingList[index].Viewmore = !$scope.meetingList[index].Viewmore;
             canViewMore = false;
             window.setTimeout(fun, 500);
@@ -518,38 +700,14 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         $scope.meetingList[index].canAddDay = true;
     };
 
-    var checkLeapYear = function (year)
-    {
-        if (year % 4 !== 0)
-        {
-            return false;
-        } else
-        {
-            if (year % 100 === 0)
-            {
-                if (year % 400 === 0)
-                    return true;
-                else
-                    return false;
-            } else
-                return true;
-        }
-    };
+
+
+
     var refillOnceDayList = function (index)
     {
         var month = $scope.meetingList[index].onceMonthDisplay;
         var year = $scope.meetingList[index].onceYearDisplay;
-        var num = 30;
-        if (month === 1 || month === 3 || month == 5 || month === 7 || month === 8 || month == 10 || month === 12)
-        {
-            num = 31;
-        } else if (month === 2)
-        {
-            if (checkLeapYear(year))
-                num = 29;
-            else
-                num = 28;
-        }
+        var num = getMonthDayNum(month, year);
         $scope.meetingList[index].onceDayList.length = 0;
         for (var i = 0; i < num; i++)
         {

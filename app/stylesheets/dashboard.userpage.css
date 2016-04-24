@@ -111,7 +111,20 @@ Daily ; #00CCCC blue
     border: 1px solid #00CCCC;
 }
 
+.main-user-page .item .latest .Today{
+    color: red;
+    font-weight: bold;
+}
 
+.main-user-page .item .latest .Tomorrow{
+    color: green;
+    font-weight: bold;
+}
+
+.main-user-page .item .latest .Day-After-Tomorrow{
+    color: #1DA1F2;
+    font-weight: bold;
+}
 /*
 End of the kinds
 */
