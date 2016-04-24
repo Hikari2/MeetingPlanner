@@ -51,6 +51,8 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
             phone: $scope.newPhone,
             profilePic: $scope.newProfilePic
         };
-        UserService.updateProfile(currentAuth, newProfileInfo)
+        UserService.updateProfile(currentAuth, newProfileInfo);
+        alert("New profile updated!");
+        location.reload();
     }
 });
