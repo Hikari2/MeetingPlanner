@@ -6,7 +6,8 @@
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row w">
             <div class="col-md-4">
-                <a onclick="uploadImg()" target="_blank"><img class="img-responsive"  src="http://d310a9hpolx59w.cloudfront.net/stores/avatars/33569/medium/logo.png?1337481625" alt="profile img" id="originalImage"></a>
+                <a onclick="uploadImg()" target="_blank"><img class="img-responsive"  src={{currentInfo._profilePic}}  ng-model="newProfilePic" alt="profile img" id="originalImage"></a>
+                <!--<a onclick="uploadImg()" target="_blank"><input ng-bind-html="currentInfo._profilePic" class="img-responsive" type="image"></a>-->
                 <ul class="nav nav-tabs nav-stacked" id="myTab">
                     <li class="active"><a href="#about">Personal Info</a></li>
                     <!--<li><a href="#profile">Work Experience</a></li>-->
@@ -17,17 +18,18 @@
             <div class="col-md-8">
                 <div class="tab-content">
                     <!--First tab by Jian-->
-                    <div class="tab-pane active" id="about">
+                    <div class="tab-pane active" id="about" >
                         <label>First Name</label>
-                        <input ng-value="userInfo.Firstname" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._firstName" ng-model="newFristName" class="form-control short-input" type="text"/>
                         <label>Last Name</label>
-                        <input ng-value="userInfo.Lastname" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._lastName" ng-model="newLastName" class="form-control short-input" type="text"/>
                         <label>Gender</label>
-                        <input ng-value="userInfo.Gender" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._gender" ng-model="newGender" class="form-control short-input" type="text"/>
                         <label>Birthday</label>
-                        <input ng-value="userInfo.Birthday" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._birthday" ng-model="newBirthday" class="form-control short-input" type="text"/>
                         <label>Address</label>
-                        <a><input ng-value="userInfo.Address" class="form-control long-input" type="text"/></a>
+                        <a><input ng-value="currentInfo._address" ng-model="newAddress" class="form-control long-input" type="text"/></a>
+                        <input id="saveBtn" type="button" ng-click="saveProfile()" value="Save" >
                     </div>
                     <!--Second tab-->
                     <!--<div class="tab-pane" id="profile">-->
@@ -44,9 +46,10 @@
                         <label>Contact Information</label>
                         <hr>
                         <label>E-mail:</label>
-                        <input ng-value="userInfo.Email" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._email" ng-model="newEmail" class="form-control short-input" type="text"/>
                         <label>Phone No.</label>
-                        <input ng-value="userInfo.Phoneno" class="form-control short-input" type="text"/>
+                        <input ng-value="currentInfo._phone" ng-model="newPhone" class="form-control short-input" type="text"/>
+                        <input id="saveBtn" type="button" ng-click="saveProfile()" value="Save" >
                     </div>
                     <!--Fourth tab-->
                     <div class="tab-pane" id="meetings">
@@ -70,6 +73,7 @@
         </div>
     </div>
     <div id="sidemenu-try-jian">
+
         <nav class="menu">
             <ul>
                 <li><a href="#/home">Home</a></li>

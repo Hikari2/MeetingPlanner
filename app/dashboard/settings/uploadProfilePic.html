@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Up load your image!</title>
+    <title>Upload your image!</title>
     <style type="text/css">
         #preview{width:100px;height:100px;border:1px solid #000;overflow:hidden;}
         #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
@@ -70,7 +70,7 @@
 </head>
 <body>
 <div id="preview">
-    <img id="imghead" width=100 height=100 border=0 src={{profileImage}}>
+    <img id="imghead" width=100 height=100 border=0 src={{currentInfo._profilePic}}>
 </div>
 <br/>
 <input type="file" onchange="previewImage(this)" />

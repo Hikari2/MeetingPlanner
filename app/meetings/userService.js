@@ -58,12 +58,12 @@ meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseO
         });
     };
 
-    this.updateProfile = function (authData, user) {
+    this.updateProfile = function (authData, newProfile) {
 
         var user = $firebaseObject(FireBaseDataService.users.child(authData.uid));
 
         user.$loaded().then(function () {
-            newProfile = newProfile.toJson();
+            //newProfile = newProfile.toJson();
             user.firstName = newProfile.firstName;
             user.lastName = newProfile.lastName;
             user.gender = newProfile.gender;
