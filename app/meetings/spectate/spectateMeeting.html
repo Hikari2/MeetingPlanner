@@ -1,6 +1,6 @@
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl" ></div>
 <div id="spectateMeeting">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row" >
             <div id="top">
                 <div class="loadingLogo col-xs-12"><img ng-show="loading" src="resources/spinner.gif" width="80px" height="80px" alt="loading..."></div>
@@ -23,7 +23,7 @@
                 <div class="activityQueue" ng-hide="loading">
                     <table class="table-bordered"> 
                         <tr class="addedActivity" ng-repeat="activity in day._activities">
-                            <td class="length col-md-4">{{day.getActivityStart($index)}}</td>
+                            <td class="length col-md-4">{{day.getActivityStart($index)}}<p>{{activity._length}}min</p></td>
                             <td class="title {{getActivityType(activity._typeid)}} .col-md-8"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
                     </table>
