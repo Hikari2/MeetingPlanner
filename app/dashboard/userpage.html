@@ -5,9 +5,9 @@
         <div class="loadingLogo col-xs-12"><h1 ng-show="loading">Loading...</h1></div>
     </div>
     <div class="container userPage" ng-hide="loading">
-        <div class="filter">
-            <div class="dropdown">
-                Sorting: <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{sortingType}}</button>
+        <div class="top-bar col-md-12 col-xs-12">
+            <div class="sort dropdown">
+                <label class="sort-text">Sorting: </label><button class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{sortingType}}<span class="glyphicon glyphicon-triangle-bottom"></span></button>
                 <ul class="dropdown-menu">
                     <li>
                         <a ng-click="setSortingType('Time')">Time</a>
@@ -180,7 +180,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a ng-click="reverseImportantTag($index)" >
+                                                <a ng-click="reverseImportantTag($index)" ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.important">Mark</span><span ng-show="meeting.Info.important">Unmark</span>
                                                 </a>
                                             </li>

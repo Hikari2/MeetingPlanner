@@ -159,85 +159,70 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
             }
         } else if (m.Info.type === 3) // monthly
         {
-            var minDate = -1;
             var max = 0;
-            if (m.Info.days[31])
-                max = getMonthDayNum(today.getMonth() + 1, today.getFullYear());
-            else {
-                for (var i = 30; i >= 0; i--)
-                {
-                    if (m.Info.days[i])
-                    {
-                        max = i + 1;
-                        break;
-                    }
-                }
-            }
-            var bool = false;
+            var min = 0;
+            
+            var bool=false;
+            var minBool=false;       
             for (var i = 1; i < 31; i++)
             {
                 if (m.Info.days[i])
                 {
+                    if(!minBool) min = i+1;
+                    minBool = true;
                     if (i + 1 >= today.getDate())
                     {
+                        max = i + 1;
                         bool = true;
-                        minDate = i + 1;
                         break;
                     }
                 }
             }
-            if (!bool)
-                minDate = max;
-            if (minDate < today.getDate())
+            if (!minBool) min=getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+            if (!bool && m.Info.days[31]) max=getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+            if (max < today.getDate())
             {
-                dif = dif + getMonthDayNum(today.getMonth() + 1, today.getFullYear()) - today.getDate();
-                dif = dif + minDate;
-                minDate = getMonthDayNum(today.getMonth() + 2, today.getFullYear());
-                i = 2;
-                while (minDate < today.getDate())
-                {
-                    dif = dif + getMonthDayNum(today.getMonth() + i, today.getFullYear());
-                    i++;
-                    minDate = getMonthDayNum(today.getMonth() + i, today.getFullYear());
-                }
+                dif = dif - today.getDate() + getMonthDayNum(today.getMonth() + 1, today.getFullYear());
+                dif = dif + min;
             } else
-                dif = dif - today.getDate() + minDate;
+                dif = dif - today.getDate() + max;
         } else if (m.Info.type === 4) // yearly
         {
             m.Info.days.sort(dateComparator);
-            var max = m.Info.days[m.Info.days.length - 1];
-            var minDate = null;
+            var last = m.Info.days[m.Info.days.length - 1];
+            var max = null;
             var bool = false;
+            var min = m.Info.days[0];
             for (var i = 0; i < m.Info.days.length; i++)
             {
                 var mon = $scope.monthList.indexOf(m.Info.days[i].Month);
-                if (mon > today.getMonth() + 1)
+                if (mon > today.getMonth())
                 {
-                    minDate = m.Info.days[i];
+                    max = m.Info.days[i];
                     bool = true;
                     break;
                 } else if (mon === today.getMonth())
                 {
                     if (m.Info.days[i].Day >= today.getDate())
                     {
-                        minDate = m.Info.days[i];
+                        max = m.Info.days[i];
                         bool = true;
                         break;
                     }
                 }
             }
-            if (!bool)
-                minDate = max;
-            var min = new Date(today.getFullYear(), $scope.monthList.indexOf(minDate.Month), minDate.Day);
+            if (!bool)  max = last;
+            console.log(max);
+            var theDate = new Date(today.getFullYear(), $scope.monthList.indexOf(max.Month), max.Day);
             var todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            dif = Math.round((min - todayDate) / (1000 * 60 * 60 * 24));
+            dif = Math.round((theDate - todayDate) / (1000 * 60 * 60 * 24));
             if (dif < 0)
             {
-                min = new Date(today.getFullYear() + 1, $scope.monthList.indexOf(minDate.Month), minDate.Day);
-                dif = Math.round((min - todayDate) / (1000 * 60 * 60 * 24));
+                theDate = new Date(today.getFullYear() + 1, $scope.monthList.indexOf(min.Month), min.Day);
+                dif = Math.round((theDate - todayDate) / (1000 * 60 * 60 * 24));
             }
         }
-        //console.log("dif: " + dif);
+
         if(dif<0) m.latestDate = "Passed";
         else if (dif === 0)
             m.latestDate = "Today";
@@ -875,6 +860,7 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
 
     $scope.reverseImportantTag = function (index)
     {
+        if ($scope.meetingList[index].cardType !== "normal") return;
         if ($scope.meetingList[index].Info.important === false)// mark the meeting as important, put it at the top pf the list
         {
             $scope.meetingList[index].Info.important = true;
@@ -910,7 +896,8 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
     $scope.deleteFromList = function (index)
     {
         var theDay = Day.fromJson($scope.meetingList[index].Info);
-        MeetingService.removeDay(theDay);
+        if($scope.meetingList[index].cardType ==="normal") MeetingService.removeDay(theDay);
+        else if($scope.meetingList[index].cardType ==="shared") MeetingService.removeSharedDay(theDay,currentAuth.uid);
         $scope.meetingList.splice(index, 1);
     };
 

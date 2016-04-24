@@ -125,6 +125,17 @@ Daily ; #00CCCC blue
     color: #1DA1F2;
     font-weight: bold;
 }
+
+.main-user-page .top-bar {
+    display: inline-block;
+    width: 100%;
+}
+
+.main-user-page .top-bar .sort-text{
+    display: inline-block;
+    width: 80px;
+    font-size: 18px;
+}
 /*
 End of the kinds
 */

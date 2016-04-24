@@ -47,7 +47,7 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
 
     this.removeSharedDay = function(day, uid)
     {
-        FireBaseDtaService.shared.child(uid+"/"+day._id).remove();
+        FireBaseDataService.shared.child(uid+"/"+day._id).remove();
     };
     
     this.getDay = function (id) {
