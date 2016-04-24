@@ -6,47 +6,6 @@
     <script type="text/javascript"
             src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>
     <script type="text/javascript">
-        //        function init()
-        //        {
-        //            // Find the current location
-        //            navigator.geolocation.getCurrentPosition(function(position)
-        //            {
-        //                var coords = position.coords;
-        //                // set the center point
-        //                var latlng = new google.maps.LatLng(coords.latitude,coords.longitude);
-        //                var myOptions =
-        //                {
-        //                    // we can change this for zoom in  /out
-        //                    zoom:14,
-        //                    // location
-        //                    center:latlng,
-        //                    // map type
-        //                    mapTypeId:google.maps.MapTypeId.ROADMAP
-        //                };
-        //                var map1;
-        //                // show the map
-        //                map1 = new google.maps.Map(document.getElementById('map'),myOptions);
-        //                // marker
-        //                var marker = new google.maps.Marker(
-        //                        {
-        //                            position:latlng,
-        //                            map:map1
-        //                        });
-        //                // content on marker
-        //                var infowindow = new google.maps.InfoWindow(
-        //                        {
-        //                            content:"Your Location!"
-        //                        });
-        //                // the marker will pop up
-        //                infowindow.open(map1,marker);
-        //            });
-        //        }
-
-//        function timedMsg()
-//        {
-//            var t=setTimeout("alert('This is your meeting location！')",3000)
-//        }
-
 
         var geocoder;
         var map, popup;
@@ -125,7 +84,7 @@
 
 
 </head>
-<body onload="initialize()">
+<body onload="initialize()" >
 <div position="center" align="center">
     <div id="map" style="width:60%; height:60%" position="relative"></div>
     <div class="container" align="center">

@@ -9,7 +9,7 @@
                 <a onclick="uploadImg()" target="_blank"><img class="img-responsive"  src="http://d310a9hpolx59w.cloudfront.net/stores/avatars/33569/medium/logo.png?1337481625" alt="profile img" id="originalImage"></a>
                 <ul class="nav nav-tabs nav-stacked" id="myTab">
                     <li class="active"><a href="#about">Personal Info</a></li>
-                    <li><a href="#profile">Work Experience</a></li>
+                    <!--<li><a href="#profile">Work Experience</a></li>-->
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="#meetings">My meetings</a></li>
                 </ul>
@@ -30,15 +30,15 @@
                         <a><input ng-value="userInfo.Address" class="form-control long-input" type="text"/></a>
                     </div>
                     <!--Second tab-->
-                    <div class="tab-pane" id="profile">
-                        <label> Work experience </label>
-                        <label>Company</label>
-                        <input ng-value="userInfo.Company" class="form-control short-input" type="text"/>
-                        <label>Position</label>
-                        <input ng-value="userInfo.Position" class="form-control short-input" type="text"/>
-                        <label>Description</label>
-                        <Textarea class="form-control" rows="5">{{userInfo.Description}}</Textarea>
-                    </div>
+                    <!--<div class="tab-pane" id="profile">-->
+                        <!--<label> Work experience </label>-->
+                        <!--<label>Company</label>-->
+                        <!--<input ng-value="userInfo.Company" class="form-control short-input" type="text"/>-->
+                        <!--<label>Position</label>-->
+                        <!--<input ng-value="userInfo.Position" class="form-control short-input" type="text"/>-->
+                        <!--<label>Description</label>-->
+                        <!--<Textarea class="form-control" rows="5">{{userInfo.Description}}</Textarea>-->
+                    <!--</div>-->
                     <!--Third tab-->
                     <div class="tab-pane" id="contact">
                         <label>Contact Information</label>
@@ -51,11 +51,11 @@
                     <!--Fourth tab-->
                     <div class="tab-pane" id="meetings">
                         <a href="#/userpage">Go to review my meetings</a>
-                        <br><br/>
+                        <br><br/><br><br>
                         <a href="/MeetingPlanner/app/dashboard/searchMeetingLocation.html" target="_blank">Find the meeting location</a>
-                        <br/><br/>
+                        <br/><br/><br><br>
                         <a href="/MeetingPlanner/app/dashboard/restAPI.html" target="_blank">Where am I</a>
-                        <br/><br/>
+                        <br/><br/><br><br>
                         <!--<a href="/MeetingPlanner/app/dashboard/weatherAPI.html" target="_blank">Check the weather</a>-->
                     </div>
                 </div>

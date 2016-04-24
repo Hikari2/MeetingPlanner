@@ -1,84 +1,4 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-    <!--<title>Rest API Google map</title>-->
-    <!--<style>-->
-        <!--#container{-->
-            <!--margin: 0 auto;-->
-            <!--width: 120%;-->
-            <!--height: 120%;-->
-            <!--padding-top: 100px;-->
-        <!--}-->
-    <!--</style>-->
-    <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>-->
-<!--</head>-->
-<!--<body>-->
 
-<!--<section>-->
-
-    <!--<div class="container" id="container">-->
-
-        <!--<p id="showThePositiom">Click and show your location: <button onclick="getLocation()">Get Location</button></p>-->
-
-        <!--<div id="displayMap"></div>-->
-
-        <!--<script>-->
-            <!--var myLocation=document.getElementById("showThePostion");-->
-            <!--function getLocation()-->
-            <!--{-->
-                <!--if (navigator.geolocation)-->
-                <!--{-->
-                    <!--navigator.geolocation.getCurrentPosition(showPosition,showError);-->
-                <!--}-->
-                <!--else{-->
-                    <!--myLocation.innerHTML="Please use another browser because your browser can not support Geolocation";-->
-                <!--}-->
-
-            <!--}-->
-<!--//            we can focuse on different map size by using zoom-->
-            <!--function showPosition(position)-->
-            <!--{-->
-                <!--var latAndLon=position.coords.latitude+","+position.coords.longitude;-->
-<!--//-->
-<!--//                alert(latAndLon);-->
-
-                <!--var img_url="http://maps.googleapis.com/maps/api/staticmap?center="-->
-                        <!--+latAndLon+"&zoom=13&size=750x500&sensor=false";-->
-
-
-
-                <!--document.getElementById("displayMap").innerHTML="<img src='"+img_url+"' />";-->
-<!--//                document.getElementById("displayMap").innerHTML=map;-->
-            <!--}-->
-            <!--document.getElementById("backButton").style.visibility=true;-->
-            <!--function showError(error)-->
-            <!--{-->
-                <!--switch(error.code)-->
-                <!--{-->
-                    <!--case error.PERMISSION_DENIED:-->
-                        <!--myLocation.innerHTML="PERMISSION DENIED";-->
-                        <!--break;-->
-                    <!--case error.POSITION_UNAVAILABLE:-->
-                        <!--myLocation.innerHTML="POSITION UNAVAILABLE";-->
-                        <!--break;-->
-                    <!--case error.TIMEOUT:-->
-                        <!--myLocation.innerHTML="TIMEOUT";-->
-                        <!--break;-->
-                    <!--case error.UNKNOWN_ERROR:-->
-                        <!--myLocation.innerHTML="UNKNOWN ERROR";-->
-                        <!--break;-->
-                <!--}-->
-            <!--}-->
-
-        <!--</script>-->
-
-    <!--</div>-->
-<!--</section>-->
-<!--<div class="btn" id="backButton">-->
-    <!--<input type="button" value="Close" onclick="window.close()" >-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE>
 <html>
 <head>
@@ -88,38 +8,42 @@
     <script type="text/javascript">
         function init()
         {
-            // 获取当前位置
+            timedMsg()
+            // get the current location
             navigator.geolocation.getCurrentPosition(function(position)
             {
                 var coords = position.coords;
-                // 设定地图参数，将当前位置的经纬度设置为中心点
+                // set the lat and lng
                 var latlng = new google.maps.LatLng(coords.latitude,coords.longitude);
                 var myOptions =
                 {
-                    // 放大倍数
+                    // zoom in
                     zoom:14,
-                    // 标注坐标
+                    // lat and lng
                     center:latlng,
-                    // 地图类型
+                    // map type
                     mapTypeId:google.maps.MapTypeId.ROADMAP
                 };
                 var map1;
-                // 显示地图
+                // show map
                 map1 = new google.maps.Map(document.getElementById('map'),myOptions);
-                // 创建标记
+                // build marker
                 var marker = new google.maps.Marker(
                         {
                             position:latlng,
                             map:map1
                         });
-                // 设定标注窗口，附上注释文字
                 var infowindow = new google.maps.InfoWindow(
                         {
                             content:"Your Location!"
                         });
-                // 打开标注窗口
+                // pop up
                 infowindow.open(map1,marker);
             });
+        }
+        function timedMsg()
+        {
+            var t=setTimeout("alert('Please wait a monment !!!')",1000)
         }
     </script>
 </head>
