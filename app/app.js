@@ -27,8 +27,9 @@ meetingAgendaBuilder.config(['$routeProvider',
                     return AuthenticationService.requireAuth();
                 }]
             }
-        }).///
-        when('/userpage/settings/uploadProfilePic', {
+        })
+            ///
+            .when('/userpage/settings/uploadProfilePic', {
             templateUrl: 'dashboard/settings/uploadProfilePic.html',
             controller: 'UserSettingsCtrl',
             resolve: {

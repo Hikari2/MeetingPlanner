@@ -2,13 +2,12 @@
 <!DOCTYPE>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title>Google Map-Show your location</title>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>
     <script type="text/javascript">
         function init()
         {
-            timedMsg();
+//            timedMsg();
             // get the current location
             navigator.geolocation.getCurrentPosition(function(position)
             {
@@ -43,7 +42,7 @@
         }
         function timedMsg()
         {
-            var t=setTimeout("alert('Please wait a monment！')",1000)
+            var t=setTimeout("alert('Please wait a monment!')",1000)
         }
     </script>
 </head>
@@ -51,3 +50,57 @@
 <div id="map" style="width:100%; height:100%"></div>
 </body>
 </html>
+
+
+<!--<!DOCTYPE>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta http-equiv="content-type" content="text/html;charset=utf-8">-->
+    <!--<title>Google Map-Show your location</title>-->
+    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>-->
+    <!--<script type="text/javascript">-->
+        <!--function init()-->
+        <!--{-->
+<!--//            timedMsg()-->
+            <!--// get the current location-->
+            <!--navigator.geolocation.getCurrentPosition(function(position)-->
+            <!--{-->
+                <!--var coords = position.coords;-->
+                <!--// set the lat and lng-->
+                <!--var latlng = new google.maps.LatLng(coords.latitude,coords.longitude);-->
+                <!--var myOptions =-->
+                <!--{-->
+                    <!--// zoom in-->
+                    <!--zoom:14,-->
+                    <!--// lat and lng-->
+                    <!--center:latlng,-->
+                    <!--// map type-->
+                    <!--mapTypeId:google.maps.MapTypeId.ROADMAP-->
+                <!--};-->
+                <!--var map1;-->
+                <!--// show map-->
+                <!--map1 = new google.maps.Map(document.getElementById('map'),myOptions);-->
+                <!--// build marker-->
+                <!--var marker = new google.maps.Marker(-->
+                        <!--{-->
+                            <!--position:latlng,-->
+                            <!--map:map1-->
+                        <!--});-->
+                <!--var infowindow = new google.maps.InfoWindow(-->
+                        <!--{-->
+                            <!--content:"Your Location!"-->
+                        <!--});-->
+                <!--// pop up-->
+                <!--infowindow.open(map1,marker);-->
+            <!--});-->
+        <!--}-->
+<!--//        function timedMsg()-->
+<!--//        {-->
+<!--//            var t=setTimeout("alert('Please wait a monment !!!')",1000)-->
+<!--//        }-->
+    <!--</script>-->
+<!--</head>-->
+<!--<body onload="init()">-->
+<!--<div id="map" style="width:100%; height:100%"></div>-->
+<!--</body>-->
+<!--</html>-->
