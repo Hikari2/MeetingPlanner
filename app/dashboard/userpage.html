@@ -34,17 +34,13 @@
                             </div>
                             <div class=" user-profile animate-show" ng-show="meeting.Userprofile" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
                                 <div class="row">
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="pro-img col-md-12 col-xs-12">
                                         <img class="thumbnail" src='{{meeting.Memberstag[meeting.Selecteduser]._profilePic}}'/>
                                     </div>
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="col-md-12 col-xs-12">
                                         <div class="name"><label>{{meeting.Memberstag[meeting.Selecteduser]._firstName}} {{meeting.Memberstag[meeting.Selecteduser]._lastName}}</label></div>
                                         <div class="email"><span class="glyphicon glyphicon-envelope"></span> {{meeting.Memberstag[meeting.Selecteduser]._email}}</div>
                                         <div class="phone"><span class="glyphicon glyphicon-earphone"></span> {{meeting.Memberstag[meeting.Selecteduser]._phone}}</div>
-                                    </div>
-                                    <div class="description col-md-12 col-xs-12">
-                                        <label>Personal Description</label>
-                                        <p></p>
                                     </div>
                                 </div>  
                             </div>

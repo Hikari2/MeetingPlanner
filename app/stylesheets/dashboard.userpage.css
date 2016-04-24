@@ -17,6 +17,10 @@
     list-style-type: none;
 }
 
+.main-user-page .item .pro-img{
+    text-align: center;
+}
+
 .main-user-page .item{
     padding: 15px 15px 15px 15px;
 }
@@ -656,7 +660,7 @@ button:focus
 }
 
 .main-user-page .user-profile img{
-    width: 100%;
+    width: 50%;
     max-height: 50%;
 }
 
