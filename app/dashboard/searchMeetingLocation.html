@@ -1,0 +1,154 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>Google Map-Show your location</title>
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3cV_kZHpHPXCSaCvM0iPcUj9tnPLSqmA&sensor=false"></script>
+    <script type="text/javascript">
+        //        function init()
+        //        {
+        //            // Find the current location
+        //            navigator.geolocation.getCurrentPosition(function(position)
+        //            {
+        //                var coords = position.coords;
+        //                // set the center point
+        //                var latlng = new google.maps.LatLng(coords.latitude,coords.longitude);
+        //                var myOptions =
+        //                {
+        //                    // we can change this for zoom in  /out
+        //                    zoom:14,
+        //                    // location
+        //                    center:latlng,
+        //                    // map type
+        //                    mapTypeId:google.maps.MapTypeId.ROADMAP
+        //                };
+        //                var map1;
+        //                // show the map
+        //                map1 = new google.maps.Map(document.getElementById('map'),myOptions);
+        //                // marker
+        //                var marker = new google.maps.Marker(
+        //                        {
+        //                            position:latlng,
+        //                            map:map1
+        //                        });
+        //                // content on marker
+        //                var infowindow = new google.maps.InfoWindow(
+        //                        {
+        //                            content:"Your Location!"
+        //                        });
+        //                // the marker will pop up
+        //                infowindow.open(map1,marker);
+        //            });
+        //        }
+
+//        function timedMsg()
+//        {
+//            var t=setTimeout("alert('This is your meeting location！')",3000)
+//        }
+
+
+        var geocoder;
+        var map, popup;
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            popup = new google.maps.InfoWindow();
+
+            var latlng = new google.maps.LatLng(59.3004, 18.0722);		// map center
+            var mapOptions = {
+                zoom: 12,
+                center: latlng
+            }
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        }
+
+
+        function codeAddress() {
+            var address = document.getElementById("address").value;
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+
+//		document.getElementById("Latlng").value=results[0].geometry.location.toString();
+                    document.getElementById("lat").value = results[0].geometry.location.lat();
+                    document.getElementById("lng").value = results[0].geometry.location.lng();
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+
+                    });
+
+//                    var infowindow = new google.maps.InfoWindow(
+//                            {
+//                                content: "Your meeting location!"
+//                            });
+//                    // the marker will pop up
+//                    infowindow.open(map, marker);
+
+                    showAddress(results[0], marker);
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+//           timedMsg()
+        }
+
+
+        // put the marker on map
+        function showAddress(result, marker) {
+            var popupContent = result.formatted_address;
+            popup.setContent(popupContent);
+            popup.open(map, marker);
+        }
+
+        function getAddress() {
+            var xPosition = new google.maps.LatLng(document.getElementById("lat").value, document.getElementById("lng").value)
+
+            // We can use Google map Geocoder API to find the location from lat and lng
+            geocoder.geocode({
+                'latLng': xPosition
+            }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results) {
+                        document.getElementById("address1").value = results[0].formatted_address;
+//                        codeAddress(results[0].formatted_address);
+                        document.getElementById('address').value = results[0].formatted_address;
+                        codeAddress()
+                    }
+                } else {
+                    alert("Reverse Geocoding failed because: " + status);
+                }
+            });
+
+        }
+    </script>
+
+
+</head>
+<body onload="initialize()">
+<div position="center" align="center">
+    <div id="map" style="width:60%; height:60%" position="relative"></div>
+    <div class="container" align="center">
+        <p class="h2">Type the meeting location:<input id="address" type="text" size="50" value=""
+                                                       placeholder="ex.Stockholm or Paris"> <input type="button"
+                                                                                                   value="Show the location"
+                                                                                                   onClick="codeAddress()">
+        </p>
+    </div>
+    <div class="container" align="center">
+        <p class="h2">Or type the Lag and Lng:</p>
+        Lat:<input id="lat" type="text" value="" placeholder="ex. 59.3476">
+        Lng:<input id="lng" type="text" value="" placeholder="ex. 18.0726"><input type="button"
+                                                                                  value="Find the real address"
+                                                                                  onClick="getAddress()"> <br>
+        <br/>
+        The real location: <input id="address1" type="text" size="50" value="">
+    </div>
+    <br/>
+    <br/>
+    <div class="btn" align="center">
+        <a><input type="button" value="Close" onclick="window.close()"></a>
+    </div>
+</div>
+</body>
+</html>

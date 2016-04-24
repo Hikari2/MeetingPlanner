@@ -1,4 +1,5 @@
 <!--suppress ALL -->
+
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
 
 <div class="container" id="tempTry">
@@ -51,11 +52,11 @@
                     <div class="tab-pane" id="meetings">
                         <a href="#/userpage">Go to review my meetings</a>
                         <br><br/>
-                        <a href="/MeetingPlanner/app/dashboard/meeting-location.html" target="_blank">Find the meeting location</a>
+                        <a href="/MeetingPlanner/app/dashboard/searchMeetingLocation.html" target="_blank">Find the meeting location</a>
                         <br/><br/>
                         <a href="/MeetingPlanner/app/dashboard/restAPI.html" target="_blank">Where am I</a>
                         <br/><br/>
-                        <a href="/MeetingPlanner/app/dashboard/weatherAPI.html" target="_blank">Check the weather</a>
+                        <!--<a href="/MeetingPlanner/app/dashboard/weatherAPI.html" target="_blank">Check the weather</a>-->
                     </div>
                 </div>
                 <!--Show the different tabs- jiansun-->
@@ -68,17 +69,17 @@
             </div>
         </div>
     </div>
-    <!--<div id="">-->
-        <!--<nav class="menu">-->
-            <!--<ul>-->
-                <!--<li><a href="#/home">Home</a></li>-->
-                <!--<li><a href="./dashboard/userpage.html">Meeting</a></li>-->
-                <!--<li><a href="./dashboard/settings/usersettings.html">Settings</a></li>-->
-                <!--<li><a href="https://www.kth.se/social/course/DH2642/" target="_blank">About</a></li>-->
-                <!--<li><a href="https://www.facebook.com/hikari.watanabe.393" target="_blank">Contact</a></li>-->
-            <!--</ul>-->
-        <!--</nav>-->
-    <!--</div>-->
+    <div id="sidemenu-try-jian">
+        <nav class="menu">
+            <ul>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="./dashboard/userpage.html">Meeting</a></li>
+                <li><a href="./dashboard/settings/usersettings.html">Settings</a></li>
+                <li><a href="https://www.kth.se/social/course/DH2642/" target="_blank">About</a></li>
+                <li><a href="https://www.facebook.com/hikari.watanabe.393" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <!--<div ng-include src="'layout/sidemenu.html'"></div>-->
 <div ng-include src="'layout/footer.html'"></div>
