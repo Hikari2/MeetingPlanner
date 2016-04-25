@@ -70,6 +70,18 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
         };
         UserService.updateProfile(currentAuth, newProfileInfo1);
         // window.close()
+        // location.onload();
+
+        // location.reload()
+
+        parent.window.location.reload();
+        // timedMsg();
+        // function timedMsg() {
+        //
+        //     var t = setTimeout("alert('Done! This page will close in 3 seconds')", 1000);
+        //     // var reload = setTimeout(location.reload,1000);
+        //     var close = setTimeout(window.close, 3000)
+        // }
     }
 
 });
