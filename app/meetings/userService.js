@@ -72,7 +72,9 @@ meetingAgendaBuilder.factory('UserService', function ($firebaseArray, $firebaseO
             user.email = newProfile.email;
             user.phone = newProfile.phone;
             user.profilePic = newProfile.profilePic;
-            user.$save();
+            user.$save().catch(function (error) {
+                alert("Something went wrong when trying to update profile: " + error);
+            });
         });
     };
 
