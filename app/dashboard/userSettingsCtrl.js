@@ -55,4 +55,21 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
         alert("New profile updated!");
         location.reload();
     }
+
+    $scope.upLoadProfileImg = function () {
+        // var linkAddress = document.getElementById("profilelink").value;
+        var newProfileInfo1 = {
+            firstName: $scope.newFirstName,
+            lastName: $scope.newLastName,
+            gender: $scope.newGender,
+            birthday: $scope.newBirthday,
+            address: $scope.newAddress,
+            email: $scope.newEmail,
+            phone: $scope.newPhone,
+            profilePic: $scope.newProfilePic
+        };
+        UserService.updateProfile(currentAuth, newProfileInfo1);
+        // window.close()
+    }
+
 });

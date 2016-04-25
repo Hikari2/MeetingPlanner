@@ -29,8 +29,8 @@ meetingAgendaBuilder.config(['$routeProvider',
             }
         })
             ///
-            .when('/userpage/settings/uploadProfilePic', {
-            templateUrl: 'dashboard/settings/uploadProfilePic.html',
+            .when('/userpage/settings/upLoadURL', {
+            templateUrl: 'dashboard/settings/upLoadURL.html',
             controller: 'UserSettingsCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {

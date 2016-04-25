@@ -11,7 +11,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     background: greenyellow; /*for the circle point*/
     width: 3em;
     height: 3em;
-    border-radius: 5em;
+    border-radius: 3em;
     /*margin: auto;*/
     margin-left: 0em;
     /*margin-top: 5em;*/
@@ -59,7 +59,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 }
 #sidemenu-try-jian .menu ul {
     transform: rotate(180deg) translateY(-2em);
-    transition: 1s all;
+    transition: 2s all;
 }
 #sidemenu-try-jian .menu:hover ul {
     transform: rotate(0deg) translateY(-1em);

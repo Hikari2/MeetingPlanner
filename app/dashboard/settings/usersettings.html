@@ -6,9 +6,11 @@
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row w">
             <div class="col-md-4">
-                <a onclick="uploadImg()" target="_blank"><img class="img-responsive" src={{currentInfo._profilePic}}
-                                                              ng-model="newProfilePic" alt="profile img"
-                                                              id="originalImage"></a>
+                <!--<div id="originalImage">-->
+                <a onclick="uploadImg()" target="_blank">
+                    <img class="img-responsive" src={{currentInfo._profilePic}} ng-model="newProfilePic" alt="profile img" id="originalImage" href="#/upLoadURL/">
+                </a>
+                    <!--</div>-->
                 <!--<a onclick="uploadImg()" target="_blank"><input ng-bind-html="currentInfo._profilePic" class="img-responsive" type="image"></a>-->
                 <ul class="nav nav-tabs nav-stacked" id="myTab">
                     <li class="active"><a href="#about">Personal Info</a></li>

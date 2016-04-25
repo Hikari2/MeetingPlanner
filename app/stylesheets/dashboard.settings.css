@@ -226,9 +226,14 @@ i {
 img#originalImage {
     width: auto;
     height:auto;
-    max-width:100%;
+    /*max-width:auto;*/
     /*width: auto;*/
 }
+/*#originalImage .a{*/
+    /*width: auto;*/
+    /*height: auto;*/
+    /*!*max-width: 100%;*!*/
+/*}*/
 
 #preview {
 !important;
