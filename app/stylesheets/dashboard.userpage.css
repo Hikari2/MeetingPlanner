@@ -561,7 +561,7 @@ button:focus
 }
 
 .main-user-page .edit-meeting .yearly .yearly-day-input .dropdown-menu{
-    margin-right: calc(-50% + 5px);
+    margin-right: calc(-50% + 3px);
     margin-top: 5px;
 }
 .main-user-page .edit-meeting .yearly .yearly-month-input .dropdown-menu{
@@ -762,7 +762,7 @@ button:focus
 .main-user-page .edit-meeting .dropdown-menu{
     width: 100%;
     margin-top: 35px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 .main-user-page .edit-meeting .titles .warning-in-title{
     font-weight: normal;
