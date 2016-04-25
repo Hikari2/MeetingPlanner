@@ -149,14 +149,34 @@ meetingAgendaBuilder.controller('UserPageCtrl', function ($scope, $location, $ui
         else if (m.Info.type === 2) // weekly
         {
             var todayDay = today.getDay();
+            var bool=false;
+            var minBool=false;
+            var min = 0;
+            var max=0;
+            var last=0;
             for (var i = 0; i < 7; i++)
             {
                 if (m.Info.days[i])
                 {
-                    dif = i - todayDay;
-                    break;
+                    last = i;
+                    if(!minBool)
+                    {
+                        min = i;
+                        minBool = true;
+                    }
+                    if(i>todayDay)
+                    {
+                        max=i;
+                        break;
+                    }
                 }
             }
+            if(!bool) max=last;
+            if(max<todayDay)
+            {
+                dif = dif - todayDay + 7;
+                dif = dif +min;
+            }else dif=max-todayDay;
         } else if (m.Info.type === 3) // monthly
         {
             var max = 0;
