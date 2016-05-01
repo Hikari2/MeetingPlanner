@@ -137,6 +137,17 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
         }
     };
 
+    this.editActivity = function (activity, day, position) {
+
+        if (day !== null) {
+            day._activities[position] = activity;
+            this.save(day);
+        }
+        else {
+            this.parkedActivities[position] = activity;
+        }
+    };
+
     // add an activity to parked activities
     this.addParkedActivity = function (activity, position) {
         this.addActivity(activity, null, position);
