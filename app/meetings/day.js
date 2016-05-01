@@ -20,7 +20,7 @@ function Day(startH, startM, userId) {
 
     this.setStart = function (startH, startM) {
 
-        if ((this.getTotalLength() + startH * 60 + startM) > 1440) {
+        if ((this._start < (startH * 60 + startM)) && (this.getTotalLength() + startH * 60 + startM) > 1440) {
             throw ("Not enough time left for activities");
         }
 
@@ -68,7 +68,7 @@ function Day(startH, startM, userId) {
     // end of the list
     this._addActivity = function (activity, position) {
         if ((activity._length + this.getTotalLength() + this._start) > 1440) {
-            throw ("Not enough space left");
+            throw ("Not enough time of day left");
         }
         if (position !== null) {
             this._activities.splice(position, 0, activity);
@@ -76,6 +76,14 @@ function Day(startH, startM, userId) {
             this._activities.push(activity);
         }
     };
+
+    this._editActivity = function (activity, position) {
+        if ((activity._length + this.getTotalLength() + this._start - this._activities[position]._length) > 1440) {                          
+            throw ("Not enough time of day left");
+        }
+        this._activities[position] = activity;
+    };
+
     // removes an activity from specific position
     // this method will be called when needed from the model
     // don't call it directly

@@ -79,7 +79,6 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
         for (var i = 0; i < this.days.length; i++) {
             days[i] = Day.fromJson(this.days[i]);
         }
-        ;
 
         return days;
     };
@@ -140,12 +139,18 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
     this.editActivity = function (activity, day, position) {
 
         if (day !== null) {
-            day._activities[position] = activity;
+            try {
+                day._editActivity(activity, position);
+            }
+            catch (except) {
+                throw (except);
+            }
             this.save(day);
         }
         else {
             this.parkedActivities[position] = activity;
         }
+
     };
 
     // add an activity to parked activities

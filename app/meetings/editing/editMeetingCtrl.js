@@ -30,6 +30,10 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         $scope.date.setMilliseconds(0);
         $scope.loading = false;
     });
+
+    /*
+     *  Called when actvity or participant is dropped in a valid queue
+     */
     $scope.dropCallback = function (draggedItem, oldPosition, targetItem, newPosition, uid) {
         $scope.exception = undefined;
         //Dropped in bin
@@ -73,13 +77,16 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
             $scope.exception = except + " !";
         }
     };
+
     //Add new activity to parkedActivities
     $scope.addActivity = function (activity) {
         MeetingService.addActivity(activity);
     };
+
     $scope.editActivity = function () {
         alert("!");
     };
+
     $scope.setStart = function (timestamp) {
         $scope.exception = undefined;
         var startH = timestamp.getHours();
@@ -96,10 +103,12 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         }
         MeetingService.save($scope.day);
     };
+
     //Retrieve activity type 
     $scope.getActivityType = function (typeId) {
         return MeetingService.getActivityType(typeId);
     };
+
     $scope.hstep = 1;
     $scope.mstep = 15;
     $scope.options = {

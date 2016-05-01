@@ -48,18 +48,31 @@ meetingAgendaBuilder.controller('ActivityModalCtrl', function ($scope, $uibModal
 
         if (!error) {
             if (activity !== null) {
-                if (queue !== null)
-                    MeetingService.editActivity(new Activity($scope.name, $scope.length, $scope.type, $scope.Description), day, position);
-                else
-                    MeetingService.editActivity(new Activity($scope.name, $scope.length, $scope.type, $scope.Description), null, position);
+                if (queue !== null) {
+                    try {
+                        MeetingService.editActivity(new Activity($scope.name, $scope.length, $scope.type, $scope.Description), day, position);
+                    }
+                    catch (except) {
+                        $scope.lengthError = except;
+                        error = true;
+                    }
+                }
+                else {
+                    try {
+                        MeetingService.editActivity(new Activity($scope.name, $scope.length, $scope.type, $scope.Description), null, position);
+                    }
+                    catch (except) {
+                        $scope.lengthError = except;
+                        error = true;
+                    }
+                }
             }
             else {
                 MeetingService.addActivity(new Activity($scope.name, $scope.length, $scope.type, $scope.Description));
             }
-
-            $uibModalInstance.close();
+            if (!error)
+                $uibModalInstance.close();
         }
-        //$uibModalInstance.close(result[new Activity($scope.name, $scope.length, $scope.type, $scope.Description), activity, day, position]);
     };
 
     $scope.cancel = function () {
