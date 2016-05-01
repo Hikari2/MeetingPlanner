@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
     <div id="name" class="col-xs-12">Name: &nbsp<input type="text" ng-model="name"/><div class="error">{{nameError}}</div></div>
-    <div id="length" class="col-xs-12">Length: <input type="number" ng-model="length"/> min <div class="error">{{lengthError}}</div></div>
+    <div id="length" class="col-xs-12">Length: <input type="number" min="0" max="1440" ng-model="length"/> min <div class="error">{{lengthError}}</div></div>
     <div id="type" class="col-xs-5">
         Type: <select class="form-control" ng-model="type">
             <option value="0">{{types[0]}}</option>

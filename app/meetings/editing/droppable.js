@@ -29,9 +29,7 @@ meetingAgendaBuilder.directive('droppable', function () {
 
                 scope.$apply(function (scope) {
                     var fn = scope.drop();
-                    if ('undefined' !== typeof fn) {
-                        //alert(draggedItem + ", " + oldPosition + " > " + targetItem + ", " + newPosition);
-
+                    if ('undefined' !== typeof fn && '' !== draggedItem) {
                         if (targetItem === "participant") {
                             if (draggedItem === "user")
                                 fn(1, oldPosition, 2, newPosition, e.dataTransfer.getData('uid'));

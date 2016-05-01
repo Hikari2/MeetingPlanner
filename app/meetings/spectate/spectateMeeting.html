@@ -23,7 +23,7 @@
                 <div class="activityQueue" ng-hide="loading">
                     <table class="table-bordered"> 
                         <tr class="addedActivity" ng-repeat="activity in day._activities">
-                            <td class="length col-md-4">{{day.getActivityStart($index)}}<p>{{activity._length}}min</p></td>
+                            <td class="length col-md-4">{{day.getActivityStart($index)}}<p>{{0 + activity._length}}&nbspmin</p></td>
                             <td class="title {{getActivityType(activity._typeid)}} .col-md-8"><p>{{activity._name}}</p>{{activity._description}}</td>
                         </tr>
                     </table>

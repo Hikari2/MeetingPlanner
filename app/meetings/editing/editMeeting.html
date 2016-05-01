@@ -37,6 +37,7 @@
 
 
             <div id="midPanel" class="col-xs-6 col-sm-4">
+                <div class="col-xs-12"><h4 ng-show="exception != undefined" class="alert alert-danger" role="alert">{{exception}}</h4></div>
                 <div class="activityQueue">
                     <table class="table-bordered"> 
                         <tr class="addedActivity" ng-repeat="activity in day._activities">

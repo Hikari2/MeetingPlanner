@@ -38,7 +38,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
     });
 
     $scope.dropCallback = function (draggedItem, oldPosition, targetItem, newPosition, uid) {
-
+        $scope.exception = undefined;
         //Dropped in bin
         if (targetItem === -1) {
             if (draggedItem === null) {
@@ -74,50 +74,34 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
         var newDay = null;
         if (targetItem === 0)
             newDay = $scope.day;
-
-        MeetingService.moveActivity(oldDay, oldPosition, newDay, newPosition);
+        try {
+            MeetingService.moveActivity(oldDay, oldPosition, newDay, newPosition);
+        }
+        catch (except) {
+            $scope.exception = except + " !";
+        }
     };
 
     //Add new activity to parkedActivities
     $scope.addActivity = function (activity) {
         MeetingService.addActivity(activity);
-        //MeetingService.addActivity(new Activity("Cellar party 1", 20, 1, "Help me"));
-        //MeetingService.addActivity(new Activity("Cellar party 2", 20, 2, "Help me"));
-        //MeetingService.addActivity(new Activity("Cellar party 3", 20, 3, "Help me"));
-
-
-        //MeetingService.addDay(null, null, currentAuth.uid);
-        /*
-         $scope.user = new User();
-         $scope.user.setFirstName("Hikari");
-         $scope.user.setLastName("Watanabe");
-         $scope.user.setGender("Male");
-         $scope.user.setBirthDay("1990 08 14");
-         $scope.user.setAddress("Trollesundsvägen");
-         $scope.user.setEmail("fake@kth.se");
-         $scope.user.setPhone("123 4567 9012");
-         $scope.user.setPhone("123 4567 9012");
-         $scope.user.setProfilePic("http://i.imgur.com/liMVH6g.png");
-         UserService.updateProfile(currentAuth, $scope.user);
-         
-         $scope.day = MeetingService.getDay($scope.id);
-         $scope.day.setTitle("Meeting in dungeon");
-         $scope.day.setDate("today");
-         $scope.day.setDescription("He he he");
-         $scope.day.setImportant(true);
-         $scope.day.setType(1);
-         $scope.save();
-         MeetingService.addActivity(new Activity("Coffee break 1", 20, 1, "Help me! They got me locked in the cellar"), 0);
-         MeetingService.addActivity(new Activity("Coffee break 2", 20, 2, "They ate my foot. lol what can you do."), 0);
-         MeetingService.addActivity(new Activity("Coffee break 3", 20, 3, "Ahhhhhhhhhhhhhhhhhhhhhhhhhhh...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), 0);
-         */
     };
 
     $scope.setStart = function (timestamp) {
+        $scope.exception = undefined;
         var startH = timestamp.getHours();
         var startM = timestamp.getMinutes();
 
-        $scope.day.setStart(startH, startM);
+        try {
+            $scope.day.setStart(startH, startM);
+        }
+        catch (except) {
+            var d = new Date();
+            d.setHours(Math.floor($scope.day._start / 60));
+            d.setMinutes($scope.day._start % 60);
+            $scope.date = d;
+            $scope.exception = except + " ";
+        }
         MeetingService.save($scope.day);
     };
 

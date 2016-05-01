@@ -45,11 +45,11 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
         });
     };
 
-    this.removeSharedDay = function(day, uid)
+    this.removeSharedDay = function (day, uid)
     {
-        FireBaseDataService.shared.child(uid+"/"+day._id).remove();
+        FireBaseDataService.shared.child(uid + "/" + day._id).remove();
     };
-    
+
     this.getDay = function (id) {
         for (var i = 0; i < this.days.length; i++) {
             if (this.days[i].$id === id)
@@ -168,7 +168,13 @@ meetingAgendaBuilder.factory('MeetingService', function ($firebaseArray, $fireba
             this.addParkedActivity(activity, newposition);
         } else if (oldday === null) {
             var activity = this.removeParkedActivity(oldposition);
-            newday._addActivity(activity, newposition);
+            try {
+                newday._addActivity(activity, newposition);
+            }
+            catch (except) {
+                this.addParkedActivity(activity, oldposition);
+                throw (except);
+            }
             this.save(newday);
         } else if (newday === null) {
             var activity = oldday._removeActivity(oldposition);

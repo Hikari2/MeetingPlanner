@@ -19,19 +19,25 @@ function Day(startH, startM, userId) {
     this._end = startH * 60 + startM;
 
     this.setStart = function (startH, startM) {
+
+        if ((this.getTotalLength() + startH * 60 + startM) > 1440) {
+            throw ("Not enough time left for activities");
+        }
+
         this._start = startH * 60 + startM;
         this._end = this._start + this.getTotalLength();
     };
 
-// returns the total length of the acitivities in
-// a day in minutes
+    // returns the total length of the acitivities in
+    // a day in minutes
     this.getTotalLength = function () {
         var totalLength = 0;
-        $.each(this._activities, function (index, activity) {
+        angular.forEach(this._activities, function (activity, index) {
             totalLength += activity.getLength();
         });
         return totalLength;
     };
+
     // returns the string representation Hours:Minutes of
     // the end time of the day
     this.getEnd = function () {
@@ -46,7 +52,7 @@ function Day(startH, startM, userId) {
     // returns the length (in minutes) of activities of certain type
     this.getLengthByType = function (typeid) {
         var length = 0;
-        $.each(this._activities, function (index, activity) {
+        angular.forEach(this._activities, function (activity, index) {
             if (activity.getTypeId() == typeid) {
                 length += activity.getLength();
             }
@@ -61,7 +67,10 @@ function Day(startH, startM, userId) {
     // if the position is not provided then it will add it to the
     // end of the list
     this._addActivity = function (activity, position) {
-        if (position != null) {
+        if ((activity._length + this.getTotalLength() + this._start) > 1440) {
+            throw ("Not enough space left");
+        }
+        if (position !== null) {
             this._activities.splice(position, 0, activity);
         } else {
             this._activities.push(activity);
@@ -159,15 +168,15 @@ function Day(startH, startM, userId) {
             participants: []
         };
 
-        $.each(this._days, function (index, date) {
+        angular.forEach(this._days, function (date, index) {
             json.days.push(date);
         });
 
-        $.each(this._activities, function (index, activity) {
+        angular.forEach(this._activities, function (activity, index) {
             json.activities.push(activity.toJson());
         });
 
-        $.each(this._participants, function (index, participant) {
+        angular.forEach(this._participants, function (participant, index) {
             json.participants.push(participant);
         });
         return json;
@@ -189,19 +198,19 @@ Day.fromJson = function (json) {
     this._end = json.end;
 
     if (json.days) {
-        $.each(json.days, function (index, date) {
+        angular.forEach(json.days, function (date, index) {
             day._days.push(date);
         });
     }
 
     if (json.activities) {
-        $.each(json.activities, function (index, activity) {
+        angular.forEach(json.activities, function (activity, index) {
             day._activities.push(Activity.fromJson(activity));
         });
     }
 
     if (json.participants) {
-        $.each(json.participants, function (index, participant) {
+        angular.forEach(json.participants, function (participant, index) {
             day.addParticipant(participant, null);
         });
     }
