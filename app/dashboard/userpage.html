@@ -20,9 +20,7 @@
         </div>
         <div class="row meeting-list">
             <div class="item col-md-4 col-xs-12" ng-repeat="meeting in meetingList track by $index" ng-model="meetingList"
-                 ng-animate="'animate'" data-drag="{{!meeting.Viewmore}}" data-jqyoui-options="{revert: 'invalid'}" 
-                 jqyoui-draggable="{index:{{$index}},animate:true, insertInline: true}"
-                 data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-class="meeting.isNewMeeting && 'add-new' || 'normal'"
+                 ng-animate="'animate'" data-drag="{{!meeting.Viewmore}}" ng-class="meeting.isNewMeeting && 'add-new' || 'normal'"
                  ng-mouseenter="setMouseInAddMore($index, 1)"  ng-mouseleave="setMouseInAddMore($index, 0)" ng-click="setMouseInAddMore($index, 2)"
                  >
                 <div  class="meeting-box" ng-class="meeting.Typetag">
