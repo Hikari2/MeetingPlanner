@@ -1,73 +1,48 @@
 <!--suppress ALL -->
-
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
 <script src="./bower_components/jquery-ui/jquery-ui.min.js"></script>
 <div class="container" id="tempTry">
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row w">
             <div class="col-md-4">
-                <!--<div id="originalImage">-->
                 <a onclick="uploadImg()" target="_blank">
                     <img class="img-responsive" src={{currentInfo._profilePic}} ng-model="newProfilePic" alt="profile img" id="originalImage" href="#/upLoadURL/">
                 </a>
-                    <!--</div>-->
-                <!--<a onclick="uploadImg()" target="_blank"><input ng-bind-html="currentInfo._profilePic" class="img-responsive" type="image"></a>-->
-                <ul class="nav nav-tabs nav-stacked" id="myTab">
-                    <li class="active"><a href="#about">Personal Info</a></li>
-                    <!--<li><a href="#profile">Work Experience</a></li>-->
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#meetings">My meetings</a></li>
+                <ul class="nav nav-tabs nav-stacked">
+                    <li ng-class="selectedTab === 0 && 'active' || 'non-active'"><a ng-click="setSelectedTab(0)">Personal Info</a></li>
+                    <li ng-class="selectedTab === 1 && 'active' || 'non-active'"><a ng-click="setSelectedTab(1)">Contact</a></li>
+                    <li ng-class="selectedTab === 2 && 'active' || 'non-active'"><a ng-click="setSelectedTab(2)">My meetings</a></li>
                 </ul>
             </div>
             <div class="col-md-8">
                 <div class="tab-content">
                     <!--First tab by Jian-->
-                    <div class="tab-pane active" id="about">
+                    <div class="tab-pane active" id="about" ng-show="selectedTab === 0">
                         <label>First Name</label>
                         <input ng-value="currentInfo._firstName" ng-model="newFirstName"
                                class="form-control short-input" type="text"/>
                         <label>Last Name</label>
-                        <input ng-value="currentInfo._lastName" ng-model="newLastName" class="form-control short-input"
-                               type="text"/>
+                        <input ng-value="currentInfo._lastName" ng-model="newLastName" class="form-control short-input" type="text"/>
                         <label>Gender</label>
-                        <input ng-value="currentInfo._gender" ng-model="newGender" class="form-control short-input"
-                               type="text"/>
+                        <input ng-value="currentInfo._gender" ng-model="newGender" class="form-control short-input" type="text"/>
                         <label>Birthday</label>
-                        <input ng-value="currentInfo._birthday" ng-model="newBirthday" class="form-control short-input"
-                               type="text"/>
+                        <input ng-value="currentInfo._birthday" ng-model="newBirthday" class="form-control short-input" type="text"/>
                         <label>Address</label>
-                        <a><input ng-value="currentInfo._address" ng-model="newAddress" class="form-control long-input"
-                                  type="text"/></a>
-
+                        <a><input ng-value="currentInfo._address" ng-model="newAddress" class="form-control long-input" type="text"/></a>
                         <input type="button" id="saveBtn" ng-click="saveProfile()" value="Save">
-
                     </div>
-                    <!--Second tab-->
-                    <!--<div class="tab-pane" id="profile">-->
-                    <!--<label> Work experience </label>-->
-                    <!--<label>Company</label>-->
-                    <!--<input ng-value="userInfo.Company" class="form-control short-input" type="text"/>-->
-                    <!--<label>Position</label>-->
-                    <!--<input ng-value="userInfo.Position" class="form-control short-input" type="text"/>-->
-                    <!--<label>Description</label>-->
-                    <!--<Textarea class="form-control" rows="5">{{userInfo.Description}}</Textarea>-->
-                    <!--</div>-->
-                    <!--Third tab-->
-                    <div class="tab-pane" id="contact">
+                    <!-- Second tab -->
+                    <div class="tab-pane active" id="contact" ng-show="selectedTab === 1">
                         <label>Contact Information</label>
                         <hr>
                         <label>E-mail:</label>
-                        <input ng-value="currentInfo._email" ng-model="newEmail" class="form-control short-input"
-                               type="text"/>
+                        <input ng-value="currentInfo._email" ng-model="newEmail" class="form-control short-input" type="text"/>
                         <label>Phone No.</label>
-                        <input ng-value="currentInfo._phone" ng-model="newPhone" class="form-control short-input"
-                               type="text"/>
-
-                            <input type="button" id="saveBtn" ng-click="saveProfile()" value="Save">
-
+                        <input ng-value="currentInfo._phone" ng-model="newPhone" class="form-control short-input" type="text"/>
+                        <input type="button" id="saveBtn" ng-click="saveProfile()" value="Save">
                     </div>
-                    <!--Fourth tab-->
-                    <div class="tab-pane" id="meetings">
+                    <!--Third tab-->
+                    <div class="tab-pane active" id="meetings" ng-show="selectedTab === 2">
                         <a href="#/userpage">Go to review my meetings</a>
                         <br><br/><br><br>
                         <a href="dashboard/searchMeetingLocation.html" target="_blank">Find the
@@ -75,20 +50,11 @@
                         <br/><br/><br><br>
                         <a href="dashboard/restAPI.html" target="_blank">Where am I</a>
                         <br/><br/><br><br>
-                        <!--<a href="/MeetingPlanner/app/dashboard/weatherAPI.html" target="_blank">Check the weather</a>-->
                     </div>
                 </div>
-                <!--Show the different tabs- jiansun-->
-                <script type="text/javascript">
-                    $('#myTab a').click(function (e) {
-                        e.preventDefault()
-                        $(this).tab('show')
-                    })
-                </script>
             </div>
         </div>
     </div>
 </div>
-<!--<div ng-include src="'layout/sidemenu.html'"></div>-->
 <div ng-include src="'layout/footer.html'"></div>
 

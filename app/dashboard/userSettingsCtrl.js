@@ -14,13 +14,11 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
     $scope.newProfilePic = null;
 
     $scope.loading = true;
-    // $scope.users = UserService.users;
     $scope.user = currentAuth;
+    $scope.selectedTab = 0;
 
     var userList = [];
     userList.push(currentAuth.uid);
-    // var tempInfo = null;
-    // $.scope.currentInfo = null;
 
     UserService.load();
     UserService.users.$loaded().then(function () {
@@ -69,19 +67,12 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
             profilePic: $scope.newProfilePic
         };
         UserService.updateProfile(currentAuth, newProfileInfo1);
-        // window.close()
-        // location.onload();
-
-        // location.reload()
-
         parent.window.location.reload();
-        // timedMsg();
-        // function timedMsg() {
-        //
-        //     var t = setTimeout("alert('Done! This page will close in 3 seconds')", 1000);
-        //     // var reload = setTimeout(location.reload,1000);
-        //     var close = setTimeout(window.close, 3000)
-        // }
-    }
+    };
+    
+    $scope.setSelectedTab = function(choice)
+    {
+        $scope.selectedTab = choice;
+    };
 
 });
