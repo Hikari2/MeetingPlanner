@@ -1,6 +1,5 @@
 <!--suppress ALL -->
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
-<script src="./bower_components/jquery-ui/jquery-ui.min.js"></script>
 <div class="container" id="tempTry">
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row w">
@@ -9,9 +8,9 @@
                     <img class="img-responsive" src={{currentInfo._profilePic}} ng-model="newProfilePic" alt="profile img" id="originalImage" href="#/upLoadURL/">
                 </a>
                 <ul class="nav nav-tabs nav-stacked">
-                    <li ng-class="selectedTab === 0 && 'active' || 'non-active'"><a ng-click="setSelectedTab(0)">Personal Info</a></li>
-                    <li ng-class="selectedTab === 1 && 'active' || 'non-active'"><a ng-click="setSelectedTab(1)">Contact</a></li>
-                    <li ng-class="selectedTab === 2 && 'active' || 'non-active'"><a ng-click="setSelectedTab(2)">My meetings</a></li>
+                    <li ng-class="selectedTab === 0 && 'active' || 'non-active'"><a ng-click="setSelectedTab(0)" href="">Personal Info</a></li>
+                    <li ng-class="selectedTab === 1 && 'active' || 'non-active'"><a ng-click="setSelectedTab(1)" href="">Contact</a></li>
+                    <li ng-class="selectedTab === 2 && 'active' || 'non-active'"><a ng-click="setSelectedTab(2)" href="">My meetings</a></li>
                 </ul>
             </div>
             <div class="col-md-8">
@@ -52,9 +51,9 @@
                         <br/><br/><br><br>
                     </div>
                 </div>
+                <!--<input type="button" id="saveBtn" ng-click="saveProfile()" value="Save">-->
             </div>
         </div>
     </div>
 </div>
 <div ng-include src="'layout/footer.html'"></div>
-

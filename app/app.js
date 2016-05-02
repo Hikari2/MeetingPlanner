@@ -38,15 +38,6 @@ meetingAgendaBuilder.config(['$routeProvider',
                 }]
             }
         })
-        //     .when('/userpage/restAPI', {
-        //     templateUrl: 'dashboard/restAPI.html',
-        //     controller: 'UserSettingsCtrl',
-        //     resolve: {
-        //         "currentAuth": ["AuthenticationService", function (AuthenticationService) {
-        //             return AuthenticationService.requireAuth();
-        //         }]
-        //     }
-        // })
             .when('/editMeeting/:meetingId', {
             templateUrl: 'meetings/editing/editMeeting.html',
             controller: 'EditMeetingCtrl',

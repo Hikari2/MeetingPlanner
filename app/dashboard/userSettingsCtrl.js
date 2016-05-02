@@ -69,10 +69,51 @@ meetingAgendaBuilder.controller('UserSettingsCtrl', function ($scope, currentAut
         UserService.updateProfile(currentAuth, newProfileInfo1);
         parent.window.location.reload();
     };
-    
-    $scope.setSelectedTab = function(choice)
-    {
+
+    $scope.setSelectedTab = function (choice) {
         $scope.selectedTab = choice;
     };
 
 });
+
+angular.module('demo', [])
+    .controller('MainCtrl', function ($scope) {
+        $scope.sidebar = {
+            hidden: false,
+            toggle: function () {
+                this.hidden = !this.hidden;
+            }
+        };
+    })
+    .directive('expandable', function () {
+        return {
+            link: function (scope, el) {
+                function atBottom() {
+                    return el.css('position') === 'absolute';
+                }
+
+                function expand(expanded) {
+                    if (atBottom()) {
+                        el.css('bottom', expanded ? 0 : margin);
+                        el.css('margin-left', 0);
+                    }
+                    else {
+                        el.css('bottom', 'auto');
+                        el.css('margin-left', expanded ? 0 : margin);
+                    }
+                }
+
+                var margin = parseInt(el.css('margin-left')) || parseInt(el.css('bottom'));
+
+                scope.$watch('sidebar.hidden', expand);
+
+                var oldResize = window.onresize || angular.noop;
+                window.onresize = function () {
+                    if (window.DeviceOrientationEvent) {
+                        expand(scope.sidebar.hidden);
+                    }
+                    oldResize();
+                };
+            }
+        };
+    });
