@@ -126,7 +126,7 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'meetings/editing/activityModal.html',
+            templateUrl: 'views/activityModal.html',
             controller: 'ActivityModalCtrl',
             resolve: {
                 activity: function () {
@@ -142,6 +142,9 @@ meetingAgendaBuilder.controller('EditMeetingCtrl', function ($scope, $routeParam
                     return queue;
                 }
             }
+        });
+        modalInstance.closed.then(function() {
+            $scope.exception = undefined;
         });
         $scope.name;
     };

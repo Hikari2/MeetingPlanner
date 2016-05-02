@@ -251,7 +251,7 @@ img#originalImage {
     background-color: #1da1f2;
 }
 #cardArea{
-    min-height: 400px; !important;
+    min-height: 400px; 
 }
 #meetings-1{
    margin-top: 40px;

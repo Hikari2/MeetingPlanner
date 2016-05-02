@@ -1,18 +1,18 @@
-var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies', 'ngAnimate', 'ngDragDrop', "firebase", 'ui.bootstrap']);
+var meetingAgendaBuilder = angular.module('agendaBuilder', ['ngRoute', 'ngResource', 'ngCookies', 'ngAnimate', "firebase", 'ui.bootstrap']);
 
 meetingAgendaBuilder.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/home', {
-            templateUrl: 'layout/home.html',
+            templateUrl: 'views/home.html',
             controller: 'AuthenticationCtrl'
         }).when('/login', {
-            templateUrl: 'authentication/login.html',
+            templateUrl: 'views/login.html',
             controller: 'AuthenticationCtrl'
         }).when('/register', {
-            templateUrl: 'authentication/register.html',
+            templateUrl: 'views/register.html',
             controller: 'AuthenticationCtrl'
         }).when('/userpage', {
-            templateUrl: 'dashboard/userpage.html',
+            templateUrl: 'views/userpage.html',
             controller: 'UserPageCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {
@@ -20,7 +20,7 @@ meetingAgendaBuilder.config(['$routeProvider',
                 }]
             }
         }).when('/userpage/settings', {
-            templateUrl: 'dashboard/settings/usersettings.html',
+            templateUrl: 'views/usersettings.html',
             controller: 'UserSettingsCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {
@@ -30,7 +30,7 @@ meetingAgendaBuilder.config(['$routeProvider',
         })
             ///
             .when('/userpage/settings/upLoadURL', {
-            templateUrl: 'dashboard/settings/upLoadURL.html',
+            templateUrl: 'views/upLoadURL.html',
             controller: 'UserSettingsCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {
@@ -39,7 +39,7 @@ meetingAgendaBuilder.config(['$routeProvider',
             }
         })
             .when('/editMeeting/:meetingId', {
-            templateUrl: 'meetings/editing/editMeeting.html',
+            templateUrl: 'views/editMeeting.html',
             controller: 'EditMeetingCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {
@@ -47,7 +47,7 @@ meetingAgendaBuilder.config(['$routeProvider',
                 }]
             }
         }).when('/spectateMeeting/:meetingId', {
-            templateUrl: 'meetings/spectate/spectateMeeting.html',
+            templateUrl: 'views/spectateMeeting.html',
             controller: 'SpectateMeetingCtrl',
             resolve: {
                 "currentAuth": ["AuthenticationService", function (AuthenticationService) {
