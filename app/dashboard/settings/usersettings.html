@@ -1,8 +1,8 @@
 <!--suppress ALL -->
 <div ng-include src="'layout/navbar.html'" ng-controller="AuthenticationCtrl"></div>
 <div class="container" id="tempTry">
-    <div class="col-lg-6 col-lg-offset-3">
-        <div class="row w">
+    <div class="col-lg-6 col-lg-offset-3" >
+        <div class="row w" id="cardArea">
             <div class="col-md-4">
                 <a onclick="uploadImg()" target="_blank">
                     <img class="img-responsive" src={{currentInfo._profilePic}} ng-model="newProfilePic" alt="profile img" id="originalImage" href="#/upLoadURL/">
@@ -42,12 +42,18 @@
                     </div>
                     <!--Third tab-->
                     <div class="tab-pane active" id="meetings" ng-show="selectedTab === 2">
-                        <a href="#/userpage">Go to review my meetings</a>
+                        <div id="meetings-1">
+                            <a href="#/userpage">Go to review my meetings</a>
+                        </div>
                         <br><br/><br><br>
-                        <a href="dashboard/restApi/searchMeetingLocation.html" target="_blank">Find the
-                            meeting location</a>
+                        <div id="meetings-2">
+                            <a href="dashboard/restApi/searchMeetingLocation.html" target="_blank">Find the
+                                meeting location</a>
+                        </div>
                         <br/><br/><br><br>
-                        <a href="dashboard/restApi/restAPI.html" target="_blank">Where am I</a>
+                        <div id="meetings-3">
+                            <a href="dashboard/restApi/restAPI.html" target="_blank">Where am I</a>
+                        </div>
                         <br/><br/><br><br>
                     </div>
                 </div>
