@@ -6,13 +6,13 @@
     </div>
     <div class="container userPage" ng-hide="loading">
         <div class="top-bar col-md-12 col-xs-12">
-            <div class="sort dropdown" uib-dropdown dropdown-append-to-body>
-                <label class="sort-text">Sorting: </label><button class="btn btn-default" uib-dropdown-toggle>{{sortingType}}<span class="glyphicon glyphicon-triangle-bottom"></span></button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body">
-                    <li role="menuitem">
+            <div class="sort dropdown" uib-dropdown ng-disabled="">
+                <label class="sort-text">Sorting: </label><button class="btn btn-default" uib-dropdown-toggle ng-disabled="">{{sortingType}}<span class="glyphicon glyphicon-triangle-bottom"></span></button>
+                <ul class="dropdown-menu">
+                    <li >
                         <a ng-click="setSortingType('Time')">Time</a>
                     </li>
-                    <li role="menuitem">
+                    <li >
                         <a ng-click="setSortingType('Type')">Type</a>
                     </li>
                 </ul>
@@ -60,14 +60,14 @@
                                             <input placeholder="Meeting Title" ng-value="meeting.Info.title" class="form-control" type="text" ng-model="meeting.newTitle" ng-change="checkTitle($index)"/>
                                         </div>
                                         <div class="input-type">
-                                            <div class="dropdown" uib-dropdown>
+                                            <div class="dropdown" uib-dropdown ng-disabled="" >
                                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-type" 
-                                                         uib-dropdown-toggle aria-haspopup="true">
+                                                         uib-dropdown-toggle aria-haspopup="true" ng-disabled="">
                                                     <span class="text">{{meeting.typeChoice}}</span>
                                                     <span class="caret"></span>
                                                 </button>
-                                                <ul class="dropdown-menu drop-menu-type" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu-type">
-                                                    <li role="menuitem"><a ng-repeat="type in typeList" ng-click="setTypeChoice($parent, type)">{{type}}</a></li>
+                                                <ul class="dropdown-menu drop-menu-type"  aria-labelledby="dropdownMenu-type">
+                                                    <li><a ng-repeat="type in typeList" ng-click="setTypeChoice($parent, type)">{{type}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -103,23 +103,23 @@
                                         <div class="yearly" ng-show="meeting.Selectedtab === 1 && meeting.typeChoice === 'Yearly'">
                                             <label ng-show="emptyDate" class="empty-date-warning">select at least one day</label>
                                             <div class="add-input">
-                                                <div class="dropdown yearly-month-input" uib-dropdown>
-                                                    <button class="btn btn-default dropdown-toggle" uib-dropdown-toggle type="button" id="dropdownMenu-month" aria-haspopup="true">
+                                                <div class="dropdown yearly-month-input" ng-disabled="" uib-dropdown>
+                                                    <button ng-disabled="" class="btn btn-default dropdown-toggle"  type="button" id="dropdownMenu-month" aria-haspopup="true" uib-dropdown-toggle>
                                                         <span class="text">{{meeting.yearlyMonthChoice}}</span>
                                                         <span class="caret"></span>
                                                     </button>
-                                                    <ul class="dropdown-menu drop-menu-month" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu-month">
-                                                        <li role="menuitem"><button ng-repeat="month in monthList" ng-click="setMonthChoice($parent, month)">{{month}}</button></li>
+                                                    <ul class="dropdown-menu drop-menu-month"  aria-labelledby="dropdownMenu-month">
+                                                        <li><button ng-repeat="month in monthList" ng-click="setMonthChoice($parent, month)">{{month}}</button></li>
                                                     </ul>
                                                 </div>
-                                                <div class="dropdown yearly-day-input" uib-dropdown>
+                                                <div class="dropdown yearly-day-input" ng-disabled="" uib-dropdown>
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-day" 
                                                             uib-dropdown-toggle aria-haspopup="true" ng-disabled="!addMoreAbled && meeting.isNewMeeting">
                                                         <span class="text">{{meeting.yearlyDayChoice}}</span>
                                                         <span class="caret"></span>
                                                     </button>
-                                                    <ul class="dropdown-menu drop-menu-day" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu-day">
-                                                        <li role="menuitem"><button ng-repeat="day in meeting.dayList" ng-click="setDayChoice($parent, day.Day)" ng-disabled="day.Disabled"
+                                                    <ul class="dropdown-menu drop-menu-day" aria-labelledby="dropdownMenu-day">
+                                                        <li><button ng-repeat="day in meeting.dayList" ng-click="setDayChoice($parent, day.Day)" ng-disabled="day.Disabled"
                                                                     ng-class="day.Disabled == true && 'disabled' || 'non-disabled'">{{day.Day}}</button></li>
                                                     </ul>
                                                 </div>
@@ -154,25 +154,25 @@
                                         </div>
                                         <span class="type">{{meeting.Typetag}}</span>
                                     </div>
-                                    <div class="dropdown" uib-dropdown>
-                                        <button class="setting-btn dropdown-toggle" uib-dropdown-toggle><span class="glyphicon glyphicon-cog"></span></button>
-                                        <ul class="dropdown-menu"  uib-dropdown-menu role="menu">
-                                            <li role="menuitem">
+                                    <div class="dropdown" uib-dropdown ng-disabled="" >
+                                        <button class="setting-btn dropdown-toggle" uib-dropdown-toggle ng-disabled="" ><span class="glyphicon glyphicon-cog"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li>
                                                 <a href="{{meeting.linkToDetail}}" target="view_window">
                                                     <span class="glyphicon glyphicon-briefcase" ></span ><span ng-show="meeting.cardType !== 'shared'">Manage</span><span ng-show="meeting.cardType === 'shared'">See Details</span>
                                                 </a>
                                             </li>
-                                            <li role="menuitem">
+                                            <li>
                                                 <a ng-click="editMeeting($index)" ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-pencil"></span>Edit
                                                 </a>
                                             </li>
-                                            <li role="menuitem">
+                                            <li>
                                                 <a ng-click="deleteFromList($index)"  ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-trash"></span>Delete
                                                 </a>
                                             </li>
-                                            <li role="menuitem">
+                                            <li>
                                                 <a ng-click="reverseImportantTag($index)" ng-hide="meeting.cardType === 'shared'">
                                                     <span class="glyphicon glyphicon-star"></span><span ng-show="!meeting.Info.important">Mark</span><span ng-show="meeting.Info.important">Unmark</span>
                                                 </a>

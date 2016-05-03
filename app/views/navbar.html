@@ -14,11 +14,11 @@
             <div class="collapse navbar-collapse" id="navBar">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a ng-hide="authentication" href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li class="dropdown" id="showList" uib-dropdown>
+                    <li class="dropdown" id="showList" uib-dropdown ng-disabled="">
                         <a ng-show="authentication" class="dropdown-toggle" uib-dropdown-toggle>{{authentication.password.email}}&nbsp<span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="nav__submenu" uib-dropdown-menu role="menu">
-                            <li role="menuitem"><a href="#/userpage">My page</a></li>
-                            <li role="menuitem"><a href="#/userpage/settings">Settings</a></li>
+                        <ul class="dropdown-menu" id="nav__submenu">
+                            <li><a href="#/userpage">My page</a></li>
+                            <li><a href="#/userpage/settings">Settings</a></li>
                         </ul>
                     </li>
                     <li><a ng-show="authentication" ng-click="logout()" href="#/home"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
